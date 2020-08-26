@@ -6,7 +6,7 @@ const bot = new Discord.Client();
 const config = require('./config.json');
 const mongoose = require("mongoose");
 const Toggle = require("./models/toggle.js");
-// const mysql = require("mysql");
+
 
 let token = config.token
 let prefix = config.prefix
@@ -62,9 +62,6 @@ bot.on('message', message => {
 
     if (!message.channel.type == "dm") return;
     if (message.author.bot) return;
-    // if (message.content == "<@614110037291565056>"){
-    // return message.reply("My prefix is `k!` to start using my commands use k!help");
-    // }
 
     const prefix = config.prefix
 
@@ -177,20 +174,6 @@ bot.on('message', async message => {
 });
 
 
-// bot.on('message', message => { 
-
-
-//     dbl.webhook.on('vote', vote => {
-//         const karmakingdomjoin = message.guild.client.guilds.cache.find(guild => guild.id === "605859550343462912")
-
-//         const channeljoin = karmakingdomjoin.channels.cache.find(channel => channel.id === "705232424132542474")
-
-//         message.channeljoin.send(`User with ID ${vote.user} just voted!`);
-//       })
-
-// });
-
-
 bot.on("guildCreate", guild => {
 
 
@@ -205,6 +188,8 @@ bot.on("guildCreate", guild => {
         .setThumbnail(guild.iconURL())
         .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
     channeljoin.send(embed)
+
+    //maybe do this one day
     // var firstchannel = guild.channels.cache.map(channel => channel.name)
     // channeljoin.send(`<${firstchannel.createInvite.url}>`)
 
@@ -234,7 +219,6 @@ bot.on("guildDelete", guild => {
 
 bot.on("message", async message => {
 
-    const apiPing = Math.round(message.client.ping); // This will round the api ping of the client
     const responseTime = Math.round(Date.now() - message.createdTimestamp); // This will round the response time between when the message was received and when the message was sent
 
     //You can display as
@@ -247,7 +231,7 @@ bot.on("message", async message => {
         message.delete();
         const pingf = await message.channel.send(`🏓 Pinging....`);
 
-        pingf.edit(`**Ping**🏓\n**Response time is:** ${responseTime}ms\n**API Latency is:** ${Math.round(apiPing)}ms`);
+        pingf.edit(`**Ping**🏓\n**Response time is:** ${responseTime}ms`);
 
 
     }
@@ -324,6 +308,7 @@ bot.on('message', message => {
 
 
 
+    //yes its nested if statements, im lazy
     if (message.content.toLowerCase() == "dev") {
         message.author.send(`**Hello ${message.author.tag}! Would you like to send feeback to the dev?**\n*Please either answer with "yes" or "no".*`).then(() => {
             const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id);
@@ -363,157 +348,6 @@ bot.on('message', message => {
     }
 
 })
-
-
-
-
-
-
-// bot.on('message', message => {
-
-//     if (message.author.bot) return;
-//     if (message.channel.type == "dm") return;
-//     if (message.content.indexOf(prefix) !== 0) return;
-
-
-//     let args = message.content.substring(prefix.length).trim().split(/ +/g);
-//     const cmd = args.shift().toLowerCase();
-
-//     mention = message.mentions.users.first();
-
-//     switch (cmd) {
-//         //Utility
-
-//         case 'whois':
-//             bot.commands.get('whois').execute(message, args);
-
-//             break;
-
-//         case 'membercount':
-//             bot.commands.get('membercount').execute(message, args);
-
-//             break;
-
-//         case 'test':
-//             message.channel.send(`<#630881886725472256> ,${message.author}, <:kfc:612074164211286027> `)
-
-//             break;
-
-//         case 'help':
-//             bot.commands.get('help').execute(message, args);
-
-//             break;
-
-//         case 'pong':
-//             message.reply('Do you mean ping?');
-
-//             break;
-
-//         case 'invite':
-//             bot.commands.get('invite').execute(message, args);
-
-//             break;
-
-//         case 'support':
-//             bot.commands.get('support').execute(message, args);
-
-//             break;
-
-//         //Misc
-
-
-//         case 'kk':
-//             bot.commands.get('kk').execute(message, args);
-
-//             break;
-
-//         case 'info':
-//             bot.commands.get('info').execute(message, args, bot);
-
-//             break;
-
-//         case 'avatar':
-//             bot.commands.get('avatar').execute(message, args);
-
-//             break;
-
-//         case 'image':
-//             bot.commands.get('image').execute(message, args);
-
-//             break;
-
-//         case 'cute':
-//             bot.commands.get('cute').execute(message, args);
-
-//             break;
-
-//         case 'marshmallow':
-//             bot.commands.get('marshmallow').execute(message, args);
-
-//             break;
-
-//         case 'evergarden':
-//             bot.commands.get('evergarden').execute(message, args);
-
-//             break;
-
-//         case 'karma':
-//             bot.commands.get('karma').execute(message, args);
-
-//             break;
-
-//         case 'kids':
-//             bot.commands.get('kids').execute(message, args);
-
-//             break;
-
-//         case 'say':
-//             bot.commands.get('say').execute(message, args);
-
-//             break;
-
-//         case 'embed':
-//             bot.commands.get('embed').execute(message, args);
-
-//             break;
-
-//         case 'cool':
-//             bot.commands.get('cool').execute(message, args);
-
-//             break;
-
-//         case 'servers':
-//             bot.commands.get('servers').execute(message, args, bot);
-
-//             break;
-
-//         //Interactable
-//         case 'hug':
-//             bot.commands.get('hug').execute(message, args, prefix);
-
-//             break;
-
-//         case 'kiss':
-//             bot.commands.get('kiss').execute(message, args)
-
-//             break;
-//         //Staff
-//         case 'purge':
-//             bot.commands.get('purge').execute(message, args);
-
-//             break;
-
-//         case 'prefix':
-//             bot.commands.get('prefix').execute(message, args);
-
-//             break;
-
-
-
-
-
-
-
 
 
 bot.login(token).catch(console.error)
