@@ -27,11 +27,6 @@ module.exports = {
                 if (err) console.log(err);
                 if (!toggle) {
 
-                // mongoose.connect('mongodb://localhost:27017/Rep', { useNewUrlParser: true });
-                mongoose.connect(config.tgrep, { useNewUrlParser: true, useUnifiedTopology: true });
-                // mongoose.connect('mongodb://127.0.0.1:/Rep');
-
-
                 let targetUser = message.guild.member(message.mentions.users.first());
                 if (!targetUser) {
                     message.channel.send("Is that a member? you sure? trying mentioning them");

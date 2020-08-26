@@ -23,8 +23,6 @@ module.exports = {
 
 
 
-
-                    mongoose.connect(config.tgrep, { useNewUrlParser: true, useUnifiedTopology: true });
                     let targetUser = message.guild.member(message.mentions.users.first());
 
 

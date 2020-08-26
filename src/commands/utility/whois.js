@@ -19,7 +19,6 @@ module.exports = {
                 if (err) console.log(err);
                 if (!toggle) {
                     let targetUser = message.guild.member(message.mentions.users.first());
-                    mongoose.connect(config.tgrep, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
                     if (targetUser) {
