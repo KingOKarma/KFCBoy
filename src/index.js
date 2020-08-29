@@ -164,6 +164,7 @@ bot.on('guildMemberAdd', async member => {
         .attachFiles(attachment)
         .setImage('attachment://sample.png');
     general.send(embedjoin)
+    general.send("<@&749075461145100338> New member!! come say hi ")
 })
 
 bot.on('message', async message => {
