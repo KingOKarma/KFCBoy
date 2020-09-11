@@ -60,7 +60,7 @@ bot.on('ready', async () => {
 
 bot.on('message', message => {
 
-    if (!message.channel.type == "dm") return;
+    if (message.channel.type == "dm") return;
     if (message.author.bot) return;
 
     const prefix = config.prefix
@@ -92,7 +92,7 @@ bot.on('guildMemberAdd', async member => {
 
     const canvas = Canvas.createCanvas(700, 250);
     const ctx = canvas.getContext('2d');
-    const applyText = (canvas, text) => {
+    const applyText = () => {
     };
 
     Canvas.registerFont('./fonts/OpenSansEmoji.otf', { family: 'fontFamily' });
@@ -129,7 +129,7 @@ bot.on('guildMemberAdd', async member => {
     ctx.fillText('Welcome to the server,', canvas.width / 3.5, canvas.height / 1.35);
     //lighter 
 
-    var realuser = member.guild.members.cache.filter(member => !member.user.bot).size
+    let realuser = member.guild.members.cache.filter(member => !member.user.bot).size
     // Add an exclamation point here and below
 
     ctx.font = applyText(canvas, `You are member number ${realuser}`);
@@ -158,14 +158,14 @@ bot.on('guildMemberAdd', async member => {
     const embedjoin = new Discord.MessageEmbed()
 
         .setAuthor(member.user.tag, member.user.displayAvatarURL({ dynamic: true }))
-        .setDescription(`**Welcome ${`<@${member.id}>`}, to the Karma Kingdom! <:Kainesip:706267804957016156>** \n**\`-\`[Twitch](https://www.twitch.tv/King_O_Karma)** and **[YouTube](https://www.youtube.com/channel/UCR8Mc2F5UV672cv3Z7KUn1g?view_as=subscriber)**\n \`-\`**[Invite me to your server!](https://tinyurl.com/th2mlcn)**`)
+        .setDescription(`**Welcome <@${member.id}>, to the Karma Kingdom! <:Kainesip:706267804957016156>** \n**\`-\`[Twitch](https://www.twitch.tv/King_O_Karma)** and **[YouTube](https://www.youtube.com/channel/UCR8Mc2F5UV672cv3Z7KUn1g?view_as=subscriber)**\n \`-\`**[Invite me to your server!](https://invite.bucketbot.dev)**`)
         .setColor(member.guild.me.displayColor)
         .addField("info", "**You can get all the info you need at <#706291446252175400>** <:Kawaii:705565375647186984> \n If you have any questions just DM <@614469989134630944> \n And Finally you can go to <#684533907151913011> to assign yourself somes roles! <:Kainepog:709455703567499326>")
         .attachFiles(attachment)
         .setImage('attachment://sample.png');
     general.send(embedjoin)
     general.send("<@&749075461145100338> New member!! come say hi ")
-})
+});
 
 bot.on('message', async message => {
     if (!message.author.id === "406211463125008386") return
@@ -223,12 +223,7 @@ bot.on("message", async message => {
     const responseTime = Math.round(Date.now() - message.createdTimestamp); // This will round the response time between when the message was received and when the message was sent
 
     //You can display as
-
-
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const cmd = args.shift().toLowerCase();
-
-    if (message.content.startsWith(`${prefix}ping`)) {
+        if (message.content.startsWith(`${prefix}ping`)) {
         message.delete();
         const pingf = await message.channel.send(`🏓 Pinging....`);
 
