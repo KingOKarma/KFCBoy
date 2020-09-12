@@ -15,7 +15,10 @@ module.exports = {
                 if (err) console.log(err);
                 if (!toggle) {
 
-                    if (args[0] != args[0].match(/<a:.+?:\d+>|<:.+?:\d+>/)) {
+                    if (args[0] === undefined) {
+                        message.channel.send("Please send an emote of a server that im in!")
+                        return
+                    }else if (args[0] != args[0].match(/<a:.+?:\d+>|<:.+?:\d+>/)){
                         message.channel.send("Please send an emote of a server that im in!")
                         return
                     }
