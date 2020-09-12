@@ -8,8 +8,6 @@ module.exports = {
     run: (_, message, bot, prefix, args) => {
 
         if(!message.guild.me.permissionsIn(message.channel).has("EMBED_LINKS")) return message.channel.send("I need the permission __**\"Embed Links\"**__ to use this command")
-        mongoose.connect(config.tgtoggle, { useNewUrlParser: true, useUnifiedTopology: true });
-
 
         Toggle.findOne({
             ServerID: message.guild.id,

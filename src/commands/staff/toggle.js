@@ -1,12 +1,5 @@
 const Discord = require("discord.js")
-const mongoose = require("mongoose");
 const Toggle = require("../../models/toggle.js");
-const config = require('../../config.json'); 
-const { endianness } = require("os");
-const { exit } = require("process");
-
-
-
 module.exports = {
     name: 'toggle',
     aliases: ["tg"],
@@ -14,10 +7,6 @@ module.exports = {
         if (!message.member.permissionsIn(message.channel).has("MANAGE_GUILD")) return message.channel.send("You need the permission __**\"Mange Server\"**__ to use this command")
         if (!message.guild.me.permissionsIn(message.channel).has("EMBED_LINKS")) return message.channel.send("I need the permission __**\"EMBED_LINKS\"**__ to use this command")
 
-        mongoose.connect(config.tgtoggle, { useNewUrlParser: true, useUnifiedTopology: true })
-        .catch(err => {
-            console.error("mongoose error" + err);
-        })
 
 
 

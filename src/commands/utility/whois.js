@@ -1,15 +1,12 @@
 const Discord = require("discord.js")
-const mongoose = require("mongoose");
 const Rep = require("../../models/rep.js");
 const Toggle = require("../../models/toggle.js");
-const config = require('../../config.json'); 
 
 module.exports = {
     name: 'whois',
     aliases: ["userinfo", "who"],
     run: (_, message) => {
         if (!message.guild.me.permissionsIn(message.channel).has("EMBED_LINKS")) return message.channel.send("I need the permission __**\"Embed Links\"**__ to use this command")
-        mongoose.connect(config.tgtoggle, { useNewUrlParser: true, useUnifiedTopology: true });
         Toggle.findOne({
             ServerID: message.guild.id,
             Command: "Utility"

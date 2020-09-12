@@ -4,6 +4,6 @@ module.exports = {
 
     run: (_, message) => {
         
-        message.channel.send(`**${message.author} add me to your server at**\n> <https://tinyurl.com/th2mlcn>`)
+        message.channel.send(`**${message.author} add me to your server at**\n> <https://invite.bucketbot.dev>`)
     }
 }

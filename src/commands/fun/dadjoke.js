@@ -6,7 +6,6 @@ module.exports = {
     name: 'dadjoke',
     aliases: ["dad"],
     run: (_, message, args, bot) => {
-        mongoose.connect(config.tgtoggle, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
         Toggle.findOne({
