@@ -6,8 +6,6 @@ module.exports = {
     name: 'kk',
 
     run: (_, message) => {
-        mongoose.connect(config.tgtoggle, { useNewUrlParser: true, useUnifiedTopology: true });
-
 
 
         Toggle.findOne({

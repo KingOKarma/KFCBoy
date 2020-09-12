@@ -6,9 +6,7 @@ const config = require('../../config.json');
 module.exports = {
     name: 'wholesome',
     aliases: ["cute"],
-    run: (_, message, args, bot) => {
-        mongoose.connect(config.tgtoggle, { useNewUrlParser: true, useUnifiedTopology: true });
-
+    run: (_, message) => {
         Toggle.findOne({
             ServerID: message.guild.id,
             Command: "Image"

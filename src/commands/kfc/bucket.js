@@ -1,13 +1,10 @@
 const Discord = require("discord.js")
-const mongoose = require("mongoose");
 const Toggle = require("../../models/toggle.js");
-const config = require('../../config.json'); 
 module.exports = {
     name: 'bucket',
     aliases: ["hat"],
-    run: async (_, message, args) => {
+    run: async (_, message) => {
         if (!message.guild.me.permissionsIn(message.channel).has("ATTACH_FILES")) return message.channel.send("I need the permission __**\"Attach Files\"**__ to use this command")
-        mongoose.connect(config.tgtoggle, { useNewUrlParser: true, useUnifiedTopology: true });
         Toggle.findOne({
             ServerID: message.guild.id,
             Command: "KFC"

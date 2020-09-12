@@ -7,8 +7,6 @@ module.exports = {
     aliases: ["kaine"],
     run: (_, message) => {
 
-        mongoose.connect(config.tgtoggle, { useNewUrlParser: true, useUnifiedTopology: true });
-
         Toggle.findOne({
             ServerID: message.guild.id,
             Command: "Image"

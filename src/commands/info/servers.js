@@ -1,11 +1,8 @@
-const mongoose = require("mongoose");
 const Toggle = require("../../models/toggle.js");
-const config = require('../../config.json'); 
 module.exports = {
     name: 'servers',
     aliases: ["guilds"],
-    run: (_, message, args, bot) => {
-        mongoose.connect(config.tgtoggle, { useNewUrlParser: true, useUnifiedTopology: true });
+    run: (_, message) => {
         Toggle.findOne({
             ServerID: message.guild.id,
             Command: "Info"

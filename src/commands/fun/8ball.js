@@ -4,11 +4,8 @@ const config = require('../../config.json');
 module.exports = {
     name: '8ball',
     aliases: ["eightball", "fortune"],
-    run: (_, message, args, bot) => {
-        mongoose.connect(config.tgtoggle, { useNewUrlParser: true, useUnifiedTopology: true })
-        .catch(err => {
-            console.error("mongoose error" + err);
-        })
+    run: (_, message, args) => {
+
 
 
         Toggle.findOne({
