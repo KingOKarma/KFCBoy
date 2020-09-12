@@ -15,14 +15,30 @@ module.exports = {
                 if (err) console.log(err);
                 if (!toggle) {
 
-                    
+                    if (args[0] != args[0].match(/<a:.+?:\d+>|<:.+?:\d+>/)) {
+                        message.channel.send("Please send an emote of a server that im in!")
+                        return
+                    }
 
 
-                   let emote = message.client.emojis.cache.find(emoji => emoji.id === "707398696341340191")
-                   let emoteID = message.client.emojis.resolveID(emote)
+                    if (args[0].match(/<a/)) {
+                        console.log("animated!")
+                        var emote = message.client.emojis.cache.find(emoji => emoji.id === `${args[0].match(/[0-9]+/)}`)
+                        var emoteID = message.client.emojis.resolveID(emote)
+                        var ending = ".gif"
+                    } else{
+                        console.log("not animated!")
+                        var emote = message.client.emojis.cache.find(emoji => emoji.id === `${args[0].match(/[0-9]+/)}`)
+                        var emoteID = message.client.emojis.resolveID(emote)
+                        var ending = ".png"
+                    }
 
+                    if (emote === undefined) {
+                        message.channel.send("I can only send emotes from servers that I'm in!")
+                        return
+                    }
 
-                    message.channel.send(`https://cdn.discordapp.com/emojis/${emoteID}.png`)
+                    message.channel.send(`https://cdn.discordapp.com/emojis/${emoteID}${ending}`)
 
                 }
                 if (toggle) return message.channel.send("This server has the \"Image\" module disabled")
