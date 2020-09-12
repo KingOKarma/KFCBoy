@@ -19,7 +19,7 @@ module.exports = {
 
 
                    let emote = message.guild.emojis.cache.find(emoji => emoji.id === "707398696341340191")
-                   let emoteID = message.guild.emojis.resolveID(emote)
+                   let emoteID = message.client.emojis.resolveID(emote)
 
 
                     message.channel.send(`https://cdn.discordapp.com/emojis/${emoteID}.png`)
