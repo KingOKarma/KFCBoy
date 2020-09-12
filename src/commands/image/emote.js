@@ -37,7 +37,7 @@ module.exports = {
                         message.channel.send("I can only send emotes from servers that I'm in!")
                         return
                     }
-
+                    console.log(args.join(' '))
                     message.channel.send(`https://cdn.discordapp.com/emojis/${emoteID}${ending}`)
 
                 }
