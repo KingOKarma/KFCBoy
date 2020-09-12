@@ -18,7 +18,7 @@ module.exports = {
                     
 
 
-                   let emote = message.guild.emojis.cache.find(emoji => emoji.id === "707398696341340191")
+                   let emote = message.client.emojis.cache.find(emoji => emoji.id === "707398696341340191")
                    let emoteID = message.client.emojis.resolveID(emote)
 
 
