@@ -66,7 +66,7 @@ bot.on('message', message => {
     const prefix = config.prefix
 
     if (!message.content.toLowerCase().startsWith(prefix)) return;
-    const args = message.content.toLowerCase().slice(prefix.length).trim().split(/ +/g);
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const commandname = args.shift().toLowerCase();
 
     const command = bot.commands.get(commandname) || bot.commands.get(bot.aliases.get(commandname));
