@@ -232,6 +232,12 @@ bot.on("guildDelete", guild => {
 
 bot.on("message", async message => {
 
+    if (message.content.toLowerCase() === "<@!614110037291565056>") {
+        message.channel.send("My prefix is `k!` you can use `k!help` to view my commands (make sure dms are enabled to i can dm you the commands!)")
+    console.log("a")
+    }
+
+
     const responseTime = Math.round(Date.now() - message.createdTimestamp); // This will round the response time between when the message was received and when the message was sent
 
     //You can display as
