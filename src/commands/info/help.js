@@ -10,7 +10,7 @@ module.exports = {
         .addField('__Current Server__', message.guild.name)
         .setThumbnail(message.guild.iconURL({dynamic: true}))
         .setAuthor('Creator: King Of Karma#0069', 'https://karmakingdom.weebly.com/uploads/1/3/1/7/131732357/published/pfp.png?1587066957')
-        .setDescription(`**Home Server:** https://discord.gg/nQRC3SRUse \n **Invite at:** https://tinyurl.com/th2mlcn  \n the Prefix \`k!\` at the start of the command to use the command eg "k!ping"`,)
+        .setDescription(`**Home Server:** https://discord.gg/nQRC3SRUse \n **Invite at:** https://invite.bucketbot.dev  \n the Prefix \`k!\` at the start of the command to use the command eg "k!ping"`,)
         .addField('**[📚] __Info Commands__**', '```These commands give you some info```')
         .addField('help', '- Brings up this menu in your DMs \n**aliases: k!h**',true)
         .addField('info', '- Will display a small amount of info about the server you are in and the bot \n**aliases: k!botinfo, k!bot**',true)
@@ -33,6 +33,7 @@ module.exports = {
         message.author.send(embed)
         const embed2 = new Discord.MessageEmbed()
         embed2
+        .setColor(0x36cbf5)
         .addField('**[🎉] __Fun Commands__**', '```These commands are here for your entertainment```')
         .addField('shuffle ', "- Plays the guessing game where you choose 1, 2 or 3\n**aliases: k!shufflehat, k!sh**", true)
         .addField('mc ', "-  Displays the information on the offical Karma Kraft Minecraft server!\n**aliases: k!server**", true)
@@ -47,12 +48,11 @@ module.exports = {
 
 
         .addField('**[📷] __Image Commands__**', '```These are the commands that display images```')
-        .addField('emote', '- If you send an emote I will send that emote as an image (only if im in the server where the emote is) \n **aliases: k!emotes, k!emoji')
+        .addField('emote', '- If you send an emote I will send that emote as an image (only if im in the server where the emote is) \n **aliases: k!emotes, k!emoji**')
         .addField('image', '- It will send whatever you ask it to send (e.g k!image pillows) \n**aliases: k!pic, k!picture**',true)
         .addField('karma', "- Will respond with either a media file from **King of Karma's** personal folder \n**aliases: k!kaine**",true)
         .addField('meme', "- Will respond with a meme from a few select subreddits \n**aliases: k!memes**",true)
         .addField('\u200b', '\u200b')
-        .setColor(0x36cbf5)
         .addField('**[👇] __Interaction Commands__**', '```These comamnds used for interacting with other users```')
         .addField('hug', 'ping a user after typing `hug` to hug them',true)
         .addField('kiss', 'ping a user after typing `kiss` to kiss them',true)
@@ -65,17 +65,21 @@ module.exports = {
         // .addField('weekly meme', '- This command will respond with a new meme of the week every week',true)
 
 
+
+        message.author.send(embed2)
+        const embed3 = new Discord.MessageEmbed()
+        embed3
+        .setColor(0x36cbf5)
+
+
         .addField('**[🌠] __Staff Commnads__**', '```These commands is to be used by staff of a server```')
         .addField('purge', '- Mass deletes a select number of msgs  \n**aliases: k!prune, k!delete**',true)
         .addField('toggle', '- Toggle\'s Modules within the bot.\n**aliase: k!tg**',true)
 
 
-        
-        
-        
         .setFooter('Use the Prefix `k!` at the start of the command to use the command eg "k!ping"')
         message.reply("Check Dms");
-        message.author.send(embed2);
+        message.author.send(embed3);
 
     }
 }
