@@ -57,25 +57,37 @@ bot.on('ready', async () => {
     })
 });
 
-
+const usedCommandRecentlly = new Set();
 bot.on('message', message => {
 
-    if (message.channel.type == "dm") return;
-    if (message.author.bot) return;
+        if (usedCommandRecentlly.has(message.author.id)) {
+            message.reply("Woah there you can only use me so fast <a:kaineflushedeyes:708477282079211570> 3 seconds per command")
 
-    const prefix = config.prefix
+        } else {
 
-    if (!message.content.toLowerCase().startsWith(prefix)) return;
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const commandname = args.shift().toLowerCase();
+            if (message.channel.type == "dm") return;
+            if (message.author.bot) return;
+        
+            const prefix = config.prefix
+        
+            if (!message.content.toLowerCase().startsWith(prefix)) return;
+            const args = message.content.slice(prefix.length).trim().split(/ +/g);
+            const commandname = args.shift().toLowerCase();
+        
+            const command = bot.commands.get(commandname) || bot.commands.get(bot.aliases.get(commandname));
+            if (!command) return;
+            try {
+                command.run(bot, message, args, prefix, MongoToggle);
+            } catch (error) {
+                console.error(error);
+            }
+            usedCommandRecentlly.add(message.author.id);
+            setTimeout(() => {
+                usedCommandRecentlly.delete(message.author.id)
+            }, 3000);
+        }
+    
 
-    const command = bot.commands.get(commandname) || bot.commands.get(bot.aliases.get(commandname));
-    if (!command) return;
-    try {
-        command.run(bot, message, args, prefix, MongoToggle);
-    } catch (error) {
-        console.error(error);
-    }
 
 })
 
@@ -232,6 +244,9 @@ bot.on("message", async message => {
 
     }
 })
+const usedCommandRecentllyk = new Set();
+const usedCommandRecentllypp = new Set();
+const usedCommandRecentllye = new Set();
 bot.on('message', message => {
     if (message.channel.type == "dm") return;
     Toggle.findOne({
@@ -245,7 +260,6 @@ bot.on('message', message => {
 
 
 
-                const usedCommandRecentllyk = new Set();
                 if (message.content.toLowerCase() === "k") {
                     if (usedCommandRecentllyk.has(message.author.id)) {
 
@@ -258,7 +272,6 @@ bot.on('message', message => {
                         }, 3000);
                     }
                 }
-                const usedCommandRecentllypp = new Set();
                 if (message.content.toLowerCase() === "pp") {
                     if (usedCommandRecentllypp.has(message.author.id)) {
 
@@ -271,7 +284,6 @@ bot.on('message', message => {
                         }, 3000);
                     }
                 }
-                const usedCommandRecentllye = new Set();
                 if (message.content.toLowerCase() === "e") {
                     if (usedCommandRecentllye.has(message.author.id)) {
 
