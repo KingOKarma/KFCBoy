@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const Toggle = require("../../models/toggle.js");
 module.exports = {
     name: 'emote',
-    aliases: ["emotes"],
+    aliases: ["emotes", "emoji"],
     run: (_, message, args) => {
 
 

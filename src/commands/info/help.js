@@ -40,12 +40,14 @@ module.exports = {
         .addField('kids ', "- Displays how many kids the second argument will have (e.g. k!kids Kaine) \n**aliases: k!kid, k!children**", true)
         .addField('kk ', "- Thats racist", true)
         .addField('8ball', "- Get your fortune \n**aliases: k!eightball k!fortune**", true)
-        .addField('dadjoke', "- Yes this is a command with over 30 responses \n**aliases: k!dad**", true)        
+        .addField('dadjoke', "- Yes this is a command with over 30 responses \n**aliases: k!dad**", true)  
+        .addField('commnet', "- Works just like `say` and `emebed` I will say your message as a youtube comment with random likes and replies \n alias: k!cm")      
         .addField('\u200b', '\u200b')
 
 
 
         .addField('**[📷] __Image Commands__**', '```These are the commands that display images```')
+        .addField('emote', '- If you send an emote I will send that emote as an image (only if im in the server where the emote is) \n **aliases: k!emotes, k!emoji')
         .addField('image', '- It will send whatever you ask it to send (e.g k!image pillows) \n**aliases: k!pic, k!picture**',true)
         .addField('karma', "- Will respond with either a media file from **King of Karma's** personal folder \n**aliases: k!kaine**",true)
         .addField('meme', "- Will respond with a meme from a few select subreddits \n**aliases: k!memes**",true)
@@ -64,7 +66,7 @@ module.exports = {
 
 
         .addField('**[🌠] __Staff Commnads__**', '```These commands is to be used by staff of a server```')
-        // .addField('purge', '- Mass deletes a select number of msgs  \n**aliases: k!prune, k!delete**',true)
+        .addField('purge', '- Mass deletes a select number of msgs  \n**aliases: k!prune, k!delete**',true)
         .addField('toggle', '- Toggle\'s Modules within the bot.\n**aliase: k!tg**',true)
 
 
