@@ -24,14 +24,16 @@ module.exports = {
                     }
 
 
+                    console.log(`${args[0].match(/(?<=\:).+?(?=\:)/)}`)
+
                     if (args[0].match(/<a/)) {
                         console.log("animated!")
-                        var emote = message.client.emojis.cache.find(emoji => emoji.id === `${args[0].match(/[0-9]+/)}`)
+                        var emote = message.client.emojis.cache.find(emoji => emoji.name === `${args[0].match(/(?<=\:).+?(?=\:)/)}`)
                         var emoteID = message.client.emojis.resolveID(emote)
                         var ending = ".gif"
                     } else{
                         console.log("not animated!")
-                        var emote = message.client.emojis.cache.find(emoji => emoji.id === `${args[0].match(/[0-9]+/)}`)
+                        var emote = message.client.emojis.cache.find(emoji => emoji.name === `${args[0].match(/(?<=\:).+?(?=\:)/)}`)
                         var emoteID = message.client.emojis.resolveID(emote)
                         var ending = ".png"
                     }
