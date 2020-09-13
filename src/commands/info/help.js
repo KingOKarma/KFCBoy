@@ -42,7 +42,7 @@ module.exports = {
         .addField('kk ', "- Thats racist", true)
         .addField('8ball', "- Get your fortune \n**aliases: k!eightball k!fortune**", true)
         .addField('dadjoke', "- Yes this is a command with over 30 responses \n**aliases: k!dad**", true)  
-        .addField('commnet', "- Works just like `say` and `emebed` I will say your message as a youtube comment with random likes and replies \n alias: k!cm")      
+        .addField('comment', "- Works just like `say` and `emebed` I will say your message as a youtube comment with random likes and replies \n alias: k!cm")
         .addField('\u200b', '\u200b')
 
 
