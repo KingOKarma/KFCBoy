@@ -6,7 +6,7 @@ const bot = new Discord.Client();
 const config = require('./config.json');
 const mongoose = require("mongoose");
 const Toggle = require("./models/toggle.js");
-
+    
 
 let token = config.token
 let prefix = config.prefix
