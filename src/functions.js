@@ -1,7 +1,7 @@
 
 module.exports = {
 
-    theUser: function (message, args) {
+    UserMention: function (message, args, choice) {
 
 
         const user = message.mentions.users.first();
@@ -9,7 +9,6 @@ module.exports = {
         if (user) {
             // Now we get the member from the user
              theUser = message.guild.member(user);
-            var ID = `**${theUser.user.tag}** has been kicked!`
 
             // If the member is in the guild
             if (!theUser) {
@@ -26,7 +25,6 @@ module.exports = {
                     message.reply("Please Mention a user who is in the **server** by their ID, Mention or Display name!")
                     return
                 }
-                ID = `**${theUser.user.tag}** has been kicked!`
 
             } else {
                 console.log("Username Check")
@@ -35,17 +33,11 @@ module.exports = {
                     message.reply("Please Mention a user who is in the **server** by their ID, Mention or Display name!")
                     return
                 }
-                ID = `**${theUser.user.tag}** Has been kicked!`
             }
         }
-        console.log(ID)
-        message.channel.send(ID)
+        message.channel.send(`**${theUser.user.tag}** Has been ${choice}!`)
 
         console.log(theUser.user.username)
-
-
-
-
 
     }
 

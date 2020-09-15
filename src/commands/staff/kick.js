@@ -21,11 +21,9 @@ module.exports = {
 
                 if (err) console.log(err);
                 if (!toggle) {
+                    functions.UserMention(message, args, "kicked")
 
-                    functions.theUser(message, args)  
-                    console.log(theUser)
-                             
-                }
+                    }
                 if (toggle) return message.channel.send("This server has the \"Staff\" module disabled")
             })
 

@@ -6,7 +6,7 @@ const bot = new Discord.Client();
 const config = require('./config.json');
 const mongoose = require("mongoose");
 const Toggle = require("./models/toggle.js");
-    
+
 
 let token = config.token
 let prefix = config.prefix
@@ -107,7 +107,7 @@ bot.on('guildMemberAdd', async member => {
     const applyText = () => {
     };
 
-    Canvas.registerFont('./fonts/Roboto-Regular.ttf', { family: 'fontFamily' });
+    Canvas.registerFont('./fonts/Roboto-Regular.otf', { family: 'fontFamily' });
 
     const background = await Canvas.loadImage('./discord/Discordwelcome2.png');
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
