@@ -26,13 +26,6 @@ module.exports = {
                     return
                 }
 
-            } else {
-                console.log("Username Check")
-                 theUser = message.guild.members.cache.find(member => member.displayName === args.join(' '))
-                if (theUser === undefined) {
-                    message.reply("Please Mention a user who is in the **server** by their ID, Mention or Display name!")
-                    return
-                }
             }
         }
         message.channel.send(`**${theUser.user.tag}** Has been ${choice}!`)
