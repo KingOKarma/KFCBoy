@@ -6,7 +6,7 @@ const bot = new Discord.Client();
 const config = require('./config.json');
 const mongoose = require("mongoose");
 const Toggle = require("./models/toggle.js");
-    
+
 
 let token = config.token
 let prefix = config.prefix
@@ -60,33 +60,33 @@ bot.on('ready', async () => {
 const usedCommandRecentlly = new Set();
 bot.on('message', message => {
 
-        if (usedCommandRecentlly.has(message.author.id)) {
-            message.reply("Woah there you can only use me so fast <a:kaineflushedeyes:708477282079211570> 3 seconds per command")
 
-        } else {
 
-            if (message.channel.type == "dm") return;
-            if (message.author.bot) return;
-        
-            const prefix = config.prefix
-        
-            if (!message.content.toLowerCase().startsWith(prefix)) return;
-            const args = message.content.slice(prefix.length).trim().split(/ +/g);
-            const commandname = args.shift().toLowerCase();
-        
-            const command = bot.commands.get(commandname) || bot.commands.get(bot.aliases.get(commandname));
-            if (!command) return;
-            try {
-                command.run(bot, message, args, prefix, MongoToggle);
-            } catch (error) {
-                console.error(error);
-            }
-            usedCommandRecentlly.add(message.author.id);
-            setTimeout(() => {
-                usedCommandRecentlly.delete(message.author.id)
-            }, 3000);
+    if (message.channel.type == "dm") return;
+    if (message.author.bot) return;
+
+    const prefix = config.prefix
+
+    if (!message.content.toLowerCase().startsWith(prefix)) return;
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const commandname = args.shift().toLowerCase();
+    if (usedCommandRecentlly.has(message.author.id)) {
+        message.reply("Woah there you can only use me so fast <a:kaineflushedeyes:708477282079211570> 3 seconds per command")
+
+    } else {
+        const command = bot.commands.get(commandname) || bot.commands.get(bot.aliases.get(commandname));
+        if (!command) return;
+        try {
+            command.run(bot, message, args, prefix, MongoToggle);
+        } catch (error) {
+            console.error(error);
         }
-    
+        usedCommandRecentlly.add(message.author.id);
+        setTimeout(() => {
+            usedCommandRecentlly.delete(message.author.id)
+        }, 3000);
+    }
+
 
 
 })
@@ -234,14 +234,14 @@ bot.on("message", async message => {
 
     if (message.content.toLowerCase() === "<@!614110037291565056>") {
         message.channel.send("My prefix is `k!` you can use `k!help` to view my commands (make sure dms are enabled to i can dm you the commands!)")
-    console.log("a")
+        console.log("a")
     }
 
 
     const responseTime = Math.round(Date.now() - message.createdTimestamp); // This will round the response time between when the message was received and when the message was sent
 
     //You can display as
-        if (message.content.startsWith(`${prefix}ping`)) {
+    if (message.content.startsWith(`${prefix}ping`)) {
         message.delete();
         const pingf = await message.channel.send(`🏓 Pinging....`);
 
