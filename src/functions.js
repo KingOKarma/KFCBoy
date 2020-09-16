@@ -25,7 +25,6 @@ module.exports = {
                     message.reply("Please Mention a user who is in the **server** by their ID, Mention or Display name!")
                     return
                 }
-
             }
         }
         message.channel.send(`**${theUser.user.tag}** Has been ${choice}!`)
