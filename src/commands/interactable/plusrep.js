@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const mongoose = require("mongoose");
 const Rep = require("../../models/rep.js");
 const Toggle = require("../../models/toggle.js");
-const usedCommandRecentlly = new Set();
+const usedCommandRecentllyRep = new Set();
 module.exports = {
     name: `plusrep`,
     aliases: ["rep", "addrep"],
@@ -25,7 +25,7 @@ module.exports = {
 
 
 
-                if (usedCommandRecentlly.has(message.author.id)) {
+                if (usedCommandRecentllyRep.has(message.author.id)) {
                     message.reply("You can only rep every 12 hours!")
                 } else {
 
@@ -82,10 +82,10 @@ module.exports = {
 
 
                     if (message.author.id != "406211463125008386") {
-                        usedCommandRecentlly.add(message.author.id);
+                        usedCommandRecentllyRep.add(message.author.id);
 
                         setTimeout(() => {
-                            usedCommandRecentlly.delete(message.author.id)
+                            usedCommandRecentllyRep.delete(message.author.id)
                         }, 43200000);
                     }
                 }
