@@ -18,18 +18,18 @@ module.exports = {
 
                     var ranNum = Math.floor(Math.random() * (50 - -10 + 1)) + -10;
 
-                    console.log(args[0])
+                    console.log(args[0]);
 
                     if (args[0] === undefined) {
-                        message.channel.send("Oh your pp size is now: `" + ranNum + "″` <a:kaineflushedeyes:708477282079211570>")
+                        message.channel.send("Oh your pp size is now: `" + ranNum + "″` <a:kaineflushedeyes:708477282079211570>");
                     
                     }else if (theUser === undefined) {
-                        message.channel.send("Oh your pp size is now: `" + ranNum + "″` <a:kaineflushedeyes:708477282079211570>")
+                        message.channel.send("Oh your pp size is now: `" + ranNum + "″` <a:kaineflushedeyes:708477282079211570>");
 
                     
                     }else {
-                        message.channel.send("Oh **" + theUser.user.tag + "'s** size is now: `" + ranNum + "″` <a:kaineflushedeyes:708477282079211570>")
-                    }
+                        message.channel.send("Oh **" + theUser.user.tag + "'s** size is now: `" + ranNum + "″` <a:kaineflushedeyes:708477282079211570>");
+                    };
 
 
 
