@@ -3,7 +3,10 @@ module.exports = {
     name: 'help',
     aliases: ["h"],
     run: (_, message, args) => {
-        message.delete();
+        message.delete()
+        .catch(err => {
+            console.log(err)
+        })
         const embed = new Discord.MessageEmbed()
         .setTitle('**Commands Available for KFC Bucket Boi**')
         .setColor(0x36cbf5)
@@ -78,8 +81,10 @@ module.exports = {
 
 
         .setFooter('Use the Prefix `k!` at the start of the command to use the command eg "k!ping"')
-        message.reply("Check Dms");
-        message.author.send(embed3);
-
+        message.reply("Check Dms, make sure they're enabled so i can send you them!");
+        message.author.send(embed3)
+        .catch(err => {
+            message.reply(`I was unable to DM you ${message.author}.\nMake sure your dms are enabled!`)
+        })
     }
 }
