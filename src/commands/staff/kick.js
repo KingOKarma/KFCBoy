@@ -26,11 +26,24 @@ module.exports = {
                     isuser = true
                     // functions.UserMention(message, args)
 
+                    var reason = "for " + args.join(" ").slice(23)
+                    console.log(args[2])
 
-                    // if (theUser.permissionsIn(message.channel).has("KICK_MEMBERS")) return message.channel.send("I cannot kick members who have kick permissions!")
-                    theUser.kick(`${theUser} was kicked! for ${UserArgs.join(" ")}`)
+                    console.log(args[0] + " This is args 1")
+                    if  (args[0].match(/^(\d{18})$/)) {
+                        console.log("ID was found")
+                        var reason = "for " + args.join(" ").slice(19)
+                    }
+
+                    if (args[2] === undefined) {
+                        var reason = "No reason set"
+                    }
+
+
+                    if (theUser.permissionsIn(message.channel).has("KICK_MEMBERS")) return message.channel.send("I cannot kick members who have kick permissions!")
+                    theUser.kick(`${theUser} was kicked! for ${reason}`)
                     .then(() => {
-                        message.reply(`**${theUser.user.username}** Has been kicked! for ${UserArgs.join(" ")}`)
+                        message.reply(`**${theUser.user.username}** Has been kicked! ${reason}`)
                     })
                     .catch(err => {
                         message.reply(`I was unable to kick that member.\n__Reason__\n**${err}**`)
