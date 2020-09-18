@@ -81,7 +81,7 @@ bot.on('message', message => {
         if (!command) return;
         try {
 
-             isuser = false
+            isuser = false
 
             const UserArgs = message.content.slice(prefix.length).trim().split(/ +/g);
 
@@ -104,11 +104,11 @@ bot.on('message', message => {
                 } else {
                     console.log(UserArgs.join(' '))
                     if (UserArgs[1] === undefined) {
-                        
-                    }else if (UserArgs[1].match(/\d{18}/)) {
+
+                    } else if (UserArgs[1].match(/\d{18}/)) {
                         console.log("ID Check")
                         var theUser = message.guild.members.cache.find(member => member.id === UserArgs[1])
-                    } 
+                    }
 
 
                 }
@@ -228,10 +228,11 @@ bot.on('guildMemberAdd', async member => {
 
             if (err) console.log(err);
             if (!welcome) {
-
                 return
-            }else
-             return general.send(`${welcome.WelcomePing}  New member!! come say hi `)
+            } else if (welcome.WelcomePing === "NotSet") {
+                return
+            } else
+                return general.send(`${welcome.WelcomePing} \nNew member!! come say hi `)
         })
 });
 
@@ -248,7 +249,7 @@ bot.on("guildCreate", guild => {
 
     const karmakingdomjoin = guild.client.guilds.cache.find(guild => guild.id === "605859550343462912")
 
-    const channeljoin = karmakingdomjoin.channels.cache.find(channel => channel.id === "700438892888719501")
+    const channeljoin = karmakingdomjoin.channels.cache.find(channel => channel.id === "630881886725472256")
 
     const embed = new Discord.MessageEmbed()
         .setAuthor("KFC Bucket Boi", guild.client.user.displayAvatarURL())

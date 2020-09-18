@@ -22,13 +22,18 @@ module.exports = {
                     return message.reply("Please Mention a role either by ID or mention!")
                 }
 
-                else if (args[1] === args[1].match(/\d{18}/)) {
+                else if (args[1].match(/^<@&?(\d+)>$/)) {
+                    console.log("Mention Check")
+                    var WelcPing = args[1]
+
+                } else if (args[1].match(/\d{18}/)) {
                     console.log("ID Check")
                     var WelcPing = message.guild.roles.cache.find(role => role.id === args[1])
 
-                } else if (args[1].match(/^<@&?(\d+)>$/)) {
-                    console.log("Mention Check")
-                    var WelcPing = args[1]
+                    if (WelcPing === undefined) {
+                        message.reply("Please only use the id of a role")
+                        return
+                    }
 
                 }
 
@@ -45,14 +50,8 @@ module.exports = {
 
                         if (err) console.log(err);
                         if (!welcome) {
-                            const newWelcome = new Welcome({
-                                ServerID: message.guild.id,
-                                WelcomePing: WelcPing
-                            })
 
-                            newWelcome.save().catch(err => console.log(err));
-
-                        } if (welcome) {
+                        } else if (welcome) {
 
                             welcome.WelcomePing = WelcPing;
 
@@ -65,8 +64,15 @@ module.exports = {
                             .setColor(message.guild.me.displayColor)
                             .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
                             .setTitle(`${message.author.username} Welcome ping:`)
-                            .addField("Ping", welcome.WelcomePing, true);
-                        return message.channel.send(WelcomeEmbed);
+                        if (!welcome) {
+                            WelcomeEmbed.addField("Ping", "Welcome ping Disabeld, you can enable it with `k!welcome toggle`", true);
+                            return message.channel.send(WelcomeEmbed);
+
+                        } else {
+                            WelcomeEmbed.addField("Ping", welcome.WelcomePing, true);
+                            return message.channel.send(WelcomeEmbed);
+
+                        }
 
 
                     })
@@ -79,21 +85,21 @@ module.exports = {
                 Welcome.findOne({
 
                     ServerID: message.guild.id,
-                    WelcomePing: WelcPing,
 
                 },
                     (err, welcome) => {
                         if (err) console.log(err);
 
-                        if (Welcome.WelcomePing === null) {
-                            message.reply("Welcome pings are disabled, you can enabled it with `k!welcome toggle`")
-                        }
                         let WelcomeEmbed = new Discord.MessageEmbed()
                             .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
                             .setColor(message.guild.me.displayColor)
                             .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
                             .setTitle(`${message.author.username} Welcome ping:`)
                         if (!welcome) {
+                            WelcomeEmbed.addField("Ping", "Welcome ping Disabeld, you can enable it with `k!welcome toggle`", true);
+                            return message.channel.send(WelcomeEmbed);
+
+                        } else if (welcome.WelcomePing === "NotSet") {
                             WelcomeEmbed.addField("Ping", "Unset, use `k!welcome set <ping>` eg: `k!welcome set 463657894567658457`", true);
                             return message.channel.send(WelcomeEmbed);
 
@@ -116,9 +122,10 @@ module.exports = {
 
                         if (err) console.log(err);
                         if (!welcome) {
-                            message.channel.send("Welcome ping has been enabled and reset")
+                            message.channel.send("Welcome ping has been enabled")
                             const newWelcome = new Welcome({
                                 ServerID: message.guild.id,
+                                WelcomePing: "NotSet",
                             })
 
                             newWelcome.save().catch(err => console.log(err));
@@ -127,7 +134,7 @@ module.exports = {
                             return
 
                         } if (welcome) {
-                            message.channel.send("Welcome ping has been disabled and reset")
+                            message.channel.send("Welcome ping has been disabled and Welcome Ping has been reset")
                             welcome.deleteOne({ ServerID: message.guild.id })
                                 .catch((err) => {
                                     console.log(err)
