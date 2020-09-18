@@ -6,7 +6,7 @@ const bot = new Discord.Client();
 const config = require('./config.json');
 const mongoose = require("mongoose");
 const Toggle = require("./models/toggle.js");
-    
+
 
 let token = config.token
 let prefix = config.prefix
@@ -65,7 +65,7 @@ bot.on('message', message => {
     if (message.channel.type == "dm") return;
     if (message.author.bot) return;
 
-    const prefix = config.prefix
+    const prefix = config.prefix;
 
     if (!message.content.toLowerCase().startsWith(prefix)) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
@@ -74,10 +74,52 @@ bot.on('message', message => {
         message.reply("Woah there you can only use me so fast <a:kaineflushedeyes:708477282079211570> 3 seconds per command")
 
     } else {
+
+
+        // const theUser = theUser
         const command = bot.commands.get(commandname) || bot.commands.get(bot.aliases.get(commandname));
         if (!command) return;
         try {
-            command.run(bot, message, args, prefix, MongoToggle);
+
+            isuser = false
+
+            const UserArgs = message.content.slice(prefix.length).trim().split(/ +/g);
+
+
+
+            if (isuser = false) {
+                return console.log("not a thing")
+            } if (isuser = true) {
+                const user = message.mentions.users.first();
+                // If we have a user mentioned
+                if (user) {
+                    // Now we get the member from the user
+                    var theUser = message.guild.member(user);
+
+                    // If the member is in the guild
+                    if (!theUser) {
+                        console.log("Mention Check")
+                        message.reply("That user isn't in this guild!");
+                    }
+                } else {
+                    console.log(UserArgs.join(' '))
+                    if (UserArgs[1] === undefined) {
+
+                    } else if (UserArgs[1].match(/\d{18}/)) {
+                        console.log("ID Check")
+                        var theUser = message.guild.members.cache.find(member => member.id === UserArgs[1])
+                    }
+
+
+                }
+            }
+
+
+
+
+
+
+            command.run(bot, message, args, prefix, MongoToggle, theUser);
         } catch (error) {
             console.error(error);
         }
@@ -97,7 +139,7 @@ bot.on('guildMemberAdd', async member => {
 
     if (member.guild != "605859550343462912") return;
     const karmakingdom = member.guild.me.client.guilds.cache.find(guild => guild.id === "605859550343462912")
-    const general = karmakingdom.channels.cache.find(channel => channel.id === "630881886725472256")
+    const general = karmakingdom.channels.cache.find(channel => channel.id === "755452483941302322")
     const Discord = require("discord.js");
     const Canvas = require('canvas');
 
@@ -120,7 +162,7 @@ bot.on('guildMemberAdd', async member => {
     //hight lower the number = lower
 
     // Slightly smaller text placed above the member's display name
-    ctx.font = '30px OpenSansEmoji.otf';
+    ctx.font = '30px sans-serif';
     ctx.fillStyle = '#029911';
     ctx.fillText('Welcome to the server,', canvas.width / 3.475, canvas.height / 1.325);
     //darker 
@@ -145,24 +187,24 @@ bot.on('guildMemberAdd', async member => {
     // Add an exclamation point here and below
 
     ctx.font = applyText(canvas, `You are member number ${realuser}`);
-    ctx.font = '17px OpenSansEmoji.otf';
+    ctx.font = '17px sans-serif';
     ctx.fillStyle = '#029911';
     ctx.fillText(`You are member number ${realuser}`, canvas.width / 1.5, canvas.height / 1.045);
     //darker 
 
     ctx.font = applyText(canvas, `You are member number ${realuser}`);
-    ctx.font = '17x OpenSansEmoji.otf';
+    ctx.font = '17x sans-serif';
     ctx.fillStyle = '#59c0eb';
     ctx.fillText(`You are member number ${realuser}`, canvas.width / 1.5, canvas.height / 1.05);
     //ligter 
 
     ctx.beginPath();
-    ctx.arc(125, 100, 200, 0, Math.PI * 2, true);
+    ctx.arc(64, 200, 30, 0, Math.PI * 2, true);
     ctx.closePath();
     ctx.clip();
 
     const avatar = await Canvas.loadImage(member.user.displayAvatarURL({ format: 'jpg' }));
-    ctx.drawImage(avatar, 50, 162.5, 85, 85);
+    ctx.drawImage(avatar, 30, 170, 64, 64);
 
     const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'Discordwelcome2.png');
 
@@ -176,12 +218,27 @@ bot.on('guildMemberAdd', async member => {
         .attachFiles(attachment)
         .setImage('attachment://sample.png');
     general.send(embedjoin)
-    general.send("<@&749075461145100338> New member!! come say hi ")
+
+    const Welcome = require("./models/welcome");
+
+    Welcome.findOne({
+        ServerID: member.guild.id,
+    },
+        (err, welcome) => {
+
+            if (err) console.log(err);
+            if (!welcome) {
+                return
+            } else if (welcome.WelcomePing === "NotSet") {
+                return
+            } else
+                return general.send(`${welcome.WelcomePing} \nNew member!! come say hi `)
+        })
 });
 
 bot.on('message', async message => {
     if (!message.author.id === "406211463125008386") return
-    if (message.content === '!join') {
+    if (message.content === 'dev!join') {
         bot.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
     }
 });
@@ -192,7 +249,7 @@ bot.on("guildCreate", guild => {
 
     const karmakingdomjoin = guild.client.guilds.cache.find(guild => guild.id === "605859550343462912")
 
-    const channeljoin = karmakingdomjoin.channels.cache.find(channel => channel.id === "700438892888719501")
+    const channeljoin = karmakingdomjoin.channels.cache.find(channel => channel.id === "630881886725472256")
 
     const embed = new Discord.MessageEmbed()
         .setAuthor("KFC Bucket Boi", guild.client.user.displayAvatarURL())

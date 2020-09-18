@@ -13,7 +13,7 @@ module.exports = {
 
                 if (err) console.log(err);
                 if (!toggle) {
-
+                    message.delete();
                     let embed = new Discord.MessageEmbed()
                         .setAuthor(message.client.user.tag, message.client.user.displayAvatarURL())
                         .setDescription(args.join(' '))

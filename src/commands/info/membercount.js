@@ -29,8 +29,7 @@ module.exports = {
         if (args.join(' ') === null || "bots" || "bot") {
         embedmember.addField('\u200b', `Bot Memembers - **${botuser}**`) }
         embedmember.setAuthor(`${message.author.tag}`, `${message.author.displayAvatarURL({ dynamic: true })}`)
-        embedmember.setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
-        embedmember.setImage(`${message.guild.iconURL({ dynamic: true })}?size=1024`)
+        embedmember.setThumbnail(`${message.guild.iconURL({ dynamic: true })}?size=1024`)
         embedmember.setColor(message.guild.me.displayColor)
         message.channel.send(embedmember);
         }
