@@ -14,26 +14,30 @@ module.exports = {
 
                 if (err) console.log(err);
                 if (!toggle) {
-
+                    console.log(args[0])
                     if (args[0] === undefined) {
+                        console.log("thats nothing dummy")
                         message.channel.send("Please send an emote of a server that im in!")
                         return
-                    }else if (args[0] != args[0].match(/<a:.+?:\d+>|<:.+?:\d+>/)){
+                    }else if (!args[0].match(/\:(.*?)\>/)){
+                        console.log("that aint no id")
                         message.channel.send("Please send an emote of a server that im in!")
                         return
                     }
 
-
-                    console.log(`${args[0].match(/(?<=\:).+?(?=\:)/)}`)
+                    
+                    var first = args[0].slice(3).match(/\:.*?\>/)
+                    var theMatch = first[0].slice(1, -1)
+                    console.log(theMatch)
 
                     if (args[0].match(/<a/)) {
                         console.log("animated!")
-                        var emote = message.client.emojis.cache.find(emoji => emoji.name === `${args[0].match(/(?<=\:).+?(?=\:)/)}`)
+                        var emote = message.client.emojis.cache.find(emoji => emoji.id === `${theMatch}`)
                         var emoteID = message.client.emojis.resolveID(emote)
                         var ending = ".gif"
                     } else{
                         console.log("not animated!")
-                        var emote = message.client.emojis.cache.find(emoji => emoji.name === `${args[0].match(/(?<=\:).+?(?=\:)/)}`)
+                        var emote = message.client.emojis.cache.find(emoji => emoji.id === `${theMatch}`)
                         var emoteID = message.client.emojis.resolveID(emote)
                         var ending = ".png"
                     }
