@@ -139,7 +139,7 @@ bot.on('guildMemberAdd', async member => {
 
     if (member.guild != "605859550343462912") return;
     const karmakingdom = member.guild.me.client.guilds.cache.find(guild => guild.id === "605859550343462912")
-    const general = karmakingdom.channels.cache.find(channel => channel.id === "755452483941302322")
+    const general = karmakingdom.channels.cache.find(channel => channel.id === "630881886725472256")
     const Discord = require("discord.js");
     const Canvas = require('canvas');
 
@@ -249,7 +249,7 @@ bot.on("guildCreate", guild => {
 
     const karmakingdomjoin = guild.client.guilds.cache.find(guild => guild.id === "605859550343462912")
 
-    const channeljoin = karmakingdomjoin.channels.cache.find(channel => channel.id === "630881886725472256")
+    const channeljoin = karmakingdomjoin.channels.cache.find(channel => channel.id === "700438892888719501")
 
     const embed = new Discord.MessageEmbed()
         .setAuthor("KFC Bucket Boi", guild.client.user.displayAvatarURL())
