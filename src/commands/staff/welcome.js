@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const Welcome = require("../../models/welcome.js");
+const Toggle = require("../../models/toggle.js");
 module.exports = {
     name: 'welcome',
     aliases: ["welc"],
