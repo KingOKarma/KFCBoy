@@ -3,12 +3,19 @@ const Welcome = require("../../models/welcome.js");
 module.exports = {
     name: 'welcome',
     aliases: ["welc"],
-    run: (_, message, args, bot, prefix) => {
+    run: (_, message, args, prefix) => {
         if (!message.member.permissionsIn(message.channel).has("MANAGE_GUILD")) return message.channel.send("You need the permission __**\"Mange Server\"**__ to use this command")
         if (!message.guild.me.permissionsIn(message.channel).has("EMBED_LINKS")) return message.channel.send("I need the permission __**\"EMBED_LINKS\"**__ to use this command")
 
 
+        Toggle.findOne({
+            ServerID: message.guild.id,
+            Command: "Staff"
+        },
+            (err, toggle) => {
 
+                if (err) console.log(err);
+                if (!toggle) {
 
         switch (args[0]) {
 
@@ -163,7 +170,9 @@ module.exports = {
 
         }
 
-
+    }
+    if (toggle) return message.channel.send("This server has the \"Staff\" module disabled")
+})
 
 
 
