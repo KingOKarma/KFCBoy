@@ -42,7 +42,7 @@ module.exports = {
                         .addField('Invite Me', `[Click Here](https://invite.bucketbot.dev)`, true)
                         .addField('Website', `[Click Here](https://bucketbot.dev)`, true)
                         .addField('Top.gg', `[Click Here](https://top.gg/bot/614110037291565056)`, true)
-                        .addField('Donate', `[Click Here](https://donatebot.io/checkout/605859550343462912?buyer=406211463125008386)`, true)
+                        .addField('Donate', `[Click Here](https://donatebot.io/checkout/605859550343462912?buyer=${message.author.id})`, true)
                         .addField('Free RAM', '[Click Here](https://www.youtube.com/watch?v=dQw4w9WgXcQ)', true)
                     message.channel.send(embed);
 
