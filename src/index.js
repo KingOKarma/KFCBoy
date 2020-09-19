@@ -299,7 +299,10 @@ bot.on("message", async message => {
 
     //You can display as
     if (message.content.startsWith(`${prefix}ping`)) {
-        message.delete();
+        message.delete()
+        .catch((err) =>
+        console.log(err  + "someone's ping perm go brr")
+        )
         const pingf = await message.channel.send(`🏓 Pinging....`);
 
         pingf.edit(`**Ping**🏓\n**Response time is:** ${responseTime}ms`);
