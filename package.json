@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prod:start": "pm2-runtime app.js"
+    "prod:start": "pm2-runtime app.js",
+    "dev": "nodemon ./src/index.js",
+    "start": "node ./src/index.js"
   },
   "author": "",
   "license": "ISC",
