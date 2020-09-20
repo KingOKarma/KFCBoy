@@ -288,21 +288,21 @@ bot.on("guildDelete", guild => {
 });
 
 bot.on("message", async message => {
+    const LogChannel = message.client.channels.cache.get("700438892888719501")
 
     if (message.content.toLowerCase() === "<@!614110037291565056>") {
-        const LogChannel = new Discord.MessageEmbed()
         message.channel.send("My prefix is `k!` you can use `k!help` to view my commands (make sure dms are enabled to i can dm you the commands!)")
-        .catch((err) => {
-            console.log(`Error, \"Ping Help\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}`)
-            ErrorEmbed = new Discord.MessageEmbed()
-                .setAuthor(message.author.tag, message.author.displayAvatarURL( ({dynamic: true}) ))
-                .setColor("0xFF0000")
-                .setDescription(`\`\`\`Error, \"Ping Help\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}\`\`\``)
-                .setThumbnail(message.guild.iconURL( {dynamic: true}) )
-                .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
-            LogChannel.send(ErrorEmbed)
+            .catch((err) => {
+                console.log(`Error, \"Ping Help\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}`)
+                const ErrorEmbed = new Discord.MessageEmbed()
+                    .setAuthor(message.author.tag, message.author.displayAvatarURL(({ dynamic: true })))
+                    .setColor("0xFF0000")
+                    .setDescription(`\`\`\`Error, \"Ping Help\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}\`\`\``)
+                    .setThumbnail(message.guild.iconURL({ dynamic: true }))
+                    .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
+                LogChannel.send(ErrorEmbed)
 
-        })
+            })
         console.log("a")
     }
 
@@ -315,22 +315,25 @@ bot.on("message", async message => {
             .catch((err) =>
                 console.log(err + "someone's ping perm go brr")
             )
-        const pingf = await message.channel.send(`🏓 Pinging....`);
+        const pingf = await message.channel.send(`🏓 Pinging....`)
+            .catch((err) => {
+                const LogChannel = message.client.channels.cache.get("700438892888719501")
+
+                console.log(`Error, \"Ping\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}`);
+                ErrorEmbed = new Discord.MessageEmbed()
+                    .setAuthor(message.author.tag, message.author.displayAvatarURL(({ dynamic: true })))
+                    .setColor("0xFF0000")
+                    .setDescription(`\`\`\`Error, \"Ping\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}\`\`\``)
+                    .setThumbnail(message.guild.iconURL({ dynamic: true }))
+                    .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
+                LogChannel.send(ErrorEmbed)
+
+            })
+
+            if (pingf === undefined) return
+
 
         pingf.edit(`**Ping**🏓\n**Response time is:** ${responseTime}ms`)
-        .catch((err) => {
-            const LogChannel = message.guild.channels.cache.find(channel => channel.id === "700438892888719501")
-
-            console.log(`Error, \"Ping Help\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}`);
-            ErrorEmbed = new Discord.MessageEmbed()
-                .setAuthor(message.author.tag, message.author.displayAvatarURL( ({dynamic: true}) ))
-                .setColor("0xFF0000")
-                .setDescription(`\`\`\`Error, \"Ping\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}\`\`\``)
-                .setThumbnail(message.guild.iconURL( {dynamic: true}) )
-                .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
-            LogChannel.send(ErrorEmbed)
-
-        })
 
 
     }
@@ -349,26 +352,26 @@ bot.on('message', message => {
             if (err) console.log(err);
             if (!toggle) {
 
-                const LogChannel = message.guild.channels.cache.find(channel => channel.id === "700438892888719501")
+                const LogChannel = message.client.channels.cache.get("700438892888719501")
 
 
-            
+
                 if (message.content.toLowerCase() === "k") {
                     if (usedCommandRecentllyk.has(message.author.id)) {
 
                     } else {
                         message.channel.send('Did you seriously just **"k"** BRUH :eyes:')
-                                .catch((err) => {
-                                    console.log(`Error, \"K\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}`)
-                                    ErrorEmbed = new Discord.MessageEmbed()
-                                        .setAuthor(message.author.tag, message.author.displayAvatarURL( ({dynamic: true}) ))
-                                        .setColor("0xFF0000")
-                                        .setDescription(`\`\`\`Error, \"K\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}\`\`\``)
-                                        .setThumbnail(message.guild.iconURL( {dynamic: true}) )
-                                        .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
-                                    LogChannel.send(ErrorEmbed)
-    
-                                })                            
+                            .catch((err) => {
+                                console.log(`Error, \"K\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}`)
+                                ErrorEmbed = new Discord.MessageEmbed()
+                                    .setAuthor(message.author.tag, message.author.displayAvatarURL(({ dynamic: true })))
+                                    .setColor("0xFF0000")
+                                    .setDescription(`\`\`\`Error, \"K\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}\`\`\``)
+                                    .setThumbnail(message.guild.iconURL({ dynamic: true }))
+                                    .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
+                                LogChannel.send(ErrorEmbed)
+
+                            })
 
                         usedCommandRecentllyk.add(message.author.id);
                         setTimeout(() => {
@@ -381,17 +384,17 @@ bot.on('message', message => {
 
                     } else {
                         message.channel.send('My PP hurts man 🍆💦')
-                        .catch((err) => {
-                            console.log(`Error, \"PP\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}`)
-                            ErrorEmbed = new Discord.MessageEmbed()
-                                .setAuthor(message.author.tag, message.author.displayAvatarURL( ({dynamic: true}) ))
-                                .setColor("0xFF0000")
-                                .setDescription(`\`\`\`Error, \"PP\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}\`\`\``)
-                                .setThumbnail(message.guild.iconURL( {dynamic: true}) )
-                                .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
-                            LogChannel.send(ErrorEmbed)
+                            .catch((err) => {
+                                console.log(`Error, \"PP\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}`)
+                                ErrorEmbed = new Discord.MessageEmbed()
+                                    .setAuthor(message.author.tag, message.author.displayAvatarURL(({ dynamic: true })))
+                                    .setColor("0xFF0000")
+                                    .setDescription(`\`\`\`Error, \"PP\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}\`\`\``)
+                                    .setThumbnail(message.guild.iconURL({ dynamic: true }))
+                                    .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
+                                LogChannel.send(ErrorEmbed)
 
-                        })
+                            })
 
                         usedCommandRecentllypp.add(message.author.id);
                         setTimeout(() => {
@@ -404,17 +407,17 @@ bot.on('message', message => {
 
                     } else {
                         message.channel.send('https://www.dailydot.com/wp-content/uploads/2018/04/markiplierebig.png')
-                        .catch((err) => {
-                            console.log(`Error, \"E\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}`)
-                            ErrorEmbed = new Discord.MessageEmbed()
-                                .setAuthor(message.author.tag, message.author.displayAvatarURL( ({dynamic: true}) ))
-                                .setColor("0xFF0000")
-                                .setDescription(`\`\`\`Error, \"E\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}\`\`\``)
-                                .setThumbnail(message.guild.iconURL( {dynamic: true}) )
-                                .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
-                            LogChannel.send(ErrorEmbed)
+                            .catch((err) => {
+                                console.log(`Error, \"E\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}`)
+                                ErrorEmbed = new Discord.MessageEmbed()
+                                    .setAuthor(message.author.tag, message.author.displayAvatarURL(({ dynamic: true })))
+                                    .setColor("0xFF0000")
+                                    .setDescription(`\`\`\`Error, \"E\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}\`\`\``)
+                                    .setThumbnail(message.guild.iconURL({ dynamic: true }))
+                                    .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
+                                LogChannel.send(ErrorEmbed)
 
-                        })
+                            })
                         usedCommandRecentllye.add(message.author.id);
                         setTimeout(() => {
                             usedCommandRecentllye.delete(message.author.id)
