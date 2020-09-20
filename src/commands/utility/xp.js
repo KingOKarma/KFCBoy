@@ -51,8 +51,8 @@ module.exports = {
 
                     levelEmbed.setTitle(`${User.tag} has 0xp!`)
                         .setDescription(`And ${extraMSG} level \`0\` in **${message.guild.name}**`)
-                        .addField("Needed XP for next level", xp.level * 200, true)
-                        .addField("Xp left", xp.level * 200 - xp.xp, true)
+                        .addField("Needed XP for next level", 0 * 200, true)
+                        .addField("Xp left", 0 * 200 - xp.xp, true)
                         .setColor(message.guild.me.displayColor)
                         .setTimestamp()
                         .setAuthor(User.tag, User.displayAvatarURL({ dynamic: true }));
