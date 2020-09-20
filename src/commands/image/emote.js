@@ -47,7 +47,7 @@ module.exports = {
                         return
                     }
                     console.log(args.join(' '))
-                    message.channel.send(`https://cdn.discordapp.com/emojis/${emoteID}${ending}`)
+                    message.channel.send(`https://cdn.discordapp.com/emojis/${emoteID}${ending}?size4096`)
 
                 }
                 if (toggle) return message.channel.send("This server has the \"Image\" module disabled")
