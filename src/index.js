@@ -549,6 +549,8 @@ bot.on("message", message => {
                             .catch(() =>
                             message.reply(`Congrats ${message.author.tag}! you're now level ${xp.level}`)
                             )
+                            .catch(() => {
+                            })
 
                             delaySet.add(message.author.id)
 
@@ -570,7 +572,7 @@ bot.on("message", message => {
 
 
                             xp.save().catch(err => console.log(err))
-                            console.log(`${message.author.tag} has ${xp.xp}xp and gained ${xpGain}xp`)
+                            console.log(`${message.author.tag} has ${xp.xp}xp and gained ${xpGain}xp \n in the server ${message.guild.name}`)
 
                             delaySet.add(message.author.id)
 
