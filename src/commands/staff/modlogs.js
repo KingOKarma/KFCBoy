@@ -78,7 +78,7 @@ module.exports = {
 
                                 const ModLogEmbed = new Discord.MessageEmbed()
 
-                                    // .setThumbnail(`${theUser.displayAvatarURL({ dynamic: true })}?size=1024`)
+                                    .setThumbnail(`${theUser.displayAvatarURL({ dynamic: true })}?size=1024`)
                                     .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
                                     .setColor(message.guild.me.displayColor)
                                     .setDescription(`Logs for **${theUser.tag}**`)
