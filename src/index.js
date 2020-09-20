@@ -116,9 +116,10 @@ bot.on('message', message => {
             }
 
 
+            var realuser = message.guild.members.cache.filter(member => !member.user.bot).size
 
 
-
+            console.log(`\n${message.author.tag} used the cmd: ${message.content}\n\n In the server ${message.guild.name} with ${realuser} members\n\n in the channel ${message.channel.name}\n`)
 
             command.run(bot, message, args, prefix, MongoToggle, theUser);
         } catch (error) {
@@ -540,7 +541,7 @@ bot.on("message", message => {
                             xp.UserName = message.author.tag
                             xp.ServerName = message.guild.name
                             xp.save().catch(err => console.log(err));
-                            console.log(`${message.author.tag} has ${xp.xp}xp and gained ${xpGain}xp`)
+                            console.log(`${message.author.tag} has ${xp.xp}xp and gained ${xpGain}xp, they are level ${xp.level}\n\n in the server "${message.guild.name}" and leveled up with the message\n\n${message.content}\n\n`)
                             levelEmbed.setTitle(`Leveled up to ${xp.level}`)
                                 .setColor(message.guild.me.displayColor)
                                 .setTimestamp()
@@ -572,7 +573,6 @@ bot.on("message", message => {
 
 
                             xp.save().catch(err => console.log(err))
-                            console.log(`${message.author.tag} has ${xp.xp}xp and gained ${xpGain}xp \n in the server ${message.guild.name}`)
 
                             delaySet.add(message.author.id)
 
