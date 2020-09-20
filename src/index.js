@@ -544,7 +544,7 @@ bot.on("message", message => {
                             levelEmbed.setTitle(`Leveled up to ${xp.level}`)
                                 .setColor(message.guild.me.displayColor)
                                 .setTimestamp()
-                                .setAuthor(message.author.tag, message.author.displayAvatarURL());
+                                .setAuthor(message.author.tag, message.author.displayAvatarURL( {dynamic : true}));
                             message.channel.send(levelEmbed)
                             .catch(() =>
                             message.reply(`Congrats ${message.author.tag}! you're now level ${xp.level}`)
