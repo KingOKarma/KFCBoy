@@ -55,7 +55,7 @@ module.exports = {
                         .addField("Xp left", xp.level * 200 - xp.xp, true)
                         .setColor(message.guild.me.displayColor)
                         .setTimestamp()
-                        .setAuthor(User.tag, User.displayAvatarURL());
+                        .setAuthor(User.tag, User.displayAvatarURL({ dynamic: true }));
                     message.channel.send(levelEmbed)
                         .catch(() =>
                             message.reply(`**${User.tag}** ${extraMSG2} level \`0\` with \`0\`xp`)
