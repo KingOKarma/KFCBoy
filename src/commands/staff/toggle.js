@@ -312,6 +312,40 @@ module.exports = {
                         })
     
                     break;
+                    case "xp":
+                        Toggle.findOne({
+                            ServerID: message.guild.id,
+                        },
+                            (err, toggle) => {
+        
+                                if (err) console.log(err);
+                                if (!toggle) {
+                                    message.channel.send("The Xp module has been disabled")
+                                    const newToggle = new Toggle({
+                                        ServerID: message.guild.id,
+                                        Command: "Xp"
+                                    })
+        
+                                    newToggle.save().catch(err => console.log(err));
+        
+        
+                                    return
+        
+                                } if (toggle) {
+                                    message.channel.send("The Xp module has been enabled")
+                                    Toggle.deleteOne({ ServerID: message.guild.id })
+                                        .catch((err) => {
+                                            console.log(err)
+                                        })
+        
+        
+        
+        
+                                }
+                            })
+        
+                        break;
+                    
     
 
 

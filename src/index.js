@@ -485,5 +485,55 @@ bot.on('message', message => {
 
 })
 
+//xp system
+client.on("message", message => {
+    Toggle.findOne({
+        ServerID: message.guild.id,
+        Command: "Xp"
+    }, 
+        (err, toggle) => {
+            if (err) console.log(err);
+            if (!toggle) {
+                try {
+                    xp.findOne({ ServerID: message.guild.id, UserID: message.author.id}, (err, XP) => {
+                      if(!XP) {
+                        const newUser = new xp({
+                          UserID: message.author.id,
+                          ServerID: message.guild.id,
+                          xp: xpGain,
+                          level: 0,
+                        })
+                        newUser.save().catch(err => console.log(err))
+                        delaySet.add(message.author.id)
+                        setTimeout(() => {
+                          delaySet.delete(message.author.id)
+                        }, 10000);
+                      } else if(XP.xp + xpGain >= XP.level * 150) {
+                        const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+                        const levelEmbed = new MessageEmbed();
+                        XP.xp = XP.xp + xpGain;
+                        XP.level = XP.level + 1;
+                        XP.save().catch(err => console.log(err));
+                        levelEmbed.setTitle(`Leveled up to ${XP.level}`)
+                        .setColor(randomColor)
+                        .setTimestamp()
+                        .setAuthor(message.author.tag, message.author.displayAvatarURL());
+                        message.channel.send(levelEmbed)
+                      } else {
+                        XP.xp = XP.xp + xpGain;
+                        XP.save().catch(err => console.log(err))
+                        delaySet.add(message.author.id)
+                        setTimeout(() => {
+                          delaySet.delete(message.author.id)
+                        }, 10000);
+                      }
+                    })
+                  } catch (err) {
+                    console.log(err)
+                  }
+            }
+        })
+})
+
 
 bot.login(token).catch(console.error)
