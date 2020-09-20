@@ -1,9 +1,5 @@
 const Discord = require("discord.js")
-const mongoose = require("mongoose");
 const Toggle = require("../../models/toggle.js");
-const { endianness } = require("os");
-const { exit } = require("process");
-const config = require('../../config.json');
 
 
 

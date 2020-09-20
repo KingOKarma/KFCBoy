@@ -357,7 +357,7 @@ module.exports = {
                     .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
                     .setThumbnail(`${message.author.displayAvatarURL({ dynamic: true })}`)
                     .setColor(message.guild.me.displayColor)
-                    .setDescription("List of Modules: \n __fun__\n__image__\n__info__\n__interactable__\n__kfc__\n__minecraft__\n__utility__\n__responder__\n__staff__")
+                    .setDescription("List of Modules: \n __fun__\n__image__\n__info__\n__interactable__\n__kfc__\n__minecraft__\n__utility__\n__responder__\n__staff__\n__Xp__")
                     .setFooter("Use `k!tg <module name>` to toggle the modules")
 
 

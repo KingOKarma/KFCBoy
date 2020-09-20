@@ -5,6 +5,8 @@ const XpSchema = mongoose.Schema({
     UserID: String,
     xp: Number,
     level: Number,
+    UserName: String,
+    ServerName: String
 })
 
-module.exports = mongoose.model("XP", XpSchema)
+module.exports = mongoose.model("Xp", XpSchema)

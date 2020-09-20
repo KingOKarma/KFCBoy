@@ -6,6 +6,7 @@ const bot = new Discord.Client();
 const config = require('./config.json');
 const mongoose = require("mongoose");
 const Toggle = require("./models/toggle.js");
+const Xp = require("./models/xp.js")
 
 
 let token = config.token
@@ -330,7 +331,7 @@ bot.on("message", async message => {
 
             })
 
-            if (pingf === undefined) return
+        if (pingf === undefined) return
 
 
         pingf.edit(`**Ping**🏓\n**Response time is:** ${responseTime}ms`)
@@ -446,7 +447,7 @@ bot.on('message', message => {
 
     //yes its nested if statements, im lazy
     if (message.content.toLowerCase() == "dev") {
-        message.author.send(`**Hello ${message.author.tag}! Would you like to send feeback to the dev?**\n*Please either answer with "yes" or "no".*`).then(() => {
+        message.author.send(`**Hello ${message.author.tag}! Would you like to send feedback to the dev?**\n*Please either answer with "yes" or "no".*`).then(() => {
             const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id);
             collector.once("collect", message => {
                 if (message.content.toLowerCase() == "yes") {
@@ -485,54 +486,110 @@ bot.on('message', message => {
 
 })
 
+
+
+
+const delaySet = new Set();
+
 //xp system
-client.on("message", message => {
+bot.on("message", message => {
+    if (message.channel.type == "dm") return;
+    if (message.author.bot) return;
+
+
     Toggle.findOne({
         ServerID: message.guild.id,
         Command: "Xp"
-    }, 
+    },
         (err, toggle) => {
             if (err) console.log(err);
             if (!toggle) {
-                try {
-                    xp.findOne({ ServerID: message.guild.id, UserID: message.author.id}, (err, XP) => {
-                      if(!XP) {
-                        const newUser = new xp({
-                          UserID: message.author.id,
-                          ServerID: message.guild.id,
-                          xp: xpGain,
-                          level: 0,
+
+                let xpGain = Math.ceil(message.content.length / 2)
+
+                // if above 50, add 50
+                if (xpGain > 51) {
+                    console.log("more than 50")
+                    xpGain = Math.ceil(+50)
+                }
+                Xp.findOne({
+                    ServerID: message.guild.id,
+                    UserID: message.author.id
+                }, (err, xp) => {
+                    if (err) console.log(err);
+
+                    if (!xp) {
+                        const newUser = new Xp({
+                            UserID: message.author.id,
+                            ServerID: message.guild.id,
+                            xp: xpGain,
+                            level: 0,
+                            UserName: message.author.tag,
+                            ServerName: message.guild.name,
                         })
                         newUser.save().catch(err => console.log(err))
-                        delaySet.add(message.author.id)
-                        setTimeout(() => {
-                          delaySet.delete(message.author.id)
-                        }, 10000);
-                      } else if(XP.xp + xpGain >= XP.level * 150) {
-                        const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-                        const levelEmbed = new MessageEmbed();
-                        XP.xp = XP.xp + xpGain;
-                        XP.level = XP.level + 1;
-                        XP.save().catch(err => console.log(err));
-                        levelEmbed.setTitle(`Leveled up to ${XP.level}`)
-                        .setColor(randomColor)
-                        .setTimestamp()
-                        .setAuthor(message.author.tag, message.author.displayAvatarURL());
-                        message.channel.send(levelEmbed)
-                      } else {
-                        XP.xp = XP.xp + xpGain;
-                        XP.save().catch(err => console.log(err))
-                        delaySet.add(message.author.id)
-                        setTimeout(() => {
-                          delaySet.delete(message.author.id)
-                        }, 10000);
-                      }
-                    })
-                  } catch (err) {
-                    console.log(err)
-                  }
+
+                    } else if (xp.xp + xpGain >= xp.level * 200) {
+                        if (usedCommandRecentlly.has(message.author.id)) {
+
+                        } else {
+
+                            const levelEmbed = new Discord.MessageEmbed();
+                            xp.xp = xp.xp + xpGain;
+                            xp.level = xp.level + 1;
+                            xp.UserName = message.author.tag
+                            xp.ServerName = message.guild.name
+                            xp.save().catch(err => console.log(err));
+                            console.log(`${message.author.tag} has ${xp.xp}xp and gained ${xpGain}xp`)
+                            levelEmbed.setTitle(`Leveled up to ${xp.level}`)
+                                .setColor(message.guild.me.displayColor)
+                                .setTimestamp()
+                                .setAuthor(message.author.tag, message.author.displayAvatarURL());
+                            message.channel.send(levelEmbed)
+                            .catch(() =>
+                            message.reply(`Congrats ${message.author.tag}! you're now level ${xp.level}`)
+                            )
+
+                            delaySet.add(message.author.id)
+
+                            setTimeout(() => {
+
+                                delaySet.delete(message.author.id)
+
+                            }, 10000);//10 seconds till next xp add
+                        }
+                    } else {
+
+                        if (delaySet.has(message.author.id)) {
+
+                        } else {
+
+                            xp.xp = xp.xp + xpGain;
+                            xp.UserName = message.author.tag
+                            xp.ServerName = message.guild.name
+
+
+                            xp.save().catch(err => console.log(err))
+                            console.log(`${message.author.tag} has ${xp.xp}xp and gained ${xpGain}xp`)
+
+                            delaySet.add(message.author.id)
+
+                            setTimeout(() => {
+
+                                delaySet.delete(message.author.id)
+
+                            }, 10000);
+                        }
+                    }
+                })
             }
+            if (toggle) return 
+
+
+
         })
+
+
 })
 
 
