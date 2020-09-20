@@ -32,7 +32,7 @@ module.exports = {
             if (error) {
                 console.log(`error: ${error.message}`);
                 process.chdir('./src');
-                message.channel.send("I cant commit to the repo for some reason <:RoScreaming:719628209402019980>\n That reason being ```" + error + "```\nSo i moved back into ```" + process.cwd() + "```\nuse `rbstatus` To check for files!")
+                message.channel.send("I cant commit to the repo for some reason <a:VillagerCursedStare:719904898954821712>\n That reason being ```" + error + "```\nSo i moved back into ```" + process.cwd() + "```\nuse `rbstatus` To check for files!")
                 return;
             }
             if (stderr) {

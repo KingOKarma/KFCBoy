@@ -15,20 +15,20 @@ module.exports = {
 
 
 
-        exec(`pm2 logs 7 --nostream`, (error, stdout, stderr) => {
+        exec(`pm2 logs 6 --nostream`, (error, stdout, stderr) => {
             if (error) {
                 console.log(`error: ${error.message}`);
-                message.channel.send("I cant check pm2 logs <:RoScreaming:719628209402019980>\n That reason being ```" + error + "```")
+                message.channel.send("I cant check pm2 logs <a:VillagerCursedStare:719904898954821712>\n That reason being ```" + error + "```")
                 return;
             }
             if (stderr) {
                 console.log(`stderr: ${stderr}`);
-                message.channel.send(`pm2 logs request: \n\`\`\`js${stderr}\`\`\``)
+                message.channel.send(`pm2 logs request: \n\`\`\`js\n${stderr}\`\`\``)
 
                 return;
             }
             console.log(`stdout: ${stdout}`);
-            message.channel.send(`pm2 logs request: \n\`\`\`js${stdout}\`\`\``)
+            message.channel.send(`pm2 logs request: \n\`\`\`js\n${stdout}\`\`\``)
 
         })
 
