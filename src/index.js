@@ -241,6 +241,7 @@ bot.on('guildMemberAdd', async member => {
 bot.on('message', async message => {
     if (!message.author.id === "406211463125008386") return
     if (message.content === config.Welcomecmd) {
+        console.log("attempting join....")
         bot.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
     }
 });
