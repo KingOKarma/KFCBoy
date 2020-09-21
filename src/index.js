@@ -218,7 +218,7 @@ bot.on('guildMemberAdd', async member => {
         .setColor(member.guild.me.displayColor)
         .addField("info", "**You can get all the info you need at <#706291446252175400>** <:Kawaii:705565375647186984> \n If you have any questions just DM <@614469989134630944> \n And Finally you can go to <#684533907151913011> to assign yourself somes roles! <:Kainepog:709455703567499326>")
         .attachFiles(attachment)
-        .setImage('/home/karma/bots/KFCBoy/src/images/Discordwelcome2.png');
+        // .setImage('/home/karma/bots/KFCBoy/src/images/Discordwelcome2.png');
     general.send(embedjoin)
 
     const Welcome = require("./models/welcome");
