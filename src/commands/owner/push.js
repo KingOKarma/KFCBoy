@@ -31,7 +31,6 @@ module.exports = {
         exec("git push", (error, stdout, stderr) => {
             if (error) {
                 console.log(`error: ${error.message}`);
-                process.chdir('./src');
                 message.channel.send("I cant push to the repo for some reason <a:VillagerCursedStare:719904898954821712>\n That reason being ```" + error + "```\nSo i moved back into ```" + process.cwd() + "```\nuse `rbstatus` To check for files!")
                 return;
             }

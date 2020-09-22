@@ -23,8 +23,8 @@ module.exports = {
 
                     levelEmbed.setTitle(`${User.tag} has ${xp.xp}xp!`)
                         .setDescription(`And ${extraMSG} level \`${xp.level}\` in **${message.guild.name}**`)
-                        .addField("Needed XP for next level", xp.level * 200, true)
-                        .addField("Xp left", xp.level * 200 - xp.xp, true)
+                        .addField("Needed XP for next level", xp.level * 200 * 2, true)
+                        .addField("Xp left", xp.level * 200 * 2 - xp.xp, true)
                         .setColor(message.guild.me.displayColor)
                         .setTimestamp()
                         .setAuthor(User.tag, User.displayAvatarURL());
@@ -36,7 +36,7 @@ module.exports = {
                             console.log(`Error, \"XP cmd\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}`)
                             const ErrorEmbed = new Discord.MessageEmbed()
                                 .setAuthor(message.author.tag, message.author.displayAvatarURL(({ dynamic: true })))
-                                .setColor("0xFF0000")
+                                .setColor(message.guild.me.displayColor)
                                 .setDescription(`\`\`\`Error, \"XP cmd\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}\`\`\``)
                                 .setThumbnail(message.guild.iconURL({ dynamic: true }))
                                 .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
@@ -64,7 +64,7 @@ module.exports = {
                             console.log(`Error, \"XP cmd\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}`)
                             const ErrorEmbed = new Discord.MessageEmbed()
                                 .setAuthor(message.author.tag, message.author.displayAvatarURL(({ dynamic: true })))
-                                .setColor("0xFF0000")
+                                .setColor("xFF00000")
                                 .setDescription(`\`\`\`Error, \"XP cmd\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}\`\`\``)
                                 .setThumbnail(message.guild.iconURL({ dynamic: true }))
                                 .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
