@@ -36,7 +36,7 @@ module.exports = {
                         msgEmbed.setThumbnail(`${message.guild.iconURL({ dynamic: true })}?size=1024`)
                         msgEmbed.setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
                         msgEmbed.setColor(message.guild.me.displayColor)
-                        sort.slice(-amount).forEach(user => {
+                        sort.slice(0, amount).forEach(user => {
                             msgEmbed.addField(` #${rank}    ${user.UserName}`, `is level ${user.level} and has ${user.xp} xp\n`)
                             rank++
                         })
