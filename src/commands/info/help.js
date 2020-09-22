@@ -117,7 +117,7 @@ module.exports = {
 
             .addField('**[👑] __XP Commnads__**', '```These commands is to be used by staff of a server```')
             .addField('xp', '- Shows how much xp a user has\n**alias: k!exp**', true)
-            .addField('leaderboard', '- shows the current leaderboard of the server\n**alias: k!lb and k!top**.\n **example: k  !leaderboard 10**', true)
+            .addField('leaderboard', '- shows the current leaderboard of the server\n**aliases: k!lb and k!top**.\n **example: k  !leaderboard 10**', true)
 
 
 
