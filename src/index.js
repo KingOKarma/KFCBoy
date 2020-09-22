@@ -545,7 +545,7 @@ bot.on("message", message => {
 
                 // if above 50, add 50
                 if (xpGain > 11) {
-                    xpGain = Math.ceil(+50)
+                    xpGain = Math.ceil(+10)
                 }
                 Xp.findOne({
                     ServerID: message.guild.id,

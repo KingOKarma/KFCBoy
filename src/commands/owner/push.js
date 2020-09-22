@@ -13,18 +13,7 @@ module.exports = {
 
 
         const { exec } = require("child_process");
-        
-
-        console.log('Starting directory: ' + process.cwd());
-        try {
-            process.chdir('../');
-            console.log('New directory: ' + process.cwd());
-          }
-          catch (err) {
-            console.log('chdir: ' + err);
-            return
-          }
-
+      
 
 
 
@@ -46,16 +35,6 @@ module.exports = {
 
         })
 
-
-        console.log('Final directory: ' + process.cwd());
-        try {
-            process.chdir('./src');
-            console.log('New directory: ' + process.cwd());
-          }
-          catch (err) {
-            console.log('chdir: ' + err);
-            return
-          }
 
 
 
