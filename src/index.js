@@ -141,7 +141,7 @@ bot.on('guildMemberAdd', async member => {
 
     if (member.guild != "605859550343462912") return;
     const karmakingdom = member.guild.me.client.guilds.cache.find(guild => guild.id === "605859550343462912")
-    const general = karmakingdom.channels.cache.find(channel => channel.id === "630881886725472256")
+    const general = karmakingdom.channels.cache.find(channel => channel.id === config.general)
     const Discord = require("discord.js");
     const Canvas = require('canvas');
 
@@ -208,18 +208,34 @@ bot.on('guildMemberAdd', async member => {
     const avatar = await Canvas.loadImage(member.user.displayAvatarURL({ format: 'jpg' }));
     ctx.drawImage(avatar, 30, 170, 64, 64);
 
-    const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'Discordwelcome2.png');
+    const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'Discordwelcome2.png')
 
 
-    const embedjoin = new Discord.MessageEmbed()
+    const joinlog = karmakingdom.channels.cache.find(channel => channel.id === "757416295636402198")
 
-        .setAuthor(member.user.tag, member.user.displayAvatarURL({ dynamic: true }))
-        .setDescription(`**Welcome <@${member.id}>, to the Karma Kingdom! <:Kainesip:706267804957016156>** \n**\`-\`[Twitch](https://www.twitch.tv/King_O_Karma)** and **[YouTube](https://www.youtube.com/channel/UCR8Mc2F5UV672cv3Z7KUn1g?view_as=subscriber)**\n \`-\`**[Invite me to your server!](https://invite.bucketbot.dev)**`)
-        .setColor(member.guild.me.displayColor)
-        .addField("info", "**You can get all the info you need at <#706291446252175400>** <:Kawaii:705565375647186984> \n If you have any questions just DM <@614469989134630944> \n And Finally you can go to <#684533907151913011> to assign yourself somes roles! <:Kainepog:709455703567499326>")
-        .attachFiles(attachment)
-        // .setImage('/home/karma/bots/KFCBoy/src/images/Discordwelcome2.png');
-    general.send(embedjoin)
+
+
+        joinlog.send(attachment)
+            .then((attachment) => {
+
+                console.log("https://media.discordapp.com/attachments/757416295636402198/"+ attachment.id + "/Discordwelcome2.png")
+                setTimeout(() => {
+                    const embedjoin = new Discord.MessageEmbed()
+
+                    embedjoin.setAuthor(member.user.tag, member.user.displayAvatarURL({ dynamic: true }))
+                        .setDescription(`**Welcome <@${member.id}>, to the Karma Kingdom! <:Kainesip:706267804957016156>** \n**\`-\`[Twitch](https://www.twitch.tv/King_O_Karma)** and **[YouTube](https://www.youtube.com/channel/UCR8Mc2F5UV672cv3Z7KUn1g?view_as=subscriber)**\n \`-\`**[Invite me to your server!](https://invite.bucketbot.dev)**`)
+                        .setColor(member.guild.me.displayColor)
+                        .addField("Info", "**You can get all the info you need at <#706291446252175400>** <:Kawaii:705565375647186984> \n If you have any questions just DM <@614469989134630944> \n And Finally you can go to <#684533907151913011> to assign yourself somes roles! <:Kainepog:709455703567499326>")
+                        // .setImage(`https://media.discordapp.com/attachments/757416295636402198/${attachment.id}/Discordwelcome2.png`)
+                        .attachFiles(attachment)
+                    general.send(embedjoin)
+
+                }, 1000);
+
+
+
+            })
+
 
     const Welcome = require("./models/welcome");
 
@@ -237,6 +253,24 @@ bot.on('guildMemberAdd', async member => {
                 return general.send(`${welcome.WelcomePing} \nNew member!! come say hi `)
         })
 });
+
+// bot.on('message', async message => {
+//     if (!message.client.channels.cache.get("757416295636402198")) return
+//     if (!message.client.users.cache.get(config.botID))
+//     console.log("aa")
+//     const Image = new Discord.MessageCollector(message.channel)
+
+//     Image.once("collect", message => {
+//         message.channel.send("a")
+//         .then(() => {
+//             console.log(message.channel.name)
+//         })
+//     })
+
+//     console.log(Image.collected)
+
+// })
+
 
 bot.on('message', async message => {
     if (!message.author.id === "406211463125008386") return
@@ -510,8 +544,7 @@ bot.on("message", message => {
                 let xpGain = Math.ceil(message.content.length / 2)
 
                 // if above 50, add 50
-                if (xpGain > 51) {
-                    console.log("more than 50")
+                if (xpGain > 11) {
                     xpGain = Math.ceil(+50)
                 }
                 Xp.findOne({
@@ -531,7 +564,7 @@ bot.on("message", message => {
                         })
                         newUser.save().catch(err => console.log(err))
 
-                    } else if (xp.xp + xpGain >= xp.level * 200) {
+                    } else if (xp.xp + xpGain >= xp.level + xp.level * 200 * 2 ) {
                         if (usedCommandRecentlly.has(message.author.id)) {
 
                         } else {
@@ -546,13 +579,13 @@ bot.on("message", message => {
                             levelEmbed.setTitle(`Leveled up to ${xp.level}`)
                                 .setColor(message.guild.me.displayColor)
                                 .setTimestamp()
-                                .setAuthor(message.author.tag, message.author.displayAvatarURL( {dynamic : true}));
+                                .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }));
                             message.channel.send(levelEmbed)
-                            .catch(() =>
-                            message.reply(`Congrats ${message.author.tag}! you're now level ${xp.level}`)
-                            )
-                            .catch(() => {
-                            })
+                                .catch(() =>
+                                    message.reply(`Congrats ${message.author.tag}! you're now level ${xp.level}`)
+                                )
+                                .catch(() => {
+                                })
 
                             delaySet.add(message.author.id)
 
@@ -586,7 +619,7 @@ bot.on("message", message => {
                     }
                 })
             }
-            if (toggle) return 
+            if (toggle) return
 
 
 
