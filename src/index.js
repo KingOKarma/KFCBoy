@@ -137,12 +137,29 @@ bot.on('message', message => {
 })
 
 
+// bot.on('message', async message => {
+//     if (!message.client.channels.cache.get("757416295636402198")) return
+//     if (!message.client.users.cache.get(config.botID))
+//     console.log("aa")
+//     const Image = new Discord.MessageCollector(message.channel)
+
+//     Image.once("collect", message => {
+//         message.channel.send("a")
+//         .then(() => {
+//             console.log(message.channel.name)
+//         })
+//     })
+
+//     console.log(Image.collected)
+
+// })
+
 
 bot.on('guildMemberAdd', async member => {
 
     if (member.guild != "605859550343462912") return;
     const karmakingdom = member.guild.me.client.guilds.cache.find(guild => guild.id === "605859550343462912")
-    const general = karmakingdom.channels.cache.find(channel => channel.id === "630881886725472256")
+    const general = karmakingdom.channels.cache.find(channel => channel.id === config.general)
     const Discord = require("discord.js");
     const Canvas = require('canvas');
 
