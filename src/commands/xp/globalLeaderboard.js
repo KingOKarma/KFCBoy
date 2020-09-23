@@ -6,6 +6,7 @@ module.exports = {
     name: "global-leaderboard",
     aliases: ["gtop", "glb"],
     run: (_, message, args) => {
+        console.log(message.guild )
         XP.find({}, (err, users) => {
             console.log(users)
             const sort = users.sort(function (a, b) {
