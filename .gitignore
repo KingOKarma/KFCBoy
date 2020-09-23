@@ -2,4 +2,4 @@ package-lock.json
 node_modules
 src/config.json
 .idea/
-./vscode
+./vscode/
