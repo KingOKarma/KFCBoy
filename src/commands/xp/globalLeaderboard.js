@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const XP = require("../../models/xp")
+const XP = require("../../models/globalXp")
 const date = new Date();
 
 module.exports = {
@@ -24,7 +24,7 @@ module.exports = {
             msgEmbed.setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
             msgEmbed.setColor(message.guild.me.displayColor)
             sort.slice(0, amount).forEach(user => {
-                msgEmbed.addField(` #${rank}    ${user.UserName}`, `is level ${user.level} and has ${user.xp} xp\n and is in the server ${user.ServerName}\n`)
+                msgEmbed.addField(` #${rank}    ${user.UserName}`, `is level ${user.level} and has ${user.xp} xp\n`)
                 rank++
             })
             msgEmbed.setFooter("\n\n " + date.toLocaleString("en-US", { month: '2-digit', day: '2-digit', year: 'numeric', hour12: false, hour: '2-digit', minute: '2-digit' }))
