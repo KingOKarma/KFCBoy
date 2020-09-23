@@ -620,9 +620,8 @@ bot.on("message", message => {
     let xpGain = Math.ceil(message.content.length / 2)
 
     // if above 50, add 50
-    if (xpGain > 51) {
-        console.log("more than 50")
-        xpGain = Math.ceil(+50)
+    if (xpGain > 11) {
+        xpGain = Math.ceil(+10)
     }
 
     globalXp.findOne({ UserID: message.author.id }, (err, user) => {
@@ -634,12 +633,8 @@ bot.on("message", message => {
                 level: 0
             })
             newGlobalXp.save().catch(err => console.log(err))
-        } else  if (user.xp + xpGain >= user.level * 200) {
-            if (usedCommandRecentlly.has(message.author.id)) {
-            
-            } else {
+        } else  if (user.xp + xpGain >= user.level * 200 * 2) {
 
-                const levelEmbed = new Discord.MessageEmbed();
                 user.xp = user.xp + xpGain;
                 user.level = user.level + 1;
                 user.UserName = message.author.tag
@@ -647,7 +642,7 @@ bot.on("message", message => {
                 console.log(`${message.author.tag} has ${user.xp}xp and gained ${xpGain}xp, they are level ${user.level} globally\n\n in the server "${message.guild.name}" and leveled up with the message\n\n${message.content}\n\n`)
 
 
-            }
+            
         } else {
 
             if (delaySet.has(message.author.id)) {
@@ -659,7 +654,13 @@ bot.on("message", message => {
                 user.ServerName = message.guild.name
                 user.save().catch(err => console.log(err))
 
+                delaySet.add(message.author.id)
 
+                setTimeout(() => {
+
+                    delaySet.delete(message.author.id)
+
+                }, 10000);
             }
         }
 
