@@ -38,7 +38,7 @@ module.exports = {
                                 .addField('\u200b', '\u200b')
 
                                 .addField("Global XP for next level", gxp.level * 200 * 2, true)
-                                .addField("Global Xp left", xp.level * 200 * 2 - gxp.xp, true)
+                                .addField("Global Xp left", gxp.level * 200 * 2 - gxp.xp, true)
                                 .setThumbnail(guildIcon)
                                 .setColor(message.guild.me.displayColor)
                                 .setTimestamp()
