@@ -59,7 +59,7 @@ bot.on('ready', async () => {
     })
 });
 
-const usedCommandRecentlly = new Set();
+const usedCommandRecentllytext = new Set();
 bot.on('message', message => {
 
 
@@ -72,7 +72,7 @@ bot.on('message', message => {
     if (!message.content.toLowerCase().startsWith(prefix)) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const commandname = args.shift().toLowerCase();
-    if (usedCommandRecentlly.has(message.author.id)) {
+    if (usedCommandRecentllytext.has(message.author.id)) {
         message.reply("Woah there you can only use me so fast <a:kaineflushedeyes:708477282079211570> 3 seconds per command")
 
     } else {
@@ -126,9 +126,9 @@ bot.on('message', message => {
         } catch (error) {
             console.error(error);
         }
-        usedCommandRecentlly.add(message.author.id);
+        usedCommandRecentllytext.add(message.author.id);
         setTimeout(() => {
-            usedCommandRecentlly.delete(message.author.id)
+            usedCommandRecentllytext.delete(message.author.id)
         }, 3000);
     }
 
@@ -137,12 +137,29 @@ bot.on('message', message => {
 })
 
 
+// bot.on('message', async message => {
+//     if (!message.client.channels.cache.get("757416295636402198")) return
+//     if (!message.client.users.cache.get(config.botID))
+//     console.log("aa")
+//     const Image = new Discord.MessageCollector(message.channel)
+
+//     Image.once("collect", message => {
+//         message.channel.send("a")
+//         .then(() => {
+//             console.log(message.channel.name)
+//         })
+//     })
+
+//     console.log(Image.collected)
+
+// })
+
 
 bot.on('guildMemberAdd', async member => {
 
     if (member.guild != "605859550343462912") return;
     const karmakingdom = member.guild.me.client.guilds.cache.find(guild => guild.id === "605859550343462912")
-    const general = karmakingdom.channels.cache.find(channel => channel.id === "630881886725472256")
+    const general = karmakingdom.channels.cache.find(channel => channel.id === config.general)
     const Discord = require("discord.js");
     const Canvas = require('canvas');
 
@@ -532,7 +549,7 @@ bot.on("message", message => {
                         newUser.save().catch(err => console.log(err))
 
                     } else if (xp.xp + xpGain >= xp.level + xp.level * 200 * 2 ) {
-                        if (usedCommandRecentlly.has(message.author.id)) {
+                        if (delaySet.has(message.author.id)) {
 
                         } else {
 
@@ -596,6 +613,7 @@ bot.on("message", message => {
 })
 
 //global xp
+const GlobalDelayset = new Set()
 bot.on("message", message => {
     if (message.channel.type == "dm") return;
     if (message.author.bot) return;
@@ -603,13 +621,13 @@ bot.on("message", message => {
     let xpGain = Math.ceil(message.content.length / 2)
 
     // if above 50, add 50
-    if (xpGain > 51) {
-        console.log("more than 50")
-        xpGain = Math.ceil(+50)
+    if (xpGain > 11) {
+        xpGain = Math.ceil(+10)
     }
 
     globalXp.findOne({ UserID: message.author.id }, (err, user) => {
         if(!user) {
+            console.log("new User")
             const newGlobalXp = new globalXp({
                 UserID: message.author.id,
                 userName: message.author.tag,
@@ -617,10 +635,9 @@ bot.on("message", message => {
                 level: 0
             })
             newGlobalXp.save().catch(err => console.log(err))
-        } else  if (user.xp + xpGain >= user.level * 200) {
-            if (usedCommandRecentlly.has(message.author.id)) {
-            
-            } else {
+        } else  if (user.xp + xpGain >= user.level * 200 * 2) {
+            console.log("Level User")
+
 
                 user.xp = user.xp + xpGain;
                 user.level = user.level + 1;
@@ -629,19 +646,28 @@ bot.on("message", message => {
                 console.log(`${message.author.tag} has ${user.xp}xp and gained ${xpGain}xp, they are level ${user.level} globally\n\n in the server "${message.guild.name}" and leveled up with the message\n\n${message.content}\n\n`)
 
 
-            }
+            
         } else {
 
-            if (delaySet.has(message.author.id)) {
+            if (GlobalDelayset.has(message.author.id)) {
+                console.log("no User")
 
             } else {
+                console.log("msg User")
+
 
                 user.xp = user.xp + xpGain;
                 user.UserName = message.author.tag
                 user.ServerName = message.guild.name
                 user.save().catch(err => console.log(err))
 
+                GlobalDelayset.add(message.author.id)
 
+                setTimeout(() => {
+
+                    GlobalDelayset.delete(message.author.id)
+
+                }, 10000);
             }
         }
 
