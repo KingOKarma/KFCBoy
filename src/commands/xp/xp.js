@@ -21,7 +21,7 @@ module.exports = {
 
                 if (xp) {
 
-                    globalXp.findOne({}, (err, gxp) => {
+                    globalXp.findOne({UserID: User.id}, (err, gxp) => {
                         if (err) console.log(err);
 
                         if (gxp) {
