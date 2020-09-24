@@ -59,7 +59,7 @@ bot.on('ready', async () => {
     })
 });
 
-const usedCommandRecentlly = new Set();
+const usedCommandRecentllytext = new Set();
 bot.on('message', message => {
 
 
@@ -72,7 +72,7 @@ bot.on('message', message => {
     if (!message.content.toLowerCase().startsWith(prefix)) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const commandname = args.shift().toLowerCase();
-    if (usedCommandRecentlly.has(message.author.id)) {
+    if (usedCommandRecentllytext.has(message.author.id)) {
         message.reply("Woah there you can only use me so fast <a:kaineflushedeyes:708477282079211570> 3 seconds per command")
 
     } else {
@@ -126,9 +126,9 @@ bot.on('message', message => {
         } catch (error) {
             console.error(error);
         }
-        usedCommandRecentlly.add(message.author.id);
+        usedCommandRecentllytext.add(message.author.id);
         setTimeout(() => {
-            usedCommandRecentlly.delete(message.author.id)
+            usedCommandRecentllytext.delete(message.author.id)
         }, 3000);
     }
 
@@ -549,7 +549,7 @@ bot.on("message", message => {
                         newUser.save().catch(err => console.log(err))
 
                     } else if (xp.xp + xpGain >= xp.level + xp.level * 200 * 2 ) {
-                        if (usedCommandRecentlly.has(message.author.id)) {
+                        if (delaySet.has(message.author.id)) {
 
                         } else {
 
@@ -613,6 +613,7 @@ bot.on("message", message => {
 })
 
 //global xp
+const GlobalDelayset = new Set()
 bot.on("message", message => {
     if (message.channel.type == "dm") return;
     if (message.author.bot) return;
@@ -645,7 +646,7 @@ bot.on("message", message => {
             
         } else {
 
-            if (delaySet.has(message.author.id)) {
+            if (GlobalDelayset.has(message.author.id)) {
 
             } else {
 
@@ -654,11 +655,11 @@ bot.on("message", message => {
                 user.ServerName = message.guild.name
                 user.save().catch(err => console.log(err))
 
-                delaySet.add(message.author.id)
+                GlobalDelayset.add(message.author.id)
 
                 setTimeout(() => {
 
-                    delaySet.delete(message.author.id)
+                    GlobalDelayset.delete(message.author.id)
 
                 }, 10000);
             }
