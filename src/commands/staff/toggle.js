@@ -10,7 +10,7 @@ module.exports = {
 
 
 
-        switch (args[0]) {
+        switch (args[0].toLowerCase()) {
 
 
             case `responder`:
@@ -345,6 +345,39 @@ module.exports = {
                             })
         
                         break;
+                        case "currency":
+                            Toggle.findOne({
+                                ServerID: message.guild.id,
+                            },
+                                (err, toggle) => {
+            
+                                    if (err) console.log(err);
+                                    if (!toggle) {
+                                        message.channel.send("The Currency module has been disabled")
+                                        const newToggle = new Toggle({
+                                            ServerID: message.guild.id,
+                                            Command: "currency"
+                                        })
+            
+                                        newToggle.save().catch(err => console.log(err));
+            
+            
+                                        return
+            
+                                    } if (toggle) {
+                                        message.channel.send("The Currency module has been enabled")
+                                        Toggle.deleteOne({ ServerID: message.guild.id })
+                                            .catch((err) => {
+                                                console.log(err)
+                                            })
+            
+            
+            
+            
+                                    }
+                                })
+            
+                            break;
                     
     
 

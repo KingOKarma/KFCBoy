@@ -622,7 +622,6 @@ bot.on("message", message => {
             
             } else {
 
-                const levelEmbed = new Discord.MessageEmbed();
                 user.xp = user.xp + xpGain;
                 user.level = user.level + 1;
                 user.UserName = message.author.tag
