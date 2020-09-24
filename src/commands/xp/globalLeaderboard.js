@@ -20,7 +20,7 @@ module.exports = {
 
 
 
-                    globalXp.find({}, (err, users) => {
+                    globalXp.find({UserID: message.author.id}, (err, users) => {
                         const sort = users.sort(function (a, b) {
                             if (b.level === a.level) {
                                 return b.xp - a.xp
