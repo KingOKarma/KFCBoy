@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 const Toggle = require("../../models/toggle.js");
 const Xp = require("../../models/xp.js")
-const GXp = require("../../models/globalXp")
+const globalXp = require("../../models/globalXp")
 
 
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
 
                 if (xp) {
 
-                    GXp.findOne({}, (err, gxp) => {
+                    globalXp.findOne({}, (err, gxp) => {
                         if (err) console.log(err);
 
                         if (gxp) {
@@ -44,9 +44,9 @@ module.exports = {
                                 .setTimestamp()
                                 .setAuthor(User.tag, User.displayAvatarURL());
                             message.channel.send(levelEmbed)
-                                .catch(() =>
+                                .catch(() => {
                                     message.reply(`**${User.tag}** ${extraMSG2} level \`${xp.level}\` with \`${xp.xp}\`xp`)
-                                )
+                                })
                                 .catch((err) => {
                                     console.log(`Error, \"XP cmd\" Failed Reason: ${err} \nMessageAuthor : ${message.author.tag}\nGuild : ${message.guild.name}`)
                                     const ErrorEmbed = new Discord.MessageEmbed()

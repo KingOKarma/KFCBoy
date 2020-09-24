@@ -627,7 +627,6 @@ bot.on("message", message => {
 
     globalXp.findOne({ UserID: message.author.id }, (err, user) => {
         if(!user) {
-            console.log("new User")
             const newGlobalXp = new globalXp({
                 UserID: message.author.id,
                 userName: message.author.tag,
@@ -636,7 +635,6 @@ bot.on("message", message => {
             })
             newGlobalXp.save().catch(err => console.log(err))
         } else  if (user.xp + xpGain >= user.level * 200 * 2) {
-            console.log("Level User")
 
 
                 user.xp = user.xp + xpGain;
@@ -653,7 +651,7 @@ bot.on("message", message => {
                 console.log("no User")
 
             } else {
-                console.log("msg User")
+                console.log(`gave ${message.author.tag} \`${xpGain}\`xp`)
 
 
                 user.xp = user.xp + xpGain;

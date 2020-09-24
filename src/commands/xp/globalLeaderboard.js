@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const XP = require("../../models/globalXp")
+const globalXp = require("../../models/globalXp")
 const Toggle = require("../../models/toggle.js");
 const date = new Date();
 
@@ -20,7 +20,7 @@ module.exports = {
 
 
 
-                    XP.find({}, (err, users) => {
+                    globalXp.find({}, (err, users) => {
                         const sort = users.sort(function (a, b) {
                             if (b.level === a.level) {
                                 return b.xp - a.xp
