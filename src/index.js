@@ -648,10 +648,8 @@ bot.on("message", message => {
         } else {
 
             if (GlobalDelayset.has(message.author.id)) {
-                console.log("no User")
 
             } else {
-                console.log(`gave ${message.author.tag} \`${xpGain}\`xp`)
 
 
                 user.xp = user.xp + xpGain;
