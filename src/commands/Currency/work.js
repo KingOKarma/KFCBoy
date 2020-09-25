@@ -1,11 +1,13 @@
 const Discord = require("discord.js");
 const Toggle = require("../../models/toggle");
 const currency = require("../../models/currency");
-const work = require("../../models/work")
+const work = require("../../models/work");
+const stopWork = new Set();
 
 module.exports = {
     name: "work",
     run: (_, message, args) => {
+        
 
         Toggle.findOne({
             ServerID: message.guild.id,
@@ -30,10 +32,16 @@ module.exports = {
                                       .setFooter("\nto \"apply\" for a job use k!work [Work nickname here]")
                                     message.channel.send(embed)
                                 } else {
-                                    const earnings = Math.round(Math.random(100, 300))
-                                    if(user.premium) earnings = earnings * 1.5;
-                                    user.Nuggies = user.Nuggies + earnings;
-                                    user.save().catch(err => console.log(err))
+                                    if (stopWork.has(message.author.id)) {
+                                        message.reply("sorry man but i dont want an overflow of nuggies")
+                                    } else {
+                                        const earnings = Math.floor(Math.random() * (300 - 100 + 1) ) + 100;
+                                        if(user.premium) earnings = earnings * 1.5;
+                                        user.Nuggies = user.Nuggies + earnings;
+                                        user.save().catch(err => console.log(err))
+                                        stopWork.add(message.author.id)
+                                        message.channel.send(`you earned ${earnings} <:chickennuggie:706268265424355399>`)
+                                    }
                                 }
                             } else {
                                 work.findOne({
@@ -56,7 +64,7 @@ module.exports = {
                                                             })
                                                             newWorker.save().catch(err => console.log(err))
                                                             newUser.save().catch(err => console.log(err))
-                                                            message.chanel.send("you are now working as \"Chicken nuggie fryer\"")
+                                                            message.channel.send("you are now working as \"Chicken nuggie fryer\"")
                                                         break;
                                                         case "inspector":
                                                             const newWorker2 = new work({
