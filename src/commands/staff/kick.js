@@ -29,6 +29,11 @@ module.exports = {
                     var reason = args.join(" ").slice(23)
                     console.log(args[2])
 
+                    if (args[0].match(/<@!+/)) {
+                        console.log("! in the thing")
+                        var reason = args.join(" ").slice(22)
+                    }
+
                     console.log(args[0] + " This is args 1")
                     if (args[0].match(/^(\d{18})$/)) {
                         console.log("ID was found")

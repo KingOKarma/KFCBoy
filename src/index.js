@@ -236,7 +236,7 @@ bot.on('guildMemberAdd', async member => {
         .setColor(member.guild.me.displayColor)
         .addField("info", "**You can get all the info you need at <#706291446252175400>** <:Kawaii:705565375647186984> \n If you have any questions just DM <@614469989134630944> \n And Finally you can go to <#684533907151913011> to assign yourself somes roles! <:Kainepog:709455703567499326>")
         .attachFiles(attachment)
-        // .setImage('/home/karma/bots/KFCBoy/src/images/Discordwelcome2.png');
+    // .setImage('/home/karma/bots/KFCBoy/src/images/Discordwelcome2.png');
     general.send(embedjoin)
 
     const Welcome = require("./models/welcome");
@@ -276,7 +276,7 @@ bot.on("guildCreate", guild => {
         .setAuthor("KFC Bucket Boi", guild.client.user.displayAvatarURL())
         .setColor("0x36cbf5")
         .setDescription(`**KFC Bucket Boi has joined **\`${guild.name}\` **with the id of **\`${guild.id}\` \n Server owned by \`${guild.owner.user.tag}\` has \`${guild.memberCount}\` members`)
-        .setThumbnail(guild.iconURL())
+        .setThumbnail(guild.iconURL({ dynamic: true }))
         .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
     channeljoin.send(embed)
 
@@ -300,7 +300,7 @@ bot.on("guildDelete", guild => {
         .setColor("0xFF0000")
         .setDescription(`**KFC Bucket Boi has left **\`${guild.name}\` **with the id of **\`${guild.id}\` \n Server owned by \`${guild.owner.user.tag}\` has \`${guild.memberCount}\` members`)
 
-        .setThumbnail(guild.iconURL())
+        .setThumbnail(guild.iconURL({ dynamic: true }))
         .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
     channeljoin.send(embed)
 
@@ -548,7 +548,7 @@ bot.on("message", message => {
                         })
                         newUser.save().catch(err => console.log(err))
 
-                    } else if (xp.xp + xpGain >= xp.level + xp.level * 200 * 2 ) {
+                    } else if (xp.xp + xpGain >= xp.level + xp.level * 200 * 2) {
                         if (delaySet.has(message.author.id)) {
 
                         } else {
@@ -626,8 +626,7 @@ bot.on("message", message => {
     }
 
     globalXp.findOne({ UserID: message.author.id }, (err, user) => {
-        if(!user) {
-            console.log("new User")
+        if (!user) {
             const newGlobalXp = new globalXp({
                 UserID: message.author.id,
                 userName: message.author.tag,
@@ -635,25 +634,22 @@ bot.on("message", message => {
                 level: 0
             })
             newGlobalXp.save().catch(err => console.log(err))
-        } else  if (user.xp + xpGain >= user.level * 200 * 2) {
-            console.log("Level User")
+        } else if (user.xp + xpGain >= user.level * 200 * 2) {
 
 
-                user.xp = user.xp + xpGain;
-                user.level = user.level + 1;
-                user.UserName = message.author.tag
-                user.save().catch(err => console.log(err));
-                console.log(`${message.author.tag} has ${user.xp}xp and gained ${xpGain}xp, they are level ${user.level} globally\n\n in the server "${message.guild.name}" and leveled up with the message\n\n${message.content}\n\n`)
+            user.xp = user.xp + xpGain;
+            user.level = user.level + 1;
+            user.UserName = message.author.tag
+            user.save().catch(err => console.log(err));
+            console.log(`${message.author.tag} has ${user.xp}xp and gained ${xpGain}xp, they are level ${user.level} globally\n\n in the server "${message.guild.name}" and leveled up with the message\n\n${message.content}\n\n`)
 
 
-            
+
         } else {
 
             if (GlobalDelayset.has(message.author.id)) {
-                console.log("no User")
 
             } else {
-                console.log("msg User")
 
 
                 user.xp = user.xp + xpGain;
