@@ -3,7 +3,7 @@ const Toggle = require("../../models/toggle.js");
 module.exports = {
     name: 'avatar',
     aliases: ["av"],
-    run: (_, message, args, prefix) => {
+    run: (_, message, args, prefix, MongoToggle, theUser) => {
         if (!message.guild.me.permissionsIn(message.channel).has("EMBED_LINKS")) return message.channel.send("I need the permission __**\"Embed Links\"**__ to use this command")
         Toggle.findOne({
             ServerID: message.guild.id,
@@ -15,35 +15,62 @@ module.exports = {
                 if (!toggle) {
 
                     const embed = new Discord.MessageEmbed()
-                    mention = message.mentions.users.first();
 
 
+                    if (theUser) {
+                        var targetUser = theUser.user
 
-
-                    if (args[1] = mention) {
-                        embed
-                            .setAuthor(mention.tag, mention.displayAvatarURL({ dynamic: true }))
-                            .setTitle('**Users Avatar and ID is:**')
-                            .addField(mention.id, mention)
-                            .setImage(`${mention.displayAvatarURL({ dynamic: true })}?size=1024`)
-                            .setColor(message.guild.me.displayColor)
-
-                        message.channel.send(embed);
                     }
 
 
-
-
-
-                    if (args[1] == null) {
+                    if (args[0] === undefined) {
                         embed
                             .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
-                            .setTitle('**Your Avatar is:**')
-                            .addField(message.author.id, message.author)
+                            .setTitle(`**Your avatar is:**`)
                             .setImage(`${message.author.displayAvatarURL({ dynamic: true })}?size=1024`)
                             .setColor(message.guild.me.displayColor)
 
                         message.channel.send(embed);
+                        return
+                    }
+                    else if (targetUser === undefined) {
+                        embed
+                            .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
+                            .setTitle(`**Your avatar is:**`)
+                            .setImage(`${message.author.displayAvatarURL({ dynamic: true })}?size=1024`)
+                            .setColor(message.guild.me.displayColor)
+
+                        message.channel.send(embed);
+                        return
+                    } else if (theUser.id === message.author.id) {
+                        embed
+                            .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
+                            .setTitle(`**Your avatar is:**`)
+                            .setImage(`${message.author.displayAvatarURL({ dynamic: true })}?size=1024`)
+                            .setColor(message.guild.me.displayColor)
+
+                        message.channel.send(embed);
+                        return
+
+                    } else if (theUser.id === "614110037291565056") {
+                        embed
+                            .setAuthor(targetUser.tag, targetUser.displayAvatarURL({ dynamic: true }))
+                            .setTitle(`**I mean.. my avatar is:**`)
+                            .setImage(`${targetUser.displayAvatarURL({ dynamic: true })}?size=1024`)
+                            .setColor(message.guild.me.displayColor)
+
+                        message.channel.send(embed);
+                        return
+
+                    } else {
+                        embed
+                            .setAuthor(targetUser.tag, targetUser.displayAvatarURL({ dynamic: true }))
+                            .setTitle(`**${targetUser.tag} avatar is:**`)
+                            .setImage(`${targetUser.displayAvatarURL({ dynamic: true })}?size=1024`)
+                            .setColor(message.guild.me.displayColor)
+
+                        message.channel.send(embed);
+                        return
                     }
 
                 }

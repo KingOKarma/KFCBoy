@@ -7,7 +7,7 @@ const Toggle = require("../../models/toggle.js");
 module.exports = {
     name: `viewrep`,
     aliases: ["repview"],
-    run: async (_, message, args, bot, prefix) => {
+    run: (_, message, args, prefix, MongoToggle, theUser) => {
         if (!message.guild.me.permissionsIn(message.channel).has("EMBED_LINKS")) return message.channel.send("I need the permission __**\"Embed Links\"**__ to use this command")
 
         Toggle.findOne({
@@ -19,9 +19,9 @@ module.exports = {
                 if (!toggle) {
 
 
-
-
-                    let targetUser = message.guild.member(message.mentions.users.first());
+                    if (theUser) {
+                        var targetUser = theUser.user
+                    }
 
 
                     if (targetUser) {
@@ -32,10 +32,10 @@ module.exports = {
                             (err, rep) => {
                                 if (err) console.log(err);
                                 let repEmbed = new Discord.MessageEmbed()
-                                    .setAuthor(targetUser.user.tag, targetUser.user.displayAvatarURL({ dynamic: true }))
+                                    .setAuthor(targetUser.tag, targetUser.displayAvatarURL({ dynamic: true }))
                                     .setColor(message.guild.me.displayColor)
-                                    .setThumbnail(targetUser.user.displayAvatarURL({ dynamic: true }))
-                                    .setTitle(`${targetUser.displayName} Reputation:`)
+                                    .setThumbnail(targetUser.displayAvatarURL({ dynamic: true }))
+                                    .setTitle(`${targetUser.tag} Reputation:`)
 
                                 if (!rep) {
                                     repEmbed.addField("Reputation", "0", true);
