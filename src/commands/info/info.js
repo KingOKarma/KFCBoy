@@ -20,10 +20,18 @@ module.exports = {
                 if (err) console.log(err);
                 if (!toggle) {
 
+
+
+                    let guildicon = message.guild.iconURL({ dynamic: true })
+
+                    if (!message.guild.iconURL()) {
+                        guildicon = "https://cdn.discordapp.com/attachments/643347490925445132/758369629155360818/2Q.png"
+                    }
+
                     // case true: {
                     const embed = new Discord.MessageEmbed()
                         .setTitle('User/Bot Information')
-                        .setThumbnail(`${message.guild.iconURL({ dynamic: true })}?size=1024`)
+                        .setThumbnail(guildicon)
                         .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
                         .setColor(message.guild.me.displayColor)
                         .setDescription("KFC Bucket Boy is your new best friend!\nBot owned and written by <@406211463125008386> **King Of Karma#0069**")

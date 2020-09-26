@@ -19,6 +19,13 @@ module.exports = {
                 if (!toggle) {
 
 
+                    let guildicon = message.guild.iconURL({ dynamic: true })
+
+
+                    if (!message.guild.iconURL({ dynamic: true })) {
+                        guildicon = "https://cdn.discordapp.com/attachments/643347490925445132/758369629155360818/2Q.png"
+                    }
+
 
                     globalXp.find({}, (err, users) => {
                         const sort = users.sort(function (a, b) {
@@ -34,6 +41,7 @@ module.exports = {
                         let msgEmbed = new Discord.MessageEmbed()
                         msgEmbed.setTitle(`Top ${amount} global level rankings`)
                         msgEmbed.setDescription(`Your rank is #${userRanking + 1}`)
+                        msgEmbed.setThumbnail(guildicon)
                         msgEmbed.setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
                         msgEmbed.setColor(message.guild.me.displayColor)
                         sort.slice(0, amount).forEach(user => {
