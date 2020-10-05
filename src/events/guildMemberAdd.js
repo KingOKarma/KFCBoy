@@ -7,7 +7,7 @@ const message = require('./message');
 
 
 
-module.exports = async (bot, member) => {  // Create a new RichEmbed
+module.exports = async (bot, member) => {  
 
     if (member.guild != "605859550343462912") return;
     const karmakingdom = member.guild.me.client.guilds.cache.find(guild => guild.id === "605859550343462912")
