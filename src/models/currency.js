@@ -5,8 +5,6 @@ const CurrencyShcema = new mongoose.Schema({
     UserID: String,
     ServerID: String,
     Inventory: Map,
-    Premium: Boolean,
-    Work: String,
 });
 
 module.exports = mongoose.model("Currency", CurrencyShcema)
