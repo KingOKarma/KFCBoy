@@ -197,6 +197,23 @@ module.exports = async (bot, member) => {  // Create a new RichEmbed
 
 
 
+    const embed = new Discord.MessageEmbed() // Create a new RichEmbed
+    .setColor('GREEN')
+    .setTimestamp()
+    .setFooter(`ID: ${message.id}`)
+    .setAuthor(member.user.tag, member.user.displayAvatarURL({ dynamic: true}))
+    .setTitle(`Member Joined!`)
+    .setDescription(`Ping: ${member}`);
+
+  member.guild.channels.cache.find(channel => channel.id === '660595725134069760').send({ 
+    embed
+  });
+
+
+
+
+
+
 
 
 
