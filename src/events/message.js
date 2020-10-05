@@ -216,6 +216,7 @@ module.exports = async (bot, message) => {
             Command: "Xp"
         },
             (err, toggle) => {
+                if (message.author.bot) return
                 if (err) console.log(err);
                 if (!toggle) {
 
@@ -326,6 +327,8 @@ module.exports = async (bot, message) => {
         }
 
         globalXp.findOne({ UserID: message.author.id }, (err, user) => {
+            if (message.author.bot) return
+
             if (!user) {
                 const newGlobalXp = new globalXp({
                     UserID: message.author.id,
