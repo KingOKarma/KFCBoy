@@ -9,6 +9,8 @@ const message = require('./message');
 
 module.exports = async (bot, member) => {  
 
+    if(member.guild.id != "605859550343462912") return
+
     const embed = new Discord.MessageEmbed() // Create a new RichEmbed
     .setColor('RED')
     .setTimestamp()
