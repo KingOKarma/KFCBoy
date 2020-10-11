@@ -371,7 +371,7 @@ module.exports = {
                                         message.channel.send("The Currency module has been disabled")
                                         const newToggle = new Toggle({
                                             ServerID: message.guild.id,
-                                            Command: "currency"
+                                            Command: "Currency"
                                         })
             
                                         newToggle.save().catch(err => console.log(err));
