@@ -111,16 +111,28 @@ module.exports = {
                           message.reply("youre now working as a \"Chicken-nuggie inspector\"")
                           break;
 
-                          
-                          
-                      
                         default:
                           message.channel.send("not a valid job or action")
                           break;
                       }
                       
                     } else {
-                      message.channel.send("please dont stress yourself. 1 work place is enough")
+                      if(args[0] = "leave") {
+                        if(!worker) {
+                          message.channel.send("you cant resign from being lazy")
+                        } else {
+                          work.findOneAndRemove(
+                            {
+                              ServerID: message.guild.id,
+                              UserID: message.author.id,
+                              Work: worker.Work,
+                            }, (err, del) => {
+                              message.channel.send("you are now homeless and have no job. congrats")
+                            })
+                        }
+                      } else {
+                        message.channel.send("please dont stress yourself. 1 work place is enough")
+                      }
                     }
                   }
                 }
