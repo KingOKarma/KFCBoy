@@ -1,10 +1,16 @@
 const mongoose = require("mongoose");
 
 const CurrencyShcema = new mongoose.Schema({
-    Nuggies: Number,
+    Nuggies: {
+        type: Number,
+        default: 0,
+    },
     UserID: String,
     ServerID: String,
-    Inventory: Map,
+    Inventory: {
+        type: Map,
+        default: "",
+    }
 });
 
 module.exports = mongoose.model("Currency", CurrencyShcema)

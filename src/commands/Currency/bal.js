@@ -5,41 +5,33 @@ const Toggle = require("../../models/toggle");
 module.exports = {
   name: "nuggies",
   aliases: ["bal", "money"],
-  run: (_, message, args) => {
+  run: (_, message, args, prefix, MongoToggle, theUser) => {
     Toggle.findOne(
       {
         ServerID: message.guild.id,
-        Command: "currency",
+        Command: "Currency",
       },
       (err, toggle) => {
         if (err) console.log(err);
         if (!toggle) {
+          const User = theUser || message.author
           currency.findOne(
-            { UserID: message.author.id, ServerID: message.guild.id },
+            {
+              UserID: User.id,
+              ServerID: message.guild.id,
+            },
             (err, user) => {
               if (!user) {
                 message.reply(
-                  'it seems like you havent started working yet. use "k!work list" to see available jobs'
+                  'it seems like you/they havent started working yet. you/they acn use "k!work" to see available jobs'
                 );
               } else {
-                if (!args) {
-                  const thumbnail =
-                    message.guild.iconURL ||
-                    "https://cdn.discordapp.com/attachments/643347490925445132/758369629155360818/2Q.png";
-                  var embed = new Discord.MessageEmbed()
-                    .setThumbnail(thumbnail)
-                    .setAuthor(
-                      message.author.tag,
-                      message.author.displayAvatarURL({ dynamic: true })
-                    )
-                    .addField(
-                      message.author.tag,
-                      `has ${user.Nuggies} <:chickennuggie:706268265424355399>`
-                    )
-                    .setTimestamp();
-                  message.send(embed);
+                const embed = new Discord.MessageEmbed()
+                .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
+                .setTimestamp()
+                .setTitle(`${User.tag.slice(0, -5)} has ${user.Nuggies} <:chickennuggie:706268265424355399>`)
+                message.channel.send(embed)
                 }
-              }
             }
           );
         } else {

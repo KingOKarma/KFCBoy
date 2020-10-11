@@ -64,8 +64,7 @@ module.exports = {
                       message.channel.send(embed);
                     } else {
                       // gain nuggies...
-
-                      var gain = Math.ceil(Math.random() * (300 - 100) + 100);
+                      var gain = Math.ceil(Math.random() * (300 - 100) + 100)
 
                       user.Nuggies = user.Nuggies + gain;
                       user.save().catch(err => console.log(err))
