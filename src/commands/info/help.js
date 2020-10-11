@@ -115,10 +115,15 @@ module.exports = {
             .addField('\u200b', '\u200b')
 
 
-            .addField('**[👑] __XP Commnads__**', '```These commands is to be used by staff of a server```')
+            .addField('**[👑] __XP Commnads__**', '```These commands is to be used by all members of a server```')
             .addField('xp', '- Shows how much xp a user has\n**alias: k!exp**', true)
             .addField('leaderboard', '- shows the current leaderboard of the server\n**aliases: k!lb and k!top**.\n **example: k!leaderboard 10**', true)
             .addField('global-leaderboard', "- shows the current global leaderboard \n **aliases: k!glb and k!gtop**\n **example: k!gtop 10**", true)
+
+            // currency
+            .addField('**[👑] __Currency/Work Commnads__**', '```These commands is to be used by all members of a server```')
+            .addField('work', '- Is the base command of everything', true)
+            .addField('bal', '- Shows you current amount of Chicken Nuggies<:chickennuggie:706268265424355399>', true)
 
 
             .setFooter('Use the Prefix `k!` at the start of the command to use the command eg "k!ping"')
