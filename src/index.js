@@ -5,9 +5,6 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const config = require('./config.json');
 const mongoose = require("mongoose");
-const Toggle = require("./models/toggle.js");
-const Xp = require("./models/xp.js")
-const globalXp = require("./models/globalXp")
 
 
 let token = config.token
@@ -59,10 +56,18 @@ fs.readdir(`./events/`, (err, files) => {
 
 
 
+
+
 const usedCommandRecentllytext = new Set();
+
+
 
 bot.on("message", message => {
     //command handler
+
+
+
+
     if (message.channel.type == "dm") return;
     if (message.author.bot) return;
 

@@ -4,8 +4,6 @@ const bot = new Discord.Client();
 const config = require('../config.json');
 
 
-
-
 module.exports = (bot) => {
 
 
@@ -31,6 +29,17 @@ module.exports = (bot) => {
             type: "WATCHING"
         }
     });
+
+
+
+
+        console.log("attempting join....")
+        bot.emit('messageReactionAdd', "🏓");
+    
+
+
+  
+    
 
 
 
