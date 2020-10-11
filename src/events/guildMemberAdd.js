@@ -86,7 +86,7 @@ module.exports = async (bot, member) => {
         .setAuthor(member.user.tag, member.user.displayAvatarURL({ dynamic: true }))
         .setDescription(`**Welcome <@${member.id}>, to the Karma Kingdom! <:Kainesip:706267804957016156>** \n**\`-\`[Twitch](https://www.twitch.tv/King_O_Karma)** and **[YouTube](https://www.youtube.com/channel/UCR8Mc2F5UV672cv3Z7KUn1g?view_as=subscriber)**\n \`-\`**[Invite me to your server!](https://invite.bucketbot.dev)**`)
         .setColor(member.guild.me.displayColor)
-        .addField("info", "**You can get all the info you need at <#706291446252175400>** <:Kawaii:705565375647186984> \n If you have any questions just DM <@614469989134630944> \n And Finally you can go to <#684533907151913011> to assign yourself somes roles! <:Kainepog:709455703567499326>")
+        .addField("info", "**You can get all the info you need at <#706291446252175400>** <:Kawaii:705565375647186984> \n If you have any questions just DM <@614469989134630944> \n And Finally you can go to <#757416295636402198> to assign yourself somes roles! <:Kainepog:709455703567499326>")
         .attachFiles(attachment)
     // .setImage('/home/karma/bots/KFCBoy/src/images/Discordwelcome2.png');
     general.send(embedjoin)

@@ -25,7 +25,7 @@ dbl.on('error', e => {
 
 
 let MongoToggle = config.tgtoggle
-mongoose.connect(MongoToggle, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MongoToggle, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
     .catch(err => {
         console.error("mongoose error" + err);
     })
