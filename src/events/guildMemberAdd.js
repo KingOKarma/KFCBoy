@@ -9,7 +9,9 @@ const message = require('./message');
 
 module.exports = async (bot, member) => {  
 
-    if (member.guild != "605859550343462912") return;
+    if (member.user.bot) return;
+
+    if (member.guild.id != "605859550343462912") return console.log("Bots are not people smh");
     const karmakingdom = member.guild.me.client.guilds.cache.find(guild => guild.id === "605859550343462912")
     const general = karmakingdom.channels.cache.find(channel => channel.id === config.general)
     const Discord = require("discord.js");
