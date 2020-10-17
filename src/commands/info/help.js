@@ -110,6 +110,7 @@ module.exports = {
             .addField('modlogs', '- Grabs the logs of a user  \n**alias: k!modlog**', true)
             .addField('purge', '- Mass deletes a select number of msgs  \n**aliases: k!prune, k!delete**', true)
             .addField('toggle', '- Toggle\'s Modules within the bot.\n**alias: k!tg**', true)
+            .addField('removelogs', '- This removes all cases/logs of the mentioned user. \n**alias: k!rmlogs**', true)
 
 
             .addField('\u200b', '\u200b')
