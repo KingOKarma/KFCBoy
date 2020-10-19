@@ -1,0 +1,11 @@
+{
+    "token": "BOT TOKEN",
+    "prefix": "PREFIX",
+    "tgtoggle": "mongodb+srv://DATABASE USERNAME:DATABASE PASSWORD@MONGO LINK/DATABASE NAME FOR EVERYTHING ELSE?retryWrites=true&w=majority",
+    "tgrep": "mongodb+srv://DATABASE USERNAME:DATABASE PASSWORD@MONGO LINK/DATABASE NAME FOR REP?retryWrites=true&w=majority",
+    "os": "Either 'Windows', 'Mac' OR 'Linux'",
+    "Welcomecmd": "WELCOME EMIT COMMAND",
+    "general": "GENERAL CHAT ID",
+    "botID": "BOT ID"
+
+}
