@@ -7,6 +7,7 @@ const CurrencyShcema = new mongoose.Schema({
     },
     UserID: String,
     ServerID: String,
+    UserName: String,
     Inventory: {
         type: Map,
         default: "",

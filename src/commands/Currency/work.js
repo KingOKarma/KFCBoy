@@ -33,6 +33,8 @@ module.exports = {
                       const newUser = new currency({
                         ServerID: message.guild.id,
                         UserID: message.author.id,
+                        UserName: message.author.tag,
+
                       });
                       newUser.save().catch((err) => console.log(err));
                     }
@@ -69,6 +71,7 @@ module.exports = {
                         var gain = Math.ceil(Math.random() * (300 - 100) + 100)
 
                         user.Nuggies = user.Nuggies + gain;
+                        user.UserName = message.author.tag
                         user.save().catch(err => console.log(err))
                         message.reply(`you earned ${gain} <:chickennuggie:706268265424355399>`)
                         stopWork.add(message.author.id);
