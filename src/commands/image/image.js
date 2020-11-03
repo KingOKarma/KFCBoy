@@ -38,7 +38,7 @@ module.exports = {
 
         var options = {
 
-            url: "http://results.dogpile.com/serp?qc=images&q=" + args.join(' '),
+            url: "https://results.dogpile.com/serp?qc=images&q=" + args.join(' '),
 
             method: "GET",
 
