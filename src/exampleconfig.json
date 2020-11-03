@@ -6,6 +6,9 @@
     "os": "Either 'Windows', 'Mac' OR 'Linux'",
     "Welcomecmd": "WELCOME EMIT COMMAND",
     "general": "GENERAL CHAT ID",
-    "botID": "BOT ID"
+    "botID": "BOT ID",
+    "ImgurClientID": "Imgur_CLIENT_ID",
+    "ImgurClientSecret": "Imgur_CLIENT_SECRET"
+
 
 }
