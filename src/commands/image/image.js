@@ -47,35 +47,50 @@ module.exports = {
 
                     if (Ranimg == undefined) {
 
-                    message.reply("Sorry but I couldn't find anything?")
-                    message.channel.stopTyping();
+                        message.reply("Sorry but I couldn't find anything?")
+                        message.channel.stopTyping();
                         return
 
                     }
 
-                    let link = Ranimg.images[0].link
+                    let link = "no"
 
-
-                    if (Ranimg.images[0].link === undefined) {
-                        console.log("its not an images array")
+                    if (!Ranimg.images) {
+                        console.log("It's not an images array")
 
                         link = Ranimg.link
+
+                    } else {
+
+
+                        console.log("Images array does exist")
+
+                        link = Ranimg.images[0].link
+
+
                     }
                     console.log(link)
+
+
+                    if (link === "no") {
+                        message.channel.stopTyping();
+                        message.reply("There was a problem? try again sorry!")
+                        return
+                    }
 
                     const embed = new Discord.MessageEmbed()
                     embed
                         .setAuthor(message.author.tag, message.author.displayAvatarURL())
                         .setTitle(`**${args.join(" ")}**`)
                         .setImage(`${link}`)
-                        .setFooter(`Image found from ${link}`)
+                        .setDescription(`File found from ${link} (If the file isn't showing just click the link! as the file may be too big for discord.)`)
                         .setColor(message.guild.me.displayColor)
-                    return message.channel.send(embed)
-                    .then(() => message.channel.stopTyping())
+                    message.channel.send(embed)
                     .catch((err) => {
                         console.log(err)
-                        message.channel.stopTyping()
                     })
+                    message.channel.stopTyping()
+                       
                 }
                 if (toggle) return message.channel.send("This server has the \"Image\" module disabled")
             })
