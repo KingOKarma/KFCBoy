@@ -40,48 +40,48 @@ if (config.Version === "product") {
     dbl.webhook.on('ready', hook => {
         console.log(`Webhook running \n http://${hook.hostname}:${hook.port}${hook.path}`);
     });
-    // dbl.webhook.on('vote', async (voter) => {
+    dbl.webhook.on('vote', async (voter) => {
 
-    // //     console.log('Listening');
-    // //     console.log(`${voter} has voted!`);
-    // //     let guild = client.guilds.cache.get(config.MainServerID)
-    // //     let channel = guild.channels.cache.get(config.VoteChannelID)
-
-
-    // //     const fetch = require('node-fetch');
-    // //     const config = require("../../config.json")
+        console.log('Listening');
+        console.log(`${voter} has voted!`);
+        let guild = client.guilds.cache.get(config.MainServerID)
+        let channel = guild.channels.cache.get(config.VoteChannelID)
 
 
-    // //     const res = await fetch(
-    // //         `https://top.gg/api/users/${voter.user}`,
-    // //         {
-    // //             headers: {
-    // //                 'Authorization': `Authorization: ${config.Topgg_API_TOKEN}`
-    // //             }
-    // //         }
-    // //     );
-    // //     if (res.status !== 200) {
-    // //         throw new Error(`Received a ${res.status} status code`);
-    // //     }
-
-    // //     const body = await res.json();
-
-    // //     let tag = `${body.username}#${body.discriminator}`
+        const fetch = require('node-fetch');
+        const config = require("../../config.json")
 
 
-    // //     const embed = new Discord.MessageEmbed()
+        const res = await fetch(
+            `https://top.gg/api/users/${voter.user}`,
+            {
+                headers: {
+                    'Authorization': `Authorization: ${config.Topgg_API_TOKEN}`
+                }
+            }
+        );
+        if (res.status !== 200) {
+            throw new Error(`Received a ${res.status} status code`);
+        }
 
-    // //         .setAuthor(tag, `https://cdn.discordapp.com/avatars/${voter}/${body.avatar}.png`)
-    // //         .setDescription(`**${tag}** Has upvoted KFC Bucket Boy over at <https://top.gg/bot/614110037291565056>`)
-    // //         .setFooter("You can also vote it will make me very happy")
+        const body = await res.json();
 
-    // //     channel.send(embed)
+        let tag = `${body.username}#${body.discriminator}`
 
 
-    // //     // const message = new Discord.Message(bot, messageContent, channel)
+        const embed = new Discord.MessageEmbed()
+
+            .setAuthor(tag, `https://cdn.discordapp.com/avatars/${voter}/${body.avatar}.png`)
+            .setDescription(`**${tag}** Has upvoted KFC Bucket Boy over at <https://top.gg/bot/614110037291565056>`)
+            .setFooter("You can also vote it will make me very happy")
+
+        channel.send(embed)
 
 
-    // });
+    //     // const message = new Discord.Message(bot, messageContent, channel)
+
+
+    });
 
 
 
