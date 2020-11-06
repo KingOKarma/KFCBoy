@@ -13,16 +13,9 @@ let prefix = config.prefix
 
 //checks if bot version is dev or product
 if (config.Version === "product") {
-    // const express = require('express');
-    // const http = require('http');
-
-    // const app = express();
-    // const server = http.createServer(app);
-
 
     const DBL = require("dblapi.js");
     let Topgg = config.topgg
-    // const dbl = new DBL(Topgg, { webhookAuth: "KFC", webhookServer: app }, bot);
     const dbl = new DBL(Topgg, { webhookPort: 5000, webhookAuth: "KFC" }, bot);
 
 
@@ -43,7 +36,7 @@ if (config.Version === "product") {
     dbl.webhook.on('vote', async (voter) => {
 
         const fetch = require('node-fetch');
-        const config = require("../../config.json")
+        const config = require("./config.json")
 
         console.log('Listening');
         console.log(`${voter} has voted!`);
@@ -85,14 +78,6 @@ if (config.Version === "product") {
 
 
 
-    // app.get('/', (req, res) => {
-    //     // ...
-    // });
-
-    // server.listen(5000, () => {
-
-
-    // })
 }
 
 let MongoToggle = config.tgtoggle
