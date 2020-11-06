@@ -37,8 +37,7 @@ if (config.Version === "product") {
     const http = require('http');
 
 
-    const app = express();
-    const server = http.createServer(app);
+
 
     https://canary.discord.com/api/webhooks/703390149823823912/J1NJOdk0AJlhKV1lq4obT71KVFzC0eKJ96RLb2XvP-hnKRTaEsjXadgtUZz9z1pI2qvx
 
