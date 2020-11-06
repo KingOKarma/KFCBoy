@@ -15,7 +15,7 @@ let prefix = config.prefix
 if (config.Version === "product") {
     // const express = require('express');
     // const http = require('http');
-    
+
     // const app = express();
     // const server = http.createServer(app);
 
@@ -23,7 +23,7 @@ if (config.Version === "product") {
     const DBL = require("dblapi.js");
     let Topgg = config.topgg
     // const dbl = new DBL(Topgg, { webhookAuth: "KFC", webhookServer: app }, bot);
-    const dbl = new DBL(Topgg, bot);
+    const dbl = new DBL(Topgg, { webhookPort: 5000, webhookAuth: "KFC" }, bot);
 
 
     // Optional events
@@ -37,16 +37,10 @@ if (config.Version === "product") {
 
 
 
-
-
-
-
-   // https://canary.discord.com/api/webhooks/703390149823823912/J1NJOdk0AJlhKV1lq4obT71KVFzC0eKJ96RLb2XvP-hnKRTaEsjXadgtUZz9z1pI2qvx
-
-    // // dbl.webhook.on('ready', hook => {
-    // //     console.log(`Webhook running with path ${hook.path}`);
-    // // });
-    // // dbl.webhook.on('vote', async (voter) => {
+    dbl.webhook.on('ready', hook => {
+        console.log(`Webhook running \n http://${hook.hostname}:${hook.port}${hook.path}`);
+    });
+    // dbl.webhook.on('vote', async (voter) => {
 
     // //     console.log('Listening');
     // //     console.log(`${voter} has voted!`);
