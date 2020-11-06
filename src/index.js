@@ -22,7 +22,9 @@ if (config.Version === "product") {
 
     const DBL = require("dblapi.js");
     let Topgg = config.topgg
-    const dbl = new DBL(Topgg, { webhookAuth: "KFC", webhookServer: app }, bot);
+    // const dbl = new DBL(Topgg, { webhookAuth: "KFC", webhookServer: app }, bot);
+    const dbl = new DBL(Topgg, bot);
+
 
     // Optional events
     dbl.on('posted', () => {
