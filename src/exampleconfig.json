@@ -3,12 +3,17 @@
     "prefix": "PREFIX",
     "tgtoggle": "mongodb+srv://DATABASE USERNAME:DATABASE PASSWORD@MONGO LINK/DATABASE NAME FOR EVERYTHING ELSE?retryWrites=true&w=majority",
     "tgrep": "mongodb+srv://DATABASE USERNAME:DATABASE PASSWORD@MONGO LINK/DATABASE NAME FOR REP?retryWrites=true&w=majority",
-    "os": "Either 'Windows', 'Mac' OR 'Linux'",
+    "Version": "dev or product",
     "Welcomecmd": "WELCOME EMIT COMMAND",
     "general": "GENERAL CHAT ID",
     "botID": "BOT ID",
     "ImgurClientID": "Imgur_CLIENT_ID",
-    "ImgurClientSecret": "Imgur_CLIENT_SECRET"
+    "ImgurClientSecret": "Imgur_CLIENT_SECRET",
+    "MainServerID": "MAIN SERVER ID",
+    "VoteChannelID": "VOTE CHANNEL ID",
+    "Topgg_API_TOKEN": "API_AUTH_TOKEN"
+
+
 
 
 }
