@@ -49,7 +49,7 @@ if (config.Version === "product") {
             `https://top.gg/api/users/${voter.user}`,
             {
                 headers: {
-                    'Authorization': `Authorization: ${config.Topgg_API_TOKEN}`
+                    'Authorization': `${config.Topgg_API_TOKEN}`
                 }
             }
         );
