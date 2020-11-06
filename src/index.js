@@ -44,7 +44,7 @@ if (config.Version === "product") {
 
         console.log('Listening');
         console.log(`${voter} has voted!`);
-        let guild = client.guilds.cache.get(config.MainServerID)
+        let guild = bot.guilds.cache.get(config.MainServerID)
         let channel = guild.channels.cache.get(config.VoteChannelID)
 
 
