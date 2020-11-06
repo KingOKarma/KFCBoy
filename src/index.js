@@ -11,6 +11,13 @@ let token = config.token
 let prefix = config.prefix
 
 
+let MongoToggle = config.tgtoggle
+mongoose.connect(MongoToggle, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+    .catch(err => {
+        console.error("mongoose error" + err);
+    })
+
+
 //checks if bot version is dev or product
 if (config.Version === "product") {
 
@@ -39,7 +46,7 @@ if (config.Version === "product") {
         const config = require("./config.json")
 
         console.log('Listening');
-        console.log(`${voter} has voted!`);
+        console.log(`${voter.user} has voted!`);
         let guild = bot.guilds.cache.get(config.MainServerID)
         let channel = guild.channels.cache.get(config.VoteChannelID)
 
@@ -64,14 +71,13 @@ if (config.Version === "product") {
 
         const embed = new Discord.MessageEmbed()
 
-            .setAuthor(tag, `${bot.user.displayAvatarURL({ dynamic: true })}`)
+            .setAuthor(tag, `https://cdn.discordapp.com/avatars/${voter.user}/${body.avatar}.png`)
+            .setThumbnail(guild.iconURL({ dynamic: true }))
             .setDescription(`**${tag}** Has upvoted KFC Bucket Boy over at <https://top.gg/bot/614110037291565056>`)
             .setFooter("You can also vote it will make me very happy")
 
         channel.send(embed)
 
-
-    //     // const message = new Discord.Message(bot, messageContent, channel)
 
 
     });
@@ -80,11 +86,7 @@ if (config.Version === "product") {
 
 }
 
-let MongoToggle = config.tgtoggle
-mongoose.connect(MongoToggle, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
-    .catch(err => {
-        console.error("mongoose error" + err);
-    })
+
 
 
 
