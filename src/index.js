@@ -10,6 +10,10 @@ const mongoose = require("mongoose");
 let token = config.token
 let prefix = config.prefix
 
+
+//checks if bot version is dev or product
+if (config.Version === "product") {
+
 const DBL = require("dblapi.js");
 let Topgg = config.topgg
 const dbl = new DBL(Topgg, bot);
@@ -23,6 +27,49 @@ dbl.on('error', e => {
     console.log(`Oops! ${e}`);
 })
 
+dbl.on('vote',async (voter) => {
+    console.log(`${voter} has voted!`);
+    let guild = client.guilds.cache.get(config.MainServerID)
+    let channel = guild.channels.cache.get(config.VoteChannelID)
+
+
+    const fetch = require('node-fetch');
+    const config = require("../../config.json")
+
+
+    const res = await fetch(
+        `https://top.gg/api/users/${voter.user}`,
+        {
+            headers: {
+                'Authorization': `Authorization: ${config.Topgg_API_TOKEN}`
+            }
+        }
+    );
+    if (res.status !== 200) {
+        throw new Error(`Received a ${res.status} status code`);
+    }
+
+    const body = await res.json();
+
+    let tag = `${body.username}#${body.discriminator}`
+
+
+    const embed = new Discord.MessageEmbed()
+
+    .setAuthor(tag, `https://cdn.discordapp.com/avatars/${voter}/${body.avatar}.png`)
+    .setDescription(`**${tag}** Has upvoted KFC Bucket Boy over at <https://top.gg/bot/614110037291565056>`)
+    .setFooter("You can also vote it will make me very happy")
+
+    channel.send(embed)
+
+
+    // const message = new Discord.Message(bot, messageContent, channel)
+
+
+})
+
+
+}
 
 let MongoToggle = config.tgtoggle
 mongoose.connect(MongoToggle, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
