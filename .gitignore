@@ -4,3 +4,4 @@ src/config.json
 .idea/
 ./vscode/
 ./slappey.json
+./commands/dev
