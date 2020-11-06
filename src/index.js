@@ -13,7 +13,8 @@ let prefix = config.prefix
 
 //checks if bot version is dev or product
 if (config.Version === "product") {
-
+    const express = require('express');
+    const http = require('http');
     
     const app = express();
     const server = http.createServer(app);
@@ -33,8 +34,7 @@ if (config.Version === "product") {
     })
 
 
-    const express = require('express');
-    const http = require('http');
+
 
 
 
