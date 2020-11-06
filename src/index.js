@@ -42,14 +42,14 @@ if (config.Version === "product") {
     });
     dbl.webhook.on('vote', async (voter) => {
 
+        const fetch = require('node-fetch');
+        const config = require("../../config.json")
+
         console.log('Listening');
         console.log(`${voter} has voted!`);
         let guild = bot.guilds.cache.get(config.MainServerID)
         let channel = guild.channels.cache.get(config.VoteChannelID)
 
-
-        const fetch = require('node-fetch');
-        const config = require("../../config.json")
 
 
         const res = await fetch(
