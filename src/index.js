@@ -13,11 +13,11 @@ let prefix = config.prefix
 
 //checks if bot version is dev or product
 if (config.Version === "product") {
-    const express = require('express');
-    const http = require('http');
+    // const express = require('express');
+    // const http = require('http');
     
     const app = express();
-    const server = http.createServer(app);
+    // const server = http.createServer(app);
 
 
     const DBL = require("dblapi.js");
@@ -89,14 +89,14 @@ if (config.Version === "product") {
 
 
 
-    app.get('/', (req, res) => {
-        // ...
-    });
+    // app.get('/', (req, res) => {
+    //     // ...
+    // });
 
-    server.listen(5000, () => {
+    // server.listen(5000, () => {
 
 
-    })
+    // })
 }
 
 let MongoToggle = config.tgtoggle
