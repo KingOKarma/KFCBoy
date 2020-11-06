@@ -13,10 +13,18 @@ let prefix = config.prefix
 
 //checks if bot version is dev or product
 if (config.Version === "product") {
+    // const express = require('express');
+    // const http = require('http');
+
+    // const app = express();
+    // const server = http.createServer(app);
+
 
     const DBL = require("dblapi.js");
     let Topgg = config.topgg
-    const dbl = new DBL(Topgg, { webhookAuth: "KFC", webhookServer: app }, bot);
+    // const dbl = new DBL(Topgg, { webhookAuth: "KFC", webhookServer: app }, bot);
+    const dbl = new DBL(Topgg, { webhookPort: 5000, webhookAuth: "KFC" }, bot);
+
 
     // Optional events
     dbl.on('posted', () => {
@@ -28,71 +36,63 @@ if (config.Version === "product") {
     })
 
 
-    const express = require('express');
-    const http = require('http');
-
-
-    const app = express();
-    const server = http.createServer(app);
-
-    https://canary.discord.com/api/webhooks/703390149823823912/J1NJOdk0AJlhKV1lq4obT71KVFzC0eKJ96RLb2XvP-hnKRTaEsjXadgtUZz9z1pI2qvx
 
     dbl.webhook.on('ready', hook => {
-        console.log(`Webhook running with path ${hook.path}`);
+        console.log(`Webhook running \n http://${hook.hostname}:${hook.port}${hook.path}`);
     });
-    dbl.webhook.on('vote', async (voter) => {
+    // dbl.webhook.on('vote', async (voter) => {
 
-        console.log('Listening');
-        console.log(`${voter} has voted!`);
-        let guild = client.guilds.cache.get(config.MainServerID)
-        let channel = guild.channels.cache.get(config.VoteChannelID)
-
-
-        const fetch = require('node-fetch');
-        const config = require("../../config.json")
+    // //     console.log('Listening');
+    // //     console.log(`${voter} has voted!`);
+    // //     let guild = client.guilds.cache.get(config.MainServerID)
+    // //     let channel = guild.channels.cache.get(config.VoteChannelID)
 
 
-        const res = await fetch(
-            `https://top.gg/api/users/${voter.user}`,
-            {
-                headers: {
-                    'Authorization': `Authorization: ${config.Topgg_API_TOKEN}`
-                }
-            }
-        );
-        if (res.status !== 200) {
-            throw new Error(`Received a ${res.status} status code`);
-        }
-
-        const body = await res.json();
-
-        let tag = `${body.username}#${body.discriminator}`
+    // //     const fetch = require('node-fetch');
+    // //     const config = require("../../config.json")
 
 
-        const embed = new Discord.MessageEmbed()
+    // //     const res = await fetch(
+    // //         `https://top.gg/api/users/${voter.user}`,
+    // //         {
+    // //             headers: {
+    // //                 'Authorization': `Authorization: ${config.Topgg_API_TOKEN}`
+    // //             }
+    // //         }
+    // //     );
+    // //     if (res.status !== 200) {
+    // //         throw new Error(`Received a ${res.status} status code`);
+    // //     }
 
-            .setAuthor(tag, `https://cdn.discordapp.com/avatars/${voter}/${body.avatar}.png`)
-            .setDescription(`**${tag}** Has upvoted KFC Bucket Boy over at <https://top.gg/bot/614110037291565056>`)
-            .setFooter("You can also vote it will make me very happy")
+    // //     const body = await res.json();
 
-        channel.send(embed)
-
-
-        // const message = new Discord.Message(bot, messageContent, channel)
-
-
-    });
-
-
-
-    app.get('/', (req, res) => {
-        // ...
-    });
-
-    server.listen(5000, () => {
+    // //     let tag = `${body.username}#${body.discriminator}`
 
 
-    })
+    // //     const embed = new Discord.MessageEmbed()
+
+    // //         .setAuthor(tag, `https://cdn.discordapp.com/avatars/${voter}/${body.avatar}.png`)
+    // //         .setDescription(`**${tag}** Has upvoted KFC Bucket Boy over at <https://top.gg/bot/614110037291565056>`)
+    // //         .setFooter("You can also vote it will make me very happy")
+
+    // //     channel.send(embed)
+
+
+    // //     // const message = new Discord.Message(bot, messageContent, channel)
+
+
+    // });
+
+
+
+    // app.get('/', (req, res) => {
+    //     // ...
+    // });
+
+    // server.listen(5000, () => {
+
+
+    // })
 }
 
 let MongoToggle = config.tgtoggle
