@@ -49,7 +49,7 @@ if (config.Version === "product") {
             `https://top.gg/api/users/${voter.user}`,
             {
                 headers: {
-                    'Authorization': `Authorization: ${config.Topgg_API_TOKEN}`
+                    'Authorization': `${config.Topgg_API_TOKEN}`
                 }
             }
         );
@@ -64,7 +64,7 @@ if (config.Version === "product") {
 
         const embed = new Discord.MessageEmbed()
 
-            .setAuthor(tag, `https://cdn.discordapp.com/avatars/${voter}/${body.avatar}.png`)
+            .setAuthor(tag, `${message.client.user.displayAvatarURL({ dynamic: true })}`)
             .setDescription(`**${tag}** Has upvoted KFC Bucket Boy over at <https://top.gg/bot/614110037291565056>`)
             .setFooter("You can also vote it will make me very happy")
 
