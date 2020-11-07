@@ -86,7 +86,7 @@ if (config.Version === "product") {
                 if (!rep) {
                     console.log(`${tag} doesnt have any rep!`)
 
-                    if(voter.type("test")) return
+                    if(voter.type === "test") return
 
 
                     const newRep = new Rep({
@@ -99,7 +99,7 @@ if (config.Version === "product") {
 
                     
                 } if (rep) {
-                    if(voter.type("test")) return
+                    if(voter.type === "test") return
 
                     console.log("Added rep to " + tag)
                     rep.rep = rep.rep + repadd;
