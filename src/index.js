@@ -76,14 +76,14 @@ if (config.Version === "product") {
             {
               UserID: voter.user,
             },
-            (err, user) => {
+            (err, rep) => {
                 if (err) console.log(err);
 
                 let repadd = Math.ceil(+2)
                 if (voter.isWeekend = true) repadd = Math.ceil(+4)
 
                 console.log(repadd + " Rep")
-                if (!user) {
+                if (!rep) {
                     console.log(`${tag} doesnt have any rep!`)
 
                     // if(voter.type("test")) return
@@ -91,7 +91,7 @@ if (config.Version === "product") {
 
                     const newRep = new Rep({
                         _id: mongoose.Types.ObjectId(),
-                        UserID: targetUser.id,
+                        UserID: voter.user,
                         rep: repadd
                     })
 
