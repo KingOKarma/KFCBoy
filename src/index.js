@@ -68,7 +68,7 @@ if (config.Version === "product") {
 
         let tag = `${body.username}#${body.discriminator}`
 
-        console.log(defAvatar)
+        console.log(body.defAvatar)
 
         const Rep = require("./models/rep.js");
 
