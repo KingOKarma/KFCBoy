@@ -68,15 +68,64 @@ if (config.Version === "product") {
 
         let tag = `${body.username}#${body.discriminator}`
 
+        console.log(defAvatar)
 
-        const embed = new Discord.MessageEmbed()
+        const Rep = require("./models/rep.js");
 
-            .setAuthor(tag, `https://cdn.discordapp.com/avatars/${voter.user}/${body.avatar}.png`)
-            .setThumbnail(guild.iconURL({ dynamic: true }))
-            .setDescription(`**${tag}** Has upvoted KFC Bucket Boy over at <https://top.gg/bot/614110037291565056>`)
-            .setFooter("You can also vote it will make me very happy")
+        Rep.findOne(
+            {
+              UserID: voter.user,
+            },
+            (err, user) => {
+                if (err) console.log(err);
 
-        channel.send(embed)
+                let repadd = Math.ceil(+2)
+                if (voter.isWeekend = true) repadd = Math.ceil(+4)
+
+                console.log(repadd + " Rep")
+                if (!user) {
+                    console.log(`${tag} doesnt have any rep!`)
+
+                    // if(voter.type("test")) return
+
+
+                    const newRep = new Rep({
+                        _id: mongoose.Types.ObjectId(),
+                        UserID: targetUser.id,
+                        rep: repadd
+                    })
+
+                    newRep.save().catch(err => console.log(err));
+
+                    
+                } if (rep) {
+                    // if(voter.type("test")) return
+
+                    console.log("Added rep to " + tag)
+                    rep.rep = rep.rep + repadd;
+                    rep.save().catch(err => console.log(err));
+                }
+
+                let addedrep = "2"
+                if (voter.isWeekend = true) addedrep = "4"
+
+                const embed = new Discord.MessageEmbed()
+
+                .setAuthor(tag, `https://cdn.discordapp.com/avatars/${voter.user}/${body.avatar}.png`)
+                .setThumbnail(guild.iconURL({ dynamic: true }))
+                .setDescription(`**${tag}** Has upvoted KFC Bucket Boy over at <https://top.gg/bot/614110037291565056> \n\n And they have received ${addedrep} Rep! <:chickennuggie:706268265424355399>`)
+                .setFooter("You can also vote it will make me very happy")
+                .setColor(body.color)
+    
+    
+            channel.send(embed)
+
+            })
+    
+
+
+
+
 
 
 
@@ -99,6 +148,7 @@ bot.on("warn", (e) => console.warn(e));
 
 
 const fs = require('fs'); // fs is the package we need to read all files which are in folders
+const rep = require('./models/rep.js');
 
 fs.readdir(`./events/`, (err, files) => {
     if (err) return console.error;
