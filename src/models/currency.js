@@ -1,15 +1,20 @@
 const mongoose = require("mongoose");
 
 const CurrencyShcema = new mongoose.Schema({
-    Nuggies: {
-        type: Number,
-        default: 0,
-    },
     UserID: String,
     ServerID: String,
+    work: {
+        type: String,
+        default: "",
+    },
+    Nuggies: {
+        type: Number,
+        default: 100,
+    },
     Inventory: {
         type: Map,
-        default: "",
+        of: String,
+        default: {"rotten potato": "1"}
     }
 });
 
