@@ -59,6 +59,7 @@ module.exports = {
         const embed2 = new Discord.MessageEmbed()
         embed2
             .setColor(0x36cbf5)
+            .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
             .addField('**[🎉] __Fun Commands__**', '```These commands are here for your entertainment```')
             .addField('shuffle ', "- Plays the guessing game where you choose 1, 2 or 3\n**aliases: k!shufflehat, k!sh**", true)
             // .addField('mc ', "-  Displays the information on the offical Karma Kraft Minecraft server!\n**alias: k!server**", true)
@@ -74,7 +75,7 @@ module.exports = {
 
             .addField('**[📷] __Image Commands__**', '```These are the commands that display images```')
             .addField('emote', '- Will display an emote of your choice \n **aliases: k!emotes, k!emoji**')
-            // .addField('image', '- It will send whatever you ask it to send (e.g k!image pillows) \n**aliases: k!pic, k!picture**', true)
+            .addField('image', '- It will send whatever you ask it to send (e.g k!image pillows) \n**aliases: k!pic, k!picture, k!img**', true)
             .addField('karma', "- I'll send you a media file from **King of Karma's** personal folder (;\n**alias: k!kaine**", true)
             .addField('meme', "- I'll give you a meme from a few select subreddits \n**alias: k!memes**", true)
             .addField('wholesome', "- I'll give you a meme from a wholesome subreddit \n**alias: k!cute**", true)

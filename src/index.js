@@ -10,25 +10,132 @@ const mongoose = require("mongoose");
 let token = config.token
 let prefix = config.prefix
 
-const DBL = require("dblapi.js");
-let Topgg = config.topgg
-const dbl = new DBL(Topgg, bot);
-
-// Optional events
-dbl.on('posted', () => {
-    console.log('Server count posted!');
-})
-
-dbl.on('error', e => {
-    console.log(`Oops! ${e}`);
-})
-
 
 let MongoToggle = config.tgtoggle
-mongoose.connect(MongoToggle, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
+mongoose.connect(MongoToggle, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
     .catch(err => {
         console.error("mongoose error" + err);
     })
+
+
+//checks if bot version is dev or product
+if (config.Version === "product") {
+
+    const DBL = require("dblapi.js");
+    let Topgg = config.topgg
+    const dbl = new DBL(Topgg, { webhookPort: 5000, webhookAuth: "KFC" }, bot);
+
+
+    // Optional events
+    dbl.on('posted', () => {
+        console.log('Server count posted!');
+    })
+
+    dbl.on('error', e => {
+        console.log(`Oops! ${e}`);
+    })
+
+
+
+    dbl.webhook.on('ready', hook => {
+        console.log(`Webhook running \n http://${hook.hostname}:${hook.port}${hook.path}`);
+    });
+    dbl.webhook.on('vote', async (voter) => {
+
+        const fetch = require('node-fetch');
+        const config = require("./config.json")
+
+        console.log('Listening');
+        console.log(`${voter.user} has voted!`);
+        let guild = bot.guilds.cache.get(config.MainServerID)
+        let channel = guild.channels.cache.get(config.VoteChannelID)
+
+
+
+        const res = await fetch(
+            `https://top.gg/api/users/${voter.user}`,
+            {
+                headers: {
+                    'Authorization': `${config.Topgg_API_TOKEN}`
+                }
+            }
+        );
+        if (res.status !== 200) {
+            throw new Error(`Received a ${res.status} status code`);
+        }
+
+        const body = await res.json();
+
+        let tag = `${body.username}#${body.discriminator}`
+
+        console.log(body.defAvatar)
+
+        const Rep = require("./models/rep.js");
+
+        Rep.findOne(
+            {
+              UserID: voter.user,
+            },
+            (err, rep) => {
+                if (err) console.log(err);
+
+                let repadd = Math.ceil(+2)
+                if (voter.isWeekend = true) repadd = Math.ceil(+4)
+
+                console.log(repadd + " Rep")
+                if (!rep) {
+                    console.log(`${tag} doesnt have any rep!`)
+
+                    if(voter.type === "test") return
+
+
+                    const newRep = new Rep({
+                        _id: mongoose.Types.ObjectId(),
+                        UserID: voter.user,
+                        rep: repadd
+                    })
+
+                    newRep.save().catch(err => console.log(err));
+
+                    
+                } if (rep) {
+                    if(voter.type === "test") return
+
+                    console.log("Added rep to " + tag)
+                    rep.rep = rep.rep + repadd;
+                    rep.save().catch(err => console.log(err));
+                }
+
+                let addedrep = "2"
+                if (voter.isWeekend = true) addedrep = "4"
+
+                const embed = new Discord.MessageEmbed()
+
+                .setAuthor(tag, `https://cdn.discordapp.com/avatars/${voter.user}/${body.avatar}.png`)
+                .setThumbnail(guild.iconURL({ dynamic: true }))
+                .setDescription(`**${tag}** Has upvoted KFC Bucket Boy over at <https://top.gg/bot/614110037291565056> \n\n And they have received ${addedrep} Rep! <:chickennuggie:706268265424355399>`)
+                .setFooter("You can also vote it will make me very happy")
+                .setColor(body.color)
+    
+    
+            channel.send(embed)
+
+            })
+    
+
+
+
+
+
+
+
+    });
+
+
+
+}
+
+
 
 
 
@@ -41,6 +148,7 @@ bot.on("warn", (e) => console.warn(e));
 
 
 const fs = require('fs'); // fs is the package we need to read all files which are in folders
+const rep = require('./models/rep.js');
 
 fs.readdir(`./events/`, (err, files) => {
     if (err) return console.error;

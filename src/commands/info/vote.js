@@ -16,7 +16,7 @@ module.exports = {
                     const embed = new Discord.MessageEmbed()
                         .setAuthor("Creator King Of Karma#0069", "https://karmakingdom.weebly.com/uploads/1/3/1/7/131732357/pfp.png")
                         .addField("Vote!", "You can upvote KFC Bucket Boi at <https://top.gg/bot/614110037291565056/vote> \n Remember to upvote daily!")
-                        .setImage("https://top.gg/api/widget/614110037291565056.svg")
+                        .setImage("https://top.gg/api/widget/614110037291565056.png")
                         .setThumbnail(message.client.user.displayAvatarURL())
                         .setColor(message.guild.me.displayColor)
 

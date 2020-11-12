@@ -11,6 +11,12 @@ const CurrencyShcema = new mongoose.Schema({
         type: Number,
         default: 100,
     },
+<<<<<<< HEAD
+=======
+    UserID: String,
+    ServerID: String,
+    UserName: String,
+>>>>>>> a7b7c70e3d31109088a8e360067219eb5fa1e4f2
     Inventory: {
         type: Map,
         of: String,

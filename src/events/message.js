@@ -93,21 +93,7 @@ module.exports = async (bot, message) => {
 
 
 
-        //join emit
 
-        if (!message.author.id === "406211463125008386") return
-        if (message.content === config.Welcomecmd) {
-            console.log("attempting join....")
-            bot.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
-        }
-
-        //mass join emit
-
-        if (!message.author.id === "406211463125008386") return
-        if (message.content === `mass${config.Welcomecmd}`) {
-            console.log("attempting mass join....")
-            bot.emit('guildMembersChunk', message.guild.members.cache.random(10) && message.guild.members.cache.get("614110037291565056"), "the uwu server");
-        }
 
 
 
