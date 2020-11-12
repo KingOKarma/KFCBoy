@@ -23,5 +23,4 @@ const shopSchema = new mongoose.Schema({
     ]
     }
 })
-
 module.exports = mongoose.model("Shop", shopSchema)
