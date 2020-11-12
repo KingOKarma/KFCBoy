@@ -15,25 +15,30 @@ module.exports = {
           currency.findOne(
             { ServerID: message.guild.id, UserID: message.author.id },
             (err, user) => {
-                if(err) return logErr(message, err);
-                if(!user) return message.channel.send("seems like you havent started working yet please do `k!work` atleast once");
-                var embed = new MessageEmbed()
-                .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
+              if (err) return logErr(message, err);
+              if (!user)
+                return message.channel.send(
+                  "seems like you havent started working yet please do `k!work` atleast once"
+                );
+              var embed = new MessageEmbed()
+                .setAuthor(
+                  message.author.tag,
+                  message.author.displayAvatarURL({ dynamic: true })
+                )
                 .setTitle("Inventory\n Items");
 
-                var embeditems = "";
-                var items = [];
-                user.Inventory.forEach((value, key, map) => {
-                  items.push(key);
-                });
-                while(items.length != 0) {
-                  embed.addField(items[0], user.Inventory.get(items[0]), false)
-                  //embeditems += embeditems + `${items[0]} ${user.Inventory.get(items[0])}`;
-                  items.shift();
-                }
-                //embed.addField("Items", embeditems, false);
-                message.channel.send(embed)
-
+              var embeditems = "";
+              var items = [];
+              user.Inventory.forEach((value, key, map) => {
+                items.push(key);
+              });
+              while (items.length != 0) {
+                embed.addField(items[0], user.Inventory.get(items[0]), false);
+                //embeditems += embeditems + `${items[0]} ${user.Inventory.get(items[0])}`;
+                items.shift();
+              }
+              //embed.addField("Items", embeditems, false);
+              message.channel.send(embed);
             }
           );
         } else {

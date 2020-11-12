@@ -1,5 +1,5 @@
 const Toggle = require("../../models/toggle");
-const Shops = require("../../models/shop")
+const Shops = require("../../models/shop");
 const { MessageEmbed } = require("discord.js");
 const { logErr } = require("../../utils/smartUtils");
 
@@ -25,7 +25,7 @@ module.exports = {
               ServerID: message.guild.id,
             },
             (err, shop) => {
-              if(err) return logErr(message, err)
+              if (err) return logErr(message, err);
               if (!shop) {
                 message.channel.send(
                   "Well this is awkward <a:kaineflushedeyes:708477282079211570>.\n I dont have setup a shop for you yet. Im getting right on it. Try again in a couple of seconds. \n If this keeps happening please notify us by dming me dev."
@@ -38,9 +38,13 @@ module.exports = {
               }
               switch (args[0].toLowerCase()) {
                 case "add":
-                  if(shop.items.length - 3 >= 5) {
-                    message.channel.send("sorry but this server has waayyy to many items now")
-                    return message.channel.send("you can get premium by donating to us. wich will allow you to add premium to a server. find out more with `k!premium`")
+                  if (shop.items.length - 3 >= 5) {
+                    message.channel.send(
+                      "sorry but this server has waayyy to many items now"
+                    );
+                    return message.channel.send(
+                      "you can get premium by donating to us. wich will allow you to add premium to a server. find out more with `k!premium`"
+                    );
                   }
                   if (!args[2]) {
                     message.channel.send(
@@ -71,7 +75,7 @@ module.exports = {
 
                     shop.items.push(newItem);
                     shop.save().catch((err) => console.log(err));
-                    message.channel.send("done :smile:");
+                    message.channel.send(`Item created succesfully`);
                   }
                   break;
 
@@ -94,10 +98,8 @@ module.exports = {
                       if (itemID == shop.items.length) {
                         shop.items.pop();
                       } else {
-                        const sliced = shop.items.splice(itemID - 1, 1);
-                        console.log(sliced);
+                        shop.items.splice(itemID - 1, 1);
                       }
-                      console.log(shop.items);
                       message.channel.send("item removed");
                       shop.save().catch((err) => console.log(err));
                     }
