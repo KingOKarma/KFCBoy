@@ -9,7 +9,7 @@ module.exports = {
         'I need the permission __**"Embed Links"**__ to use this command'
       );
 
-    if (devs.some((dev) => dev != message.author.id))
+    if (!devs.some((dev) => dev == message.author.id))
       return message.channel.send(
         "This is a Owner only comamnd! <:Kaineshrug:711591140125704242>"
       );
