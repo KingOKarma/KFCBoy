@@ -36,6 +36,15 @@ module.exports = {
       },
       (err, toggle) => {
         if (err) console.log(err);
+
+
+        let guildicon = message.guild.iconURL({ dynamic: true })
+
+                    if (!message.guild.iconURL()) {
+                        guildicon = "https://cdn.discordapp.com/attachments/643347490925445132/758369629155360818/2Q.png"
+                    }
+
+
         if (!toggle) {
           currency.findOne(
             { UserID: message.author.id, ServerID: message.guild.id },
@@ -49,7 +58,7 @@ module.exports = {
                       message.author.tag,
                       message.author.displayAvatarURL
                     )
-                    .setThumbnail(Thumbnail)
+                    .setThumbnail(guildicon)
                     .addField(
                       "jobs list",
                       "Chicken Nuggie fryer\nChicken nuggie inspector\nChicken nuggie taste tester\n",
