@@ -2,8 +2,14 @@
 const Discord = require('discord.js'); // To install Discord, execute npm install discord.js
 const bot = new Discord.Client();
 const config = require('../config.json');
+const Shop = require("../models/shop")
 
 module.exports = (bot, guild) => {
+    const newShop = new Shop({
+        ServerID: guild.id,
+    })
+    newShop.save().catch(err => console.log(err))
+    console.log("created shop for" + guild.name)
 
 
 
@@ -18,7 +24,7 @@ module.exports = (bot, guild) => {
         .setDescription(`**KFC Bucket Boi has joined **\`${guild.name}\` **with the id of **\`${guild.id}\` \n Server owned by \`${guild.owner.user.tag}\` has \`${guild.memberCount}\` members`)
         .setThumbnail(guild.iconURL({ dynamic: true }))
         .setFooter(`This bot was brought to you by King Of Karma#0069`, `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`)
-    channeljoin.send(embed)
+        console.log(embed)
 
     //maybe do this one day
     // var firstchannel = guild.channels.cache.map(channel => channel.name)

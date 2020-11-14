@@ -1,17 +1,24 @@
 const mongoose = require("mongoose");
 
 const CurrencyShcema = new mongoose.Schema({
-    Nuggies: {
-        type: Number,
-        default: 0,
-    },
-    UserID: String,
-    ServerID: String,
-    UserName: String,
-    Inventory: {
-        type: Map,
-        default: "",
-    }
+  UserID: String,
+  ServerID: String,
+  work: {
+    type: String,
+    default: "",
+  },
+  Nuggies: {
+    type: Number,
+    default: 100,
+  },
+  UserID: String,
+  ServerID: String,
+  UserName: String,
+  Inventory: {
+    type: Map,
+    of: String,
+    default: { "rotten potato": "1" },
+  },
 });
 
-module.exports = mongoose.model("Currency", CurrencyShcema)
+module.exports = mongoose.model("Currency", CurrencyShcema);
