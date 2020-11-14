@@ -3,7 +3,8 @@ const Toggle = require("../../models/toggle");
 const currency = require("../../models/currency");
 const stopWork = new Set();
 var utils = require("../../utils/smartUtils");
-
+var timeout = new Set();
+var jobtimeout = new Set();
 var leaveMessages = [
   "Your boss was happy that you left bc you didnt really do that much work",
   "Your boss begged you to stay but you were to much of a savage to care",
@@ -71,7 +72,9 @@ module.exports = {
                 }
               } else {
                 switch (args[0].toLowerCase()) {
+                  
                   case "fryer":
+                    if(jobtimeout.has(message.author.id)) return message.channel.send("you cannot apply for a job yet please wait atleast 6 hours after leaving a job");
                     if (!user) {
                       var newfryer = new currency({
                         UserID: message.author.id,
@@ -94,6 +97,7 @@ module.exports = {
                     break;
 
                   case "inspector":
+                    if(jobtimeout.has(message.author.id)) return message.channel.send("you cannot apply for a job yet please wait atleast 6 hours after leaving a job");
                     if (!user) {
                       var newInspector= new currency({
                         UserID: message.author.id,
@@ -116,6 +120,7 @@ module.exports = {
                     break;
 
                   case "taste-tester":
+                    if(jobtimeout.has(message.author.id)) return message.channel.send("you cannot apply for a job yet please wait atleast 6 hours after leaving a job");
                     if (!user) {
                       var newtaster = new currency({
                         UserID: message.author.id,
@@ -145,6 +150,10 @@ module.exports = {
                       user.work = "";
                       user.save().catch((err) => utils.logErr(err));
                       message.channel.send(leaveMessages[Math.floor(Math.random() * leaveMessages.length)]);
+                      jobtimeout.add(message.author.id)
+                      setTimeout(() => {
+                        jobtimeout.delete(message.author.id)
+                      }, 2160000);
                     }
                     break;
 
