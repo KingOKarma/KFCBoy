@@ -61,6 +61,7 @@ module.exports = {
                     );
                   message.channel.send(embed);
                 } else {
+                  if(timeout.has(message.author.id)) return message.channel.send("please wait a little between each time you work")
                   var earnings = Math.round(Math.random() * (300 - 50) + 50);
                   // some day do
                   //if (user.premium) {
@@ -68,7 +69,11 @@ module.exports = {
                   //}
                   user.Nuggies = user.Nuggies + earnings;
                   user.save().catch((err) => utils.logErr(message, err));
+                  timeout.add(message.author.id);
                   message.channel.send(`you earned ${earnings} <:chickennuggie:706268265424355399>`);
+                  setTimeout(() => {
+                    timeout.delete(message.author.id);
+                  }, 31000);
                 }
               } else {
                 switch (args[0].toLowerCase()) {
