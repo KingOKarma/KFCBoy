@@ -44,7 +44,7 @@ module.exports = {
               if (!args[0]) {
                 if (!user || user.work === "") {
                   var embed = new Discord.MessageEmbed()
-                    .setTitle("heres the current list of jobs")
+                    .setTitle("Heres the current list of jobs")
                     .setAuthor(
                       message.author.tag,
                       message.author.displayAvatarURL
@@ -56,12 +56,12 @@ module.exports = {
                       true
                     )
                     .addField(
-                      "job nickname",
+                      "Job nickname",
                       "Fryer\nInspector\ntaste-tester\n\n",
                       true
                     )
                     .setFooter(
-                      '\nto "apply" for a job use "k!work [Work nickname here]"'
+                      '\nTo "apply" for a job use "k!work [Work nickname here]"'
                     );
                   message.channel.send(embed);
                 } else {
@@ -88,7 +88,7 @@ module.exports = {
                         .catch((err) => utils.logErr(message, err));
                     } else if (user.work != "") {
                       message.channel.send(
-                        `as much as we would love to hire you as a fryer you already got a job at ${user.work}`
+                        `As much as we would love to hire you as a fryer you already got a job at ${user.work}`
                       );
                     } else {
                       user.work == "Fryer";

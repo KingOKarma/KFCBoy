@@ -114,18 +114,18 @@ module.exports = {
                       {
                         name: "add",
                         value:
-                          "this will add a item. for now doesnt support spaces",
+                          "This will add a item. for now doesnt support spaces",
                         inline: false,
                       },
                       {
                         name: "remove or rm",
                         value:
-                          "this will remove a item must use the items id bc of spaces. start items CANT be removed",
+                          "This will remove a item must use the items id bc of spaces. Start items CANT be removed",
                         inline: false,
                       },
                       {
                         name: "help",
-                        value: "send's this embed",
+                        value: "Send's this embed",
                       }
                     );
                   message.channel.send(embed);
@@ -133,7 +133,7 @@ module.exports = {
 
                 default:
                   message.channel.send(
-                    "invalid action. if youre confused you can try `k!item help`"
+                    "Invalid action. if youre confused you can try `k!item help`"
                   );
                   break;
               }

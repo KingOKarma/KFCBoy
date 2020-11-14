@@ -20,7 +20,7 @@ module.exports = {
                 ServerID: message.guild.id,
               });
               newShop.save().catch((err) => console.log(err));
-              message.channel.send("the shop for this server has just been created");
+              message.channel.send("The shop for this server has just been created");
             } else {
               var embed = new Discord.MessageEmbed();
               var id = 0;

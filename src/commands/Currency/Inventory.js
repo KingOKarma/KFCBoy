@@ -18,7 +18,7 @@ module.exports = {
               if (err) return logErr(message, err);
               if (!user)
                 return message.channel.send(
-                  "seems like you havent started working yet please do `k!work` atleast once"
+                  "Seems like you havent started working yet please do `k!work` atleast once"
                 );
               var embed = new MessageEmbed()
                 .setAuthor(

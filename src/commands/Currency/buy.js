@@ -16,11 +16,11 @@ module.exports = {
         if (!toggle) {
           if (!args) {
             message.channel.send(
-              "please tell me the id of the item you want to buy"
+              "Please tell me the id of the item you want to buy"
             );
           } else if (Number(args[0] == NaN)) {
             message.channel.send(
-              "thats not a id. An id is a number you can find the number with `k!shop`"
+              "Thats not a id. An id is a number you can find the number with `k!shop`"
             );
           } else {
             currency.findOne(
@@ -29,23 +29,23 @@ module.exports = {
                 if (err) return console.log(err);
                 if (!user) {
                   message.channel.send(
-                    "seems like you haven't started working yet. use `k!work` to start working"
+                    "Seems like you haven't started working yet. Use `k!work` to start working"
                   );
                 } else {
                   shops.findOne({ ServerID: message.guild.id }, (err, shop) => {
                     if (!shop)
                       return message.channel.send(
-                        "please run the `k!shop` command once."
+                        "Please run the `k!shop` command once."
                       );
                     const item = shop.items[Number(args[0] - 1)];
                     // checks if the item exists and if this exists check if the user has enough Nuggies
                     if (item == undefined) {
                       message.channel.send(
-                        "sorry but thats not a valid item id"
+                        "Sorry but thats not a valid item id"
                       );
                     } else if (item.price >= user.Nuggies) {
                       message.channel.send(
-                        `sorry you dont have enough Nuggies. this item costs ${item.price}`
+                        `Sorry you dont have enough Nuggies. This item costs ${item.price}`
                       );
                     } else {
                       // check if user has the item already
@@ -55,7 +55,7 @@ module.exports = {
                         user.Inventory.set(item.name, itemcount + 1);
                         user.save().catch((err) => console.log(err));
                         message.channel.send(
-                          `you just bought 1 ${item.name}. you now have ${
+                          `You just bought 1 ${item.name}. you now have ${
                             itemcount + 1
                           }`
                         );
@@ -64,7 +64,7 @@ module.exports = {
                         user.Inventory.set(item.name, 1);
                         user.save().catch((err) => console.log(err));
                         message.channel.send(
-                          `congrats on becomming the proud owner of a ${item.name}`
+                          `Congrats on becomming the proud owner of a ${item.name}`
                         );
                       }
                     }

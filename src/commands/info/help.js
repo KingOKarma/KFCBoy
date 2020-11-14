@@ -125,10 +125,10 @@ module.exports = {
             // currency
             .addField('**[👑] __Currency/Work Commnads__**', '```These commands is to be used by all members of a server```')
             .addField('bal', '- Shows you current amount of Chicken Nuggies<:chickennuggie:706268265424355399>', true)
-            .addField('buy', 'displays your or a mentioned users balance', true)
-            .addField('inventory', 'displays your inventory only as of now', true)
-            .addField('item', 'this an admin only command to add and remove items from the servers shop. (max items is 5 for now)') 
-            .addField('shop', "displays the servers shop. and creates one if it doesnt exsist", true)
+            .addField('buy', '- Displays your or a mentioned users balance', true)
+            .addField('inventory', '- Displays your inventory only as of now', true)
+            .addField('item', '- This an admin only command to add and remove items from the servers shop. (Max items is 5 for now)') 
+            .addField('shop', "- Displays the servers shop. And creates one if it doesnt exsist", true)
             .addField('work', '- Is the base command of everything', true)
 
 
