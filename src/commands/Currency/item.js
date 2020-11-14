@@ -48,7 +48,7 @@ module.exports = {
                   }
                   if (!args[2]) {
                     message.channel.send(
-                      'This command requires atleast 2 arguments a name and a price\n **k!item add "<Name>", <Price>'
+                      'This command requires at least 2 arguments a name and a price\n **k!item add "<Name>", <Price>'
                     );
                   } else {
                     const name = args[1].toLowerCase();
