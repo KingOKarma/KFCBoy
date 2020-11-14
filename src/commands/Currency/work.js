@@ -12,7 +12,7 @@ var leaveMessages = [
   "Im happy that you left. You just produced wayyy to many nuggies for us to keep up with the sales",
   "Wow you just left that place like it was nothing",
   "You got so emotional while resigning from your job. that your boss wanted to give you a rise, but you went all cry mode and ran out of your boss' office and never came back",
-  "You told your boss that he was a dick and he fired you on the spot"
+  "You told your boss that he was a dick and he fired you on the spot",
 ];
 
 module.exports = {
@@ -61,7 +61,10 @@ module.exports = {
                     );
                   message.channel.send(embed);
                 } else {
-                  if(timeout.has(message.author.id)) return message.channel.send("please wait a little between each time you work")
+                  if (timeout.has(message.author.id))
+                    return message.channel.send(
+                      "Please wait a little between each time you work"
+                    );
                   var earnings = Math.round(Math.random() * (300 - 50) + 50);
                   // some day do
                   //if (user.premium) {
@@ -70,16 +73,20 @@ module.exports = {
                   user.Nuggies = user.Nuggies + earnings;
                   user.save().catch((err) => utils.logErr(message, err));
                   timeout.add(message.author.id);
-                  message.channel.send(`you earned ${earnings} <:chickennuggie:706268265424355399>`);
+                  message.channel.send(
+                    `you earned ${earnings} <:chickennuggie:706268265424355399>`
+                  );
                   setTimeout(() => {
                     timeout.delete(message.author.id);
                   }, 31000);
                 }
               } else {
                 switch (args[0].toLowerCase()) {
-                  
                   case "fryer":
-                    if(jobtimeout.has(message.author.id)) return message.channel.send("you cannot apply for a job yet please wait atleast 6 hours after leaving a job");
+                    if (jobtimeout.has(message.author.id))
+                      return message.channel.send(
+                        "You cannot apply for a job yet please wait atleast 6 hours after leaving a job"
+                      );
                     if (!user) {
                       var newfryer = new currency({
                         UserID: message.author.id,
@@ -89,7 +96,9 @@ module.exports = {
                       newfryer
                         .save()
                         .catch((err) => utils.logErr(message, err));
-                      message.channel.send("Your application as Fryer has been accepted. Welcome")
+                      message.channel.send(
+                        "Your application as Fryer has been accepted. Welcome"
+                      );
                     } else if (user.work != "") {
                       message.channel.send(
                         `As much as we would love to hire you as a fryer you already got a job at ${user.work}`
@@ -97,14 +106,19 @@ module.exports = {
                     } else {
                       user.work = "Fryer";
                       user.save().catch((err) => utils.logErr(message, err));
-                      message.channel.send("Your application as Fryer has been accepted. Welcome")
+                      message.channel.send(
+                        "Your application as Fryer has been accepted. Welcome"
+                      );
                     }
                     break;
 
                   case "inspector":
-                    if(jobtimeout.has(message.author.id)) return message.channel.send("you cannot apply for a job yet please wait atleast 6 hours after leaving a job");
+                    if (jobtimeout.has(message.author.id))
+                      return message.channel.send(
+                        "You cannot apply for a job yet please wait atleast 6 hours after leaving a job"
+                      );
                     if (!user) {
-                      var newInspector= new currency({
+                      var newInspector = new currency({
                         UserID: message.author.id,
                         ServerID: message.guild.id,
                         work: "inspector",
@@ -112,7 +126,9 @@ module.exports = {
                       newInspector
                         .save()
                         .catch((err) => utils.logErr(message, err));
-                      message.channel.send("Your application as Inspector has been accepted. Welcome")
+                      message.channel.send(
+                        "Your application as Inspector has been accepted. Welcome"
+                      );
                     } else if (user.work != "") {
                       message.channel.send(
                         `As much as we would love to hire you as a inspector you already got a job at ${user.work}`
@@ -120,12 +136,17 @@ module.exports = {
                     } else {
                       user.work = "Fryer";
                       user.save().catch((err) => utils.logErr(message, err));
-                      message.channel.send("Your application as Inspector has been accepted. Welcome")
+                      message.channel.send(
+                        "Your application as Inspector has been accepted. Welcome"
+                      );
                     }
                     break;
 
                   case "taste-tester":
-                    if(jobtimeout.has(message.author.id)) return message.channel.send("you cannot apply for a job yet please wait atleast 6 hours after leaving a job");
+                    if (jobtimeout.has(message.author.id))
+                      return message.channel.send(
+                        "ou cannot apply for a job yet please wait atleast 6 hours after leaving a job"
+                      );
                     if (!user) {
                       var newtaster = new currency({
                         UserID: message.author.id,
@@ -135,7 +156,9 @@ module.exports = {
                       newtaster
                         .save()
                         .catch((err) => utils.logErr(message, err));
-                      message.channel.send("Your application as taste tester has been accepted. Welcome")
+                      message.channel.send(
+                        "Your application as taste tester has been accepted. Welcome"
+                      );
                     } else if (user.work != "") {
                       message.channel.send(
                         `As much as we would love to hire you as a taste-tester you already got a job at ${user.work}`
@@ -143,7 +166,9 @@ module.exports = {
                     } else {
                       user.work = "taste-tester";
                       user.save().catch((err) => utils.logErr(message, err));
-                      message.channel.send("Your application as taste tester has been accepted. Welcome")
+                      message.channel.send(
+                        "Your application as taste tester has been accepted. Welcome"
+                      );
                     }
                     break;
                   case "help":
@@ -154,10 +179,14 @@ module.exports = {
                     } else {
                       user.work = "";
                       user.save().catch((err) => utils.logErr(err));
-                      message.channel.send(leaveMessages[Math.floor(Math.random() * leaveMessages.length)]);
-                      jobtimeout.add(message.author.id)
+                      message.channel.send(
+                        leaveMessages[
+                          Math.floor(Math.random() * leaveMessages.length)
+                        ]
+                      );
+                      jobtimeout.add(message.author.id);
                       setTimeout(() => {
-                        jobtimeout.delete(message.author.id)
+                        jobtimeout.delete(message.author.id);
                       }, 2160000);
                     }
                     break;
