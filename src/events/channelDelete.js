@@ -9,15 +9,14 @@ const message = require('./message');
 
 module.exports = async (bot, channel) => {  
 
-  if (!channel.type === "channel") return
+  if (channel.type != "channel") return
 
-
-    if (channel.guild.id != config.MainServerID) return
+  if (channel.guild.id != config.MainServerID) return
 
     const embed = new Discord.MessageEmbed()
     .setColor('RED')
     .setTimestamp()
-    .setFooter(`ID: ${message.id}`)
+    .setFooter(`ID: ${channel.id}`)
     .setAuthor(channel.name)
     .setTitle(`Channel Deleted!`);
 
