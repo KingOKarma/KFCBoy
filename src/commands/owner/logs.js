@@ -5,7 +5,7 @@ module.exports = {
   name: "pm2",
   aliases: ["pm2logs"],
   run: async (_, message, args, bot, token, client) => {
-    if (devs.some((dev) => dev != message.author.id)) {
+    if (!devs.some((dev) => dev == message.author.id)) {
       message.reply(
         "Sorry This command can only be used by Kaine >:( this is just so you guys dont break anything!"
       );
