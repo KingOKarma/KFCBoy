@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 module.exports = {
     name: 'help',
     aliases: ["h"],
-    run: (_, message, args) => {
+    run: (bot, message, args) => {
 
 
         const LogChannel = message.client.channels.cache.get("700438892888719501");
@@ -17,7 +17,7 @@ module.exports = {
             .addField('__Current Server__', message.guild.name)
             .setThumbnail(message.guild.iconURL({ dynamic: true }))
             .setAuthor('Creator: King Of Karma#0069', 'https://karmakingdom.weebly.com/uploads/1/3/1/7/131732357/published/pfp.png?1587066957')
-            .setDescription(`**Home Server:** https://discord.gg/nQRC3SRUse \n **Invite at:** https://invite.bucketbot.dev  \n the Prefix \`k!\` at the start of the command to use the command eg "k!ping"`,)
+            .setDescription(`**Home Server:** https://discord.gg/nQRC3SRUse \n **Invite at:** https://invite.bucketbot.dev  \n the Prefix \`${bot.prefix.get(message.guild.id) || "k!"}\` at the start of the command to use the command eg "${bot.prefix.get(message.guild.id) || "k!"}ping"`,)
             .addField('**[📚] __Info Commands__**', '```These commands give you some info```')
             .addField('help', '- Brings up this menu in your DMs \n**alias: k!h**', true)
             .addField('info', '- Info about the bot \n**aliases: k!botinfo, k!bot**', true)
@@ -36,7 +36,7 @@ module.exports = {
             .addField('embed ', "- I will say what you want but as an embed! \n**alias: k!eb**", true)
             .addField('\u200b', '\u200b')
 
-            .setFooter('Use the Prefix `k!` at the start of the command to use the command eg "k!ping"')
+            .setFooter(`Use the Prefix \`${bot.prefix.get(message.guild.id) || "k!"}\` at the start of the command to use the command eg "${bot.prefix.get(message.guild.id) || "k!"}ping"`)
 
 
 
@@ -56,6 +56,9 @@ module.exports = {
                 return
             });
 
+
+
+            
         const embed2 = new Discord.MessageEmbed()
         embed2
             .setColor(0x36cbf5)
@@ -120,7 +123,7 @@ module.exports = {
             .addField('**[👑] __XP Commnads__**', '```These commands is to be used by all members of a server```')
             .addField('xp', '- Shows how much xp a user has\n**alias: k!exp**', true)
             .addField('leaderboard', '- shows the current leaderboard of the server\n**aliases: k!lb and k!top**.\n **example: k!leaderboard 10**', true)
-            .addField('global-leaderboard', "- shows the current global leaderboard \n **aliases: k!glb and k!gtop**\n **example: k!gtop 10**", true)
+            .addField('global-leaderboard', "- shows the current global leaderboard \n **aliases: k!glb and k!gtop**\n **example: k!    gtop 10**", true)
 
             // currency
             .addField('**[👑] __Currency/Work Commnads__**', '```These commands is to be used by all members of a server```')
@@ -132,7 +135,7 @@ module.exports = {
             .addField('work', '- Is the base command of everything', true)
 
 
-            .setFooter('Use the Prefix `k!` at the start of the command to use the command eg "k!ping"')
+            .setFooter(`Use the Prefix \`${bot.prefix.get(message.guild.id) || "k!"}\` at the start of the command to use the command eg "${bot.prefix.get(message.guild.id) || "k!"}ping"`)
 
 
 
