@@ -56,6 +56,9 @@ module.exports = {
                 return
             });
 
+
+
+            
         const embed2 = new Discord.MessageEmbed()
         embed2
             .setColor(0x36cbf5)

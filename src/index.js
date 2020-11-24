@@ -149,7 +149,7 @@ bot.on("warn", (e) => console.warn(e));
 
 const fs = require('fs'); // fs is the package we need to read all files which are in folders
 const rep = require('./models/rep.js');
-const ignoreCat = require("./models/ignoreCat")
+// const ignoreCat = require("./models/ignoreCat")
 
 
 // event handler
@@ -169,14 +169,14 @@ fs.readdir('./events/', (err, events) => {
 
 // ignored category handler
 
-bot.noResponseCats = new Set();
-ignoreCat.find({}, (err, cats) => {
-    if(err) return console.log(err)
-    cats.forEach( cat => {
-        bot.noResponseCats.add(cat.ParentID);
-        console.log(bot.noResponseCats)
-    })
-})
+// bot.noResponseCats = new Set();
+// ignoreCat.find({}, (err, cats) => {
+//     if(err) return console.log(err)
+//     cats.forEach( cat => {
+//         bot.noResponseCats.add(cat.ParentID);
+//         console.log(bot.noResponseCats)
+//     })
+// })
 
 
 

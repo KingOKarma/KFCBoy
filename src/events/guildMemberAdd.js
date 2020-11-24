@@ -9,7 +9,7 @@ const message = require('./message');
 
 module.exports = {
     name: "guildMemberAdd",
-    run: async (bot, member) => {  
+    run: async (bot, member) => {
         console.log(member)
 
         if (member.user.bot) return;
@@ -119,7 +119,7 @@ module.exports = {
             member.guild.channels.cache.find(channel => channel.name === `verify-${member.user.id}`).overwritePermissions([
                 {
                     id: member.user.id,
-                    deny: ['ADD_REACTIONS', "ATTACH_FILES","SEND_MESSAGES"],
+                    deny: ['ADD_REACTIONS', "ATTACH_FILES", "SEND_MESSAGES"],
                     allow: ["VIEW_CHANNEL"],
                 },
                 {
@@ -141,7 +141,7 @@ module.exports = {
                 parent: "748926974113742939", reason: "Verifcation", permissionOverwrites: [
                     {
                         id: member.user.id,
-                        deny: ['ADD_REACTIONS', "ATTACH_FILES","SEND_MESSAGES"],
+                        deny: ['ADD_REACTIONS', "ATTACH_FILES", "SEND_MESSAGES"],
                         allow: ["VIEW_CHANNEL"],
                     },
                     {
@@ -180,7 +180,7 @@ module.exports = {
                                 }, 5000);
 
                                 return
-                            }else{
+                            } else {
                                 VerifyChannel.send("From the looks if it there was a problem? Please contact staff immediately")
                             }
 
@@ -203,16 +203,16 @@ module.exports = {
 
 
         const embed = new Discord.MessageEmbed() // Create a new RichEmbed
-        .setColor('GREEN')
-        .setTimestamp()
-        .setFooter(`ID: ${message.id}`)
-        .setAuthor(member.user.tag, member.user.displayAvatarURL({ dynamic: true}))
-        .setTitle(`Member Joined!`)
-        .setDescription(`Ping: ${member}`);
+            .setColor('GREEN')
+            .setTimestamp()
+            .setFooter(`ID: ${message.id}`)
+            .setAuthor(member.user.tag, member.user.displayAvatarURL({ dynamic: true }))
+            .setTitle(`Member Joined!`)
+            .setDescription(`Ping: ${member}`);
 
-    member.guild.channels.cache.find(channel => channel.id === '660595725134069760').send({ 
-        embed
-    });
+        member.guild.channels.cache.find(channel => channel.id === '660595725134069760').send({
+            embed
+        });
 
 
 

@@ -34,10 +34,8 @@ module.exports = {
       if (message.content.toLowerCase() === "<@!614110037291565056>") {
         message.channel
           .send(
-            `My prefix is \`${
-              bot.prefix.get(message.guild.id) || "k!"
-            }\` you can use \`${
-              bot.prefix.get(message.guild.id) || "k!"
+            `My prefix is \`${bot.prefix.get(message.guild.id) || "k!"
+            }\` you can use \`${bot.prefix.get(message.guild.id) || "k!"
             }help\` to view my commands (make sure dms are enabled so i can dm you the commands!)`
           )
           .catch((err) => {
@@ -281,7 +279,7 @@ module.exports = {
                           `Congrats ${message.author.tag}! you're now level ${xp.level}`
                         )
                       )
-                      .catch(() => {});
+                      .catch(() => { });
 
                     delaySet.add(message.author.id);
 

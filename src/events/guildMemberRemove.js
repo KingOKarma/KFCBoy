@@ -24,5 +24,18 @@ module.exports = {
       .send({
         embed,
       });
+
+    if (member.guild.channels.cache.find(channel => channel.name === `verify-${member.user.id}`)) {
+      member.guild.channels.cache.find(channel => channel.name === `verify-${member.user.id}`)
+        .then((channel) => {
+          channel.delete()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+
+
+
   },
 };
