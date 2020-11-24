@@ -20,18 +20,19 @@ module.exports = {
       (channel) => channel.id === "700438892888719501"
     );
 
+    const owner = guild.members.cache.get(guild.ownerID)
     const embed = new Discord.MessageEmbed()
       .setAuthor("KFC Bucket Boi", guild.client.user.displayAvatarURL())
       .setColor("0x36cbf5")
       .setDescription(
-        `**KFC Bucket Boi has joined **\`${guild.name}\` **with the id of **\`${guild.id}\` \n Server owned by \`${guild.owner.user.tag}\` has \`${guild.memberCount}\` members`
+        `**KFC Bucket Boi has joined **\`${guild.name}\` **with the id of **\`${guild.id}\` \n Server owned by \`${owner.user.tag}\` has \`${guild.memberCount}\` members`
       )
       .setThumbnail(guild.iconURL({ dynamic: true }))
       .setFooter(
         `This bot was brought to you by King Of Karma#0069`,
         `https://media.discordapp.net/attachments/697238236896165921/700081276912402512/pfp.png?width=481&height=481`
       );
-    console.log(embed);
+    channeljoin.send(embed);
 
     //maybe do this one day
     // var firstchannel = guild.channels.cache.map(channel => channel.name)
