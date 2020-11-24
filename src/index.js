@@ -149,17 +149,34 @@ bot.on("warn", (e) => console.warn(e));
 
 const fs = require('fs'); // fs is the package we need to read all files which are in folders
 const rep = require('./models/rep.js');
+const ignoreCat = require("./models/ignoreCat")
 
-fs.readdir(`./events/`, (err, files) => {
-    if (err) return console.error;
-    files.forEach(file => {
-        if (!file.endsWith('.js')) return;
-        const evt = require(`./events/${file}`);
-        let evtName = file.split('.')[0];
-        console.log(`Loaded event '${evtName}'`);
-        bot.on(evtName, evt.bind(null, bot));
-    });
-});
+
+// event handler
+fs.readdir('./events/', (err, events) => {
+    bot.events = new Map()
+    for (let file of events) {
+        if(!file.endsWith(".js")) return;
+        let pull = require(`./events/${file}`);
+        if (pull.name) {
+            bot.events.set(pull.name, pull);
+            bot.on(pull.name, pull.run.bind(require(`./events/${file}`), bot))
+        } else {
+            continue;
+        }
+    }
+})
+
+// ignored category handler
+
+bot.noResponseCats = new Set();
+ignoreCat.find({}, (err, cats) => {
+    if(err) return console.log(err)
+    cats.forEach( cat => {
+        bot.noResponseCats.add(cat.ParentID);
+        console.log(bot.noResponseCats)
+    })
+})
 
 
 

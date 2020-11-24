@@ -4,8 +4,9 @@ const bot = new Discord.Client();
 const config = require('../config.json');
 
 
-module.exports = (bot) => {
-
+module.exports = {
+    name: "ready",
+    run: (bot) => {
 
 
 
@@ -43,4 +44,5 @@ module.exports = (bot) => {
 
 
 
+}
 }

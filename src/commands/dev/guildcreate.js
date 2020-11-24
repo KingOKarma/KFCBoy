@@ -1,7 +1,7 @@
 const Toggle = require("../../models/toggle");
 
     module.exports = {
-      name: "guildcreate",
+      name: "guilduseradd",
       aliases: [],
       run: (client, message, args) => {
         Toggle.findOne(
@@ -12,7 +12,8 @@ const Toggle = require("../../models/toggle");
           (err, toggle) => {
             if (err) console.log(err);
             if (!toggle) {
-              client.emit("guildCreate", message.guild)
+              client.emit("guildMemberAdd", message)
+              message.channel.send("emitted")
             } else {
               message.channel.send(
                 'This server has the "Dev" module disabled'
