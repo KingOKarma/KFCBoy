@@ -6,6 +6,10 @@ const message = require("./message");
 module.exports = {
   name: "channelCreate",
   run: async (bot, channel) => {
+    if (channel.type === "dm") {
+      return
+    }
+
     if (!channel.type === "channel") return;
 
     if (!channel.guild.id != config.MainServerID) return;
