@@ -34,9 +34,7 @@ module.exports = {
       if (message.content.toLowerCase() === "<@!614110037291565056>") {
         message.channel
           .send(
-            `My prefix is \`${bot.prefix.get(message.guild.id) || "k!"
-            }\` you can use \`${bot.prefix.get(message.guild.id) || "k!"
-            }help\` to view my commands (make sure dms are enabled so i can dm you the commands!)`
+            `My prefix is \`"k!"\`\nk!help\` to view my commands (make sure dms are enabled so i can dm you the commands!)`
           )
           .catch((err) => {
             console.log(
