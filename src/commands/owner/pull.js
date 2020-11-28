@@ -1,4 +1,4 @@
-
+const devs = ["406211463125008386", "355993074117115914"];
 
 module.exports = {
     name: 'pull',
@@ -6,10 +6,10 @@ module.exports = {
 
     run: (_, message, args) => {
 
-        if (message.author.id != "406211463125008386") {
-            message.reply("Sorry This command can only be used by Kaine >:( this is just so you guys dont break anything!")
-            return
-        }
+         if (!devs.some((dev) => dev == message.author.id))
+            return message.channel.send(
+                "This is a Owner only comamnd! <:Kaineshrug:711591140125704242>"
+            );
 
 
         const { exec } = require("child_process");
