@@ -4,7 +4,7 @@ const devs = ["406211463125008386", "355993074117115914"];
 module.exports = {
   name: "eval",
   aliases: [],
-  run: (_, message, args) {
+  run: (_, message, args) => {
    if (!devs.some((dev) => dev == message.author.id))
       return message.channel.send(
         "This is a Owner only comamnd! <:Kaineshrug:711591140125704242>"
