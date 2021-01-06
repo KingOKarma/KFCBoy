@@ -207,7 +207,7 @@ module.exports = {
 
 
 
-        const embed = new Discord.MessageEmbed() // Create a new RichEmbed
+        const embedjoin = new Discord.MessageEmbed() // Create a new RichEmbed
             .setColor('GREEN')
             .setTimestamp()
             .setFooter(`ID: ${message.id}`)
@@ -216,7 +216,7 @@ module.exports = {
             .setDescription(`Ping: ${member}`);
 
         member.guild.channels.cache.find(channel => channel.id === '660595725134069760').send({
-            embed
+            embedjoin
         });
 
 
