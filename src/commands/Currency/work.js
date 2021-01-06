@@ -145,7 +145,7 @@ module.exports = {
                   case "taste-tester":
                     if (jobtimeout.has(message.author.id))
                       return message.channel.send(
-                        "ou cannot apply for a job yet please wait atleast 6 hours after leaving a job"
+                        "You cannot apply for a job yet please wait atleast 6 hours after leaving a job"
                       );
                     if (!user) {
                       var newtaster = new currency({
@@ -172,6 +172,19 @@ module.exports = {
                     }
                     break;
                   case "help":
+                      var helpEmbed = new Discord.MessageEmbed()
+                      .setTitle("Work commands")
+                      .addFields(
+                        {
+                          name:"Blank", value:"Makes you work your ass off if you got a place to work else it shows you the work places", inline: true
+                        },
+                        {
+                          name:"Leave", value:"Makes you leave you workpalce if you even work anywhere <:KaineKek:707398696341340191>"
+                        },
+                        {
+                          name: "<Work>", value:"Will let you join your desired workpalce if you are jobless"
+                        }
+                      )
                     break;
                   case "leave":
                     if (user.work == "") {

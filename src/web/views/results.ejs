@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>search results</title>
+    <link rel="stylesheet" href="/stylesheets/results.css" />
+    <link rel="stylesheet" href="/stylesheets/nav.css" />
+  </head>
+  <body>
+    <div class="topnav">
+      <label for="home" style="text-decoration: underline; font-weight: bold; font-size: xx-large; margin-left: 3vw;">KFC Bucket boy</label>
+      <a href="/" class="active" id="home" id="home">Home</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/leaderboards">Leaderboards</a>
+      <a href="/devs">Devs</a>
+      <a href="/donate">Donate</a>
+      <a href="/contact">Contact</a>
+      <a href="/about">About</a>
+  </div>
+
+  
+    <% if(results.length != 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Server name</th>
+          <th>Serevr ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% results.forEach(guild => { %>
+        <tr style="color: rgb(236, 236, 236)">
+          <td>
+            <div class="guildImg">
+              <img src="https://cdn.discordapp.com/icons/<%= guild.ID + "/" +
+              guild.Icon %>" alt="not found" width="64" height="64">
+            </div>
+          </td>
+          <td>
+            <a href="/leaderboards/guild/<%= guild.ID %>"><%= guild.Name %></a>
+          </td>
+          <td><%= guild.ID %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } %>
+    <div class="info">
+      <p>
+        dont see the guild you are looking for on the list?<br />
+        make sure you have spelled the name correctly or given the right <br />
+        if you are an admin and you are sure you cant find the server try
+        <code>k!fixwebdb</code> to make sure the server is saved correctly
+      </p>
+    </div>
+  </body>
+</html>

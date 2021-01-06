@@ -11,8 +11,10 @@
     "ImgurClientSecret": "Imgur_CLIENT_SECRET",
     "MainServerID": "MAIN SERVER ID",
     "VoteChannelID": "VOTE CHANNEL ID",
-    "Topgg_API_TOKEN": "API_AUTH_TOKEN"
-
+    "Topgg_API_TOKEN": "API_AUTH_TOKEN",
+    "ClientID": "CLIENT ID",
+    "ClientSecret": "CLIENT SECRET",
+    "Callback": "/where/to/redirect"
 
 
 

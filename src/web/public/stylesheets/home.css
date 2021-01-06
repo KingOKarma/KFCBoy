@@ -1,0 +1,100 @@
+html,
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5;
+  color: black;
+}
+html {
+  background-image: url("https://bucketbot.dev/imgs/round.png");
+  background-color: #000;
+  background-repeat: repeat;
+  animation: gradient 150s ease infinite;
+}
+
+@keyframes gradient {
+  50% {
+    background-position: center;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent !important;
+}
+.buttons a:hover {
+  transform: scale(1.2);
+  text-decoration: none;
+  color: #7289da;
+}
+
+.buttons a {
+  transition: all 0.3s;
+  text-align: center;
+  font-size: 25px;
+  color: #fff;
+  text-decoration: none;
+  background-color: darkred;
+  width: 250px;
+  border: 10px solid #500a0e;
+  padding: 5px;
+  margin: 20px;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.25),
+    0 0 16px rgba(167, 167, 167, 0.22);
+  border-radius: 50px;
+}
+
+.left-box {
+  width: 32vw;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.89);
+  border: 4px solid white;
+  border-radius: 50px;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  margin-left: 40px;
+}
+
+.container {
+  width: 32vw;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.89);
+  border: 4px solid white;
+  border-radius: 50px;
+}
+
+.right-box {
+  justify-content: center;
+  display: flex;
+  width: 32vw;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.89);
+  border: 4px solid white;
+  border-radius: 50px;
+}
+
+.right-box img {
+  border-radius: 50%;
+  margin-top: 5px;
+  margin-left: 22%;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.25), 0 0 16px gold;
+}
+
+.left-box .container .right-box {
+  margin-left: 2vw;
+}
+
+.info .left-box .left-side h3 {
+  margin-left: 22%;
+}
+
+.funFact {
+  color: white;
+  background-color: #23272a;
+  width: 30%;
+}

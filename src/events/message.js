@@ -31,7 +31,7 @@ module.exports = {
         "700438892888719501"
       );
 
-      if (message.content.toLowerCase() === "<@!614110037291565056>") {
+      if (message.content.toLowerCase() === "<@!717535597924712540>") {
         message.channel
           .send(
             `My prefix is \`"k!"\`\nk!help\` to view my commands (make sure dms are enabled so i can dm you the commands!)`
@@ -248,6 +248,9 @@ module.exports = {
                     level: 0,
                     UserName: message.author.tag,
                     ServerName: message.guild.name,
+                    AvatarURL: message.author.displayAvatarURL({
+                      dynamic: true,
+                    }),
                   });
                   newUser.save().catch((err) => console.log(err));
                 } else if (xp.xp + xpGain >= xp.level + xp.level * 200 * 2) {
@@ -258,6 +261,9 @@ module.exports = {
                     xp.level = xp.level + 1;
                     xp.UserName = message.author.tag;
                     xp.ServerName = message.guild.name;
+                    xp.AvatarURL = message.author.displayAvatarURL({
+                      dynamic: true,
+                    });
                     xp.save().catch((err) => console.log(err));
                     console.log(
                       `${message.author.tag} has ${xp.xp}xp and gained ${xpGain}xp, they are level ${xp.level}\n\n in the server "${message.guild.name}" and leveled up with the message\n\n${message.content}\n\n`
@@ -277,7 +283,7 @@ module.exports = {
                           `Congrats ${message.author.tag}! you're now level ${xp.level}`
                         )
                       )
-                      .catch(() => { });
+                      .catch(() => {});
 
                     delaySet.add(message.author.id);
 
@@ -291,6 +297,9 @@ module.exports = {
                     xp.xp = xp.xp + xpGain;
                     xp.UserName = message.author.tag;
                     xp.ServerName = message.guild.name;
+                    xp.AvatarURL = message.author.displayAvatarURL({
+                      dynamic: true,
+                    });
 
                     xp.save().catch((err) => console.log(err));
 
@@ -325,12 +334,14 @@ module.exports = {
             userName: message.author.tag,
             xp: xpGain,
             level: 0,
+            AvatarURL: message.author.displayAvatarURL({ dynamic: true }),
           });
           newGlobalXp.save().catch((err) => console.log(err));
         } else if (user.xp + xpGain >= user.level * 200 * 2) {
           user.xp = user.xp + xpGain;
           user.level = user.level + 1;
           user.UserName = message.author.tag;
+          user.AvatarURL = message.author.displayAvatarURL({ dynamic: true });
           user.save().catch((err) => console.log(err));
           console.log(
             `${message.author.tag} has ${user.xp}xp and gained ${xpGain}xp, they are level ${user.level} globally\n\n in the server "${message.guild.name}" and leveled up with the message\n\n${message.content}\n\n`
@@ -341,6 +352,7 @@ module.exports = {
             user.xp = user.xp + xpGain;
             user.UserName = message.author.tag;
             user.ServerName = message.guild.name;
+            user.AvatarURL = message.author.displayAvatarURL({ dynamic: true });
             user.save().catch((err) => console.log(err));
 
             GlobalDelayset.add(message.author.id);
@@ -401,7 +413,7 @@ module.exports = {
                             collector4.once("collect", (message) => {
                               const feedback = message.content;
                               message.channel.send(
-                                `> **Your message has been sent to the support server at <https://discord.gg/2aSaqAg> **\n~~**This bot was brought to you by King Of Karma#0069**~~`
+                                `> **Your message has been sent to the support server at <https://support.bucketbot.dev> **\n~~**This bot was brought to you by King Of Karma#0069**~~`
                               );
                               const embed = new Discord.MessageEmbed()
                                 .setAuthor(

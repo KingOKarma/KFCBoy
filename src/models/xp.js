@@ -6,7 +6,9 @@ const XpSchema = mongoose.Schema({
     xp: Number,
     level: Number,
     UserName: String,
-    ServerName: String
+    ServerName: String,
+    AvatarURL: String,
+
 })
 
 module.exports = mongoose.model("Xp", XpSchema)

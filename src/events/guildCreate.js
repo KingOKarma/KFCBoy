@@ -11,7 +11,7 @@ module.exports = {
     });
     newShop.save().catch((err) => console.log(err));
     console.log("created shop for" + guild.name);
-
+    guilds.create({ID: guild.id, Name: guild.name, Icon: guild.icon == null ? "https://cdn.discordapp.com/icons/615804275313868805/c275b4953bd6fe0e5fe9e95017e940f0.webp" :"https://cdn.discordapp.com/icons/" + guild.id + "/" + guild.icon})
     const karmakingdomjoin = guild.client.guilds.cache.find(
       (guild) => guild.id === "605859550343462912"
     );

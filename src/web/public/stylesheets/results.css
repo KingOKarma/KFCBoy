@@ -1,0 +1,77 @@
+img {
+  border-radius: 50%;
+  border-color: white;
+}
+
+html,
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5;
+  color: black;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+html {
+  background-image: url("https://bucketbot.dev/imgs/round.png");
+  background-color: #000;
+  background-repeat: repeat;
+  animation: gradient 150s ease infinite;
+}
+
+@keyframes gradient {
+  50% {
+    background-position: center;
+  }
+}
+
+table {
+  margin-top: 3vh;
+  background-color: rgba(41, 41, 41, 0.678);
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table td,
+table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+table tr:nth-child(even) {
+  background-color: rgba(15, 15, 15, 0.712);
+}
+
+table a {
+  color: lightgray;
+  text-decoration: none;
+}
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #1f2928;
+  color: white;
+}
+
+table td:first-child {
+  width: 70px;
+}
+
+.info {
+  background-color: rgba(44, 47, 51, 0.849);
+  color: lightgray;
+  text-align: center;
+  line-height: 32px;
+}
+
+.info code {
+  background-color: rgba(15, 15, 15, 0.822);
+  border-radius: 5px;
+  padding: 3px;
+  font-size: 16px;
+}

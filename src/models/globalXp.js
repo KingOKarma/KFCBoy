@@ -5,6 +5,7 @@ const GlobalXpSchema = mongoose.Schema({
     xp: Number,
     level: Number,
     UserName: String,
+    Avatar: String,
 })
 
 module.exports = mongoose.model("GXp", GlobalXpSchema)
