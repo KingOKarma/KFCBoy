@@ -89,11 +89,9 @@ module.exports = {
             100, /* Image Width */
             100 /* Image Height */);
 
-
-
         const embed = new Discord.MessageEmbed()
-        embed.files = [new MessageAttachment(canvas.toBuffer(), 'file.png')];
-
+        embed.files = [new Discord.MessageAttachment(canvas.toBuffer(), 'file.png')];
+      
         embed.setAuthor(member.user.tag, member.user.displayAvatarURL({ dynamic: true }))
         embed.setDescription(`**Welcome <@${member.id}>, to the Karma Kingdom! <:Kainesip:706267804957016156>** \n**\`-\`[Twitch](https://www.twitch.tv/King_O_Karma)** and **[YouTube](https://www.youtube.com/channel/UCR8Mc2F5UV672cv3Z7KUn1g?view_as=subscriber)**\n \`-\`**[Invite me to your server!](https://invite.bucketbot.dev)**`)
         embed.setColor(member.guild.me.displayColor)
@@ -117,9 +115,6 @@ module.exports = {
                     return general.send(`${welcome.WelcomePing} \nNew member!! come say hi `)
             })
 
-
-
-
         if (member.guild.channels.cache.find(channel => channel.name === `verify-${member.user.id}`)) {
             member.guild.channels.cache.find(channel => channel.name === `verify-${member.user.id}`).overwritePermissions([
                 {
@@ -138,7 +133,6 @@ module.exports = {
                 },
             ],
             )
-
 
         } else {
 
@@ -161,7 +155,6 @@ module.exports = {
                 ],
             })
         }
-
         setTimeout(() => {
 
             const VerifyChannel = member.guild.channels.cache.find(channel => channel.name === `verify-${member.user.id}`)
@@ -194,18 +187,7 @@ module.exports = {
                 .catch((err) => {
                     VerifyChannel.send("I don\'t seem to have the permissions Manage Roles or Manage Channels, can you contact staff to fix this immediately?  I want to let you join the server 🥺 \n Logged reason:" + err)
                 });
-
-
-
-
         }, 500);
-
-
-
-
-
-
-
 
         const embedjoin = new Discord.MessageEmbed() // Create a new RichEmbed
             .setColor('GREEN')
@@ -218,17 +200,5 @@ module.exports = {
         member.guild.channels.cache.find(channel => channel.id === '660595725134069760').send({
             embedjoin
         });
-
-
-
-
-
-
-
-
-
     }
 }
-
-
-
