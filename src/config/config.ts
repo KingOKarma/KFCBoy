@@ -15,12 +15,15 @@ export default class Config {
 
     public readonly owners: string[];
 
+    public jobs: Object[]
+
     private static LOCATION = './config.yml';
 
     constructor() {
       this.token = '';
       this.prefix = '';
       this.owners = [''];
+      this.jobs = [];
     }
 
     /**

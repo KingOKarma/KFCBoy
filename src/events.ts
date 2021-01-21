@@ -1,4 +1,5 @@
 import { Client } from 'discord.js';
+import { CONFIG } from './globals';
 
 export function onReady(bot: Client) {
   if (!bot.user) {
