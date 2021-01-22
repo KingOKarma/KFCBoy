@@ -29,6 +29,9 @@ export class User {
   @Column({ default: 1 })
   Level!: number;
 
-  @Column({default: 0})
+  @Column({ default: 0 })
   NetWorth!: number;
+
+  @Column({ default: '' })
+  Work!: string;
 }

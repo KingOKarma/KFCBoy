@@ -9,12 +9,10 @@ async function main() {
   await createConnection();
   const bot = new Client({
   // My choses prefix is "c." you can choose anything you want!
-    commandPrefix: 'c.',
+    commandPrefix: 'd!',
     owner: CONFIG.owners,
 
   });
-  // eslint-disable-next-line no-array-constructor
-  bot.jobs = new Array();
   // Runs the function defined in ./events
   bot.on('ready', () => onReady(bot));
 
@@ -26,7 +24,7 @@ async function main() {
   ]).registerDefaults()
     .registerCommandsIn(
       path.join(__dirname, 'commands'),
-    )
+    );
 
   await bot.login(CONFIG.token);
 }

@@ -25,6 +25,7 @@ export default class BalCommand extends commando.Command {
   // Now to run the actual command, the run() parameters need to be defiend (by types and names)
   public async run(
     message: commando.CommandoMessage,
+    // eslint-disable-next-line no-unused-vars
     { args1 }: {args1: string},
   ): Promise<Message | Message[]> {
     const userRepo = getConnection().getRepository(User);
@@ -35,7 +36,8 @@ export default class BalCommand extends commando.Command {
         .setColor('BLUE')
         .setTitle('Currency')
         .setAuthor(user.Tag, user.Avatar)
-        .setDescription(`Balance banked ${user.Nuggies}`);
+        .setDescription(`Balance banked ${user.Nuggies}`)
+        .setTimestamp();
       return message.channel.send(embed);
     }
     return message.channel.send('Whoops error ``user not found error```');
