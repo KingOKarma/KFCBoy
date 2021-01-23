@@ -22,14 +22,18 @@ export default class WorkCommand extends commando.Command {
   ): Promise<Message | Message[]> {
     const userRepo = await getConnection().getRepository(User);
     const user = await userRepo.findOne(message.author.id);
+
     if (!user) {
       return message.channel.send('whoop eroor ```user not dound error```');
     }
+    // generate earnings and add multipliers
     // eslint-disable-next-line max-len
     let earn = (Math.floor(Math.random() * 200 - 100) + 100) * (user.Level > 10 ? Math.floor(user.Level / 15) : 1);
     if (user.Premium) earn = Math.floor(earn + 2.1);
+    // add earnings
     user.Nuggies += earn;
     await userRepo.manager.save(user);
+
     const embed = new MessageEmbed()
       .setAuthor(user.Tag, user.Avatar)
       .setDescription(`You have earned: ${earn}`)

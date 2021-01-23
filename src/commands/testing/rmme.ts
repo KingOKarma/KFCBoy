@@ -29,6 +29,7 @@ export default class RemoveMeCommand extends commando.Command {
   ): Promise<Message | Message[]> {
     const userRepo = getConnection().getRepository(User);
     const user = await userRepo.findOne(message.author.id);
+
     if (user) {
       await userRepo.remove(user);
       return message.channel.send('done no errors found');

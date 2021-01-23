@@ -28,8 +28,9 @@ export default class AddMeCommand extends commando.Command {
     message: commando.CommandoMessage,
   ): Promise<Message | Message[]> {
     const connection = getConnection();
-    const newUser = new User();
     const { id } = message.author;
+
+    const newUser = new User();
     newUser.Id = id;
     newUser.ServerId = message.guild.id;
     newUser.Avatar = message.author.displayAvatarURL({ dynamic: true });
@@ -38,6 +39,7 @@ export default class AddMeCommand extends commando.Command {
     newUser.Xp = 0;
     newUser.Premium = false;
     newUser.Tag = message.author.tag;
+
     connection.manager.save(newUser).then((saved) => {
       console.log('user saved');
       console.log(saved);

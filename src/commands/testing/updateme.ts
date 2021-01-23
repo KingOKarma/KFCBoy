@@ -29,12 +29,14 @@ export default class UpdateMeCommand extends commando.Command {
   ): Promise<Message | Message[]> {
     const userRepo = getConnection().getRepository(User);
     const user = await userRepo.findOne(message.author.id);
+
     if (user) {
       user.Avatar = message.author.displayAvatarURL({ dynamic: true });
       user.Premium = true;
       await userRepo.save(user);
       return message.channel.send('done no errors found');
     }
+
     return message.channel.send('you where not found in the database');
   }
 }
