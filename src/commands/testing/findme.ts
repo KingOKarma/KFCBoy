@@ -29,6 +29,7 @@ export default class FindMeCommand extends commando.Command {
   ): Promise<Message | Message[]> {
     const userRepo = getConnection().getRepository(User);
     const user = await userRepo.findOne(message.author.id);
+
     console.log(user);
 
     return message.channel.send('done no errors found');

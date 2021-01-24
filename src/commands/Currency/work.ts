@@ -28,7 +28,8 @@ export default class WorkCommand extends commando.Command {
     }
     // generate earnings and add multipliers
     // eslint-disable-next-line max-len
-    let earn = (Math.floor(Math.random() * 200 - 100) + 100) * (user.Level > 10 ? Math.floor(user.Level / 15) : 1);
+    let earn = Math.floor(Math.random() * 200 - 100) + 100;
+    earn = earn * user.Level > 10 ? Math.floor(user.Level / 15) : 1;
     if (user.Premium) earn = Math.floor(earn + 2.1);
     // add earnings
     user.Nuggies += earn;

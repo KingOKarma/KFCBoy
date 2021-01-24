@@ -29,8 +29,8 @@ export default class BalCommand extends commando.Command {
     { args1 }: {args1: string},
   ): Promise<Message | Message[]> {
     const userRepo = getConnection().getRepository(User);
-
     const user = await userRepo.findOne(message.author.id);
+
     if (user) {
       const embed = new MessageEmbed()
         .setColor('BLUE')
@@ -40,6 +40,7 @@ export default class BalCommand extends commando.Command {
         .setTimestamp();
       return message.channel.send(embed);
     }
+
     return message.channel.send('Whoops error ``user not found error```');
   }
 }

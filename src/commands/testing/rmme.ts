@@ -34,6 +34,7 @@ export default class RemoveMeCommand extends commando.Command {
       await userRepo.remove(user);
       return message.channel.send('done no errors found');
     }
+
     return message.channel.send('you where not found in the database');
   }
 }

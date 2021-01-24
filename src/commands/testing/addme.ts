@@ -44,6 +44,7 @@ export default class AddMeCommand extends commando.Command {
       console.log('user saved');
       console.log(saved);
     });
+
     return message.channel.send('done no errors found');
   }
 }
