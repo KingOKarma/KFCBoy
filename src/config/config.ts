@@ -7,6 +7,7 @@ import { safeDump, safeLoad } from 'js-yaml';
  * @property {string} token
  * @property {string} prefix
  * @property {string[]} owners
+ * @property {string[]} workStrings
  */
 export default class Config {
     public readonly token: string;
@@ -15,7 +16,7 @@ export default class Config {
 
     public readonly owners: string[];
 
-    public jobs: Object[]
+    public readonly workStrings: string[];
 
     private static LOCATION = './config.yml';
 
@@ -23,7 +24,7 @@ export default class Config {
       this.token = '';
       this.prefix = '';
       this.owners = [''];
-      this.jobs = [];
+      this.workStrings = [];
     }
 
     /**

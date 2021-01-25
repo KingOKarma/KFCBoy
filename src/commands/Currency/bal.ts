@@ -1,6 +1,6 @@
 import { Message, MessageEmbed } from 'discord.js';
 import * as commando from 'discord.js-commando';
-import { getConnection } from 'typeorm';
+import { getRepository } from 'typeorm';
 import { User } from '../../entity/user';
 
 // Creates a new class (being the command) extending off of the commando client
@@ -28,7 +28,7 @@ export default class BalCommand extends commando.Command {
     // eslint-disable-next-line no-unused-vars
     { args1 }: {args1: string},
   ): Promise<Message | Message[]> {
-    const userRepo = getConnection().getRepository(User);
+    const userRepo = getRepository(User);
     const user = await userRepo.findOne(message.author.id);
 
     if (user) {

@@ -1,5 +1,5 @@
 import { Guild } from 'discord.js';
-
+import { User } from './entity/user';
 // Added getRole function in here incase you don't like getMember (;
 export function getRole(rid: string, guild: Guild) {
   let ridParsed = rid;
@@ -33,4 +33,8 @@ export function getMember(uid: string, guild: Guild) {
     console.log(`Member not found because ${e}`);
     return undefined;
   }
+}
+
+export function paginate(array: User[], pageSize: number, pageNumber: number) {
+  return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 }
