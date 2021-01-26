@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { Client } from 'discord.js-commando';
 import path from 'path';
 import { createConnection } from 'typeorm';
-import { onReady } from './events';
+import { onMessage, onReady } from './events';
 import { CONFIG } from './globals';
 
 async function main() {
@@ -15,7 +15,7 @@ async function main() {
   });
   // Runs the function defined in ./events
   bot.on('ready', () => onReady(bot));
-
+  bot.on('message', (message) => onMessage(bot, message));
   // registers all groups/commands/etc
   bot.registry.registerGroups([
     ['group1'],
