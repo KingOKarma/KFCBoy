@@ -13,9 +13,10 @@ export function onReady(bot: Client) {
 
 // eslint-disable-next-line consistent-return
 export async function onMessage(bot: Client, message: any) {
+  if (message.author.bot) return;
   const userRepo = getRepository(User);
   const user = await userRepo.findOne(message.author.id);
-  let xpGain = Math.ceil(message.content.length / 2);
+  let xpGain = Math.ceil(message.content.length * 10);
   // if above 10, add 10
   if (xpGain > 11) {
     xpGain = Math.ceil(+10);
@@ -32,12 +33,14 @@ export async function onMessage(bot: Client, message: any) {
       return userRepo.save(newUser);
     }
 
-    if (user.Xp + xpGain >= user.Level + user.Level * 200 * 2) {
+    if (user.Xp + xpGain >= user.Level * 200 * 2) {
+      const gain = user.Xp + xpGain - user.Level + user.Level * 200 * 2;
+
       user.Id = message.author.id;
       user.ServerId = message.guild.id;
       user.Avatar = message.author.displayAvatarURL({ dynamic: true });
       user.Tag = message.author.tag;
-      user.Xp += xpGain;
+      user.Xp += gain;
       user.Level += 1;
 
       const embed = new MessageEmbed()
@@ -45,6 +48,7 @@ export async function onMessage(bot: Client, message: any) {
         .setTitle(`Level up  to ${user.Level}`)
         .setTimestamp();
       message.say(embed);
+
       return userRepo.save(user);
     }
 
@@ -53,7 +57,6 @@ export async function onMessage(bot: Client, message: any) {
     user.Avatar = message.author.displayAvatarURL({ dynamic: true });
     user.Tag = message.author.tag;
     user.Xp += xpGain;
-    user.Level += 1;
 
     xpTimeout.set(message.author.id, '1');
     setTimeout(() => {

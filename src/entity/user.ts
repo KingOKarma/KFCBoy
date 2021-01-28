@@ -17,9 +17,6 @@ export class User {
   @Column()
   Avatar!: string;
 
-  @Column({ default: false })
-  Premium!: boolean;
-
   @Column({ default: 100 })
   Nuggies!: number;
 

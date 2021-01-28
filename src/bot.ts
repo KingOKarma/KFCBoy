@@ -21,6 +21,7 @@ async function main() {
     ['group1'],
     ['testing', 'group for testing purposes'],
     ['currency', 'Currency Module'],
+    ['xp', 'Xp Module'],
   ]).registerDefaults()
     .registerCommandsIn(
       path.join(__dirname, 'commands'),

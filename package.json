@@ -4,6 +4,7 @@
   "description": "Template for a Typescript Discord Bot",
   "main": "bot.ts",
   "dependencies": {
+    "canvas": "^2.6.1",
     "discord.js": "^12.5.1",
     "discord.js-commando": "^0.11.0-dev",
     "fs": "^0.0.1-security",
