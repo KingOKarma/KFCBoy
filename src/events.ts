@@ -30,11 +30,9 @@ export async function onMessage(bot: Client, message: any) {
       newUser.Avatar = message.author.displayAvatarURL({ dynamic: true });
       newUser.Tag = message.author.tag;
       newUser.Xp = xpGain;
-      return userRepo.save(newUser);
-    }
-
-    if (user.Xp + xpGain >= user.Level * 200 * 2) {
-      const gain = user.Xp + xpGain - user.Level + user.Level * 200 * 2;
+      userRepo.save(newUser);
+    } else if (user.Xp + xpGain >= user.Level * 250 * 2) {
+      const gain = user.Xp + xpGain - user.Level * 250 * 2;
 
       user.Id = message.author.id;
       user.ServerId = message.guild.id;
@@ -49,19 +47,19 @@ export async function onMessage(bot: Client, message: any) {
         .setTimestamp();
       message.say(embed);
 
-      return userRepo.save(user);
+      userRepo.save(user);
+    } else {
+      user.Id = message.author.id;
+      user.ServerId = message.guild.id;
+      user.Avatar = message.author.displayAvatarURL({ dynamic: true });
+      user.Tag = message.author.tag;
+      user.Xp += xpGain;
+
+      xpTimeout.set(message.author.id, '1');
+      setTimeout(() => {
+        xpTimeout.delete(message.author.id);
+      }, 5 * 1000);
+      userRepo.save(user);
     }
-
-    user.Id = message.author.id;
-    user.ServerId = message.guild.id;
-    user.Avatar = message.author.displayAvatarURL({ dynamic: true });
-    user.Tag = message.author.tag;
-    user.Xp += xpGain;
-
-    xpTimeout.set(message.author.id, '1');
-    setTimeout(() => {
-      xpTimeout.delete(message.author.id);
-    }, 5 * 1000);
-    return userRepo.save(user);
   }
 }
