@@ -4,6 +4,7 @@ import { getRepository } from 'typeorm';
 import ms from 'ms';
 import { User } from '../../entity/user';
 import { CONFIG } from '../../globals';
+import { GlobalUser } from '../../entity/globalUser';
 
 const Timeout = new Map();
 
@@ -24,12 +25,17 @@ export default class WorkCommand extends commando.Command {
   public async run(
     message: commando.CommandoMessage,
   ): Promise<Message | Message[]> {
-    const userRepo = await getRepository(User);
-    const user = await userRepo.findOne(message.author.id);
+    const userRepo = getRepository(User);
+    const gUserRepo = getRepository(GlobalUser);
+    const user = await userRepo.findOne({ Id: message.author.id, ServerId: message.guild.id });
+    const gUser = await gUserRepo.findOne(message.author.id);
     const found = Timeout.get(message.author.id);
 
     if (!user) {
       return message.channel.send('whoop eroor ```user not dound error```');
+    }
+    if (!gUser) {
+      return message.channel.send('whoop eroor ```gUser not dound error```');
     }
 
     if (found) {
@@ -42,7 +48,7 @@ export default class WorkCommand extends commando.Command {
     // generate earnings and add multipliers
     let earn = Math.floor(Math.random() * 200 - 100) + 100;
     earn *= user.Level > 10 ? Math.floor(user.Level / 15) : 1;
-    if (user.Premium) earn = Math.floor(earn + 2.1);
+    if (gUser.Premium) earn = Math.floor(earn + 2.1);
 
     const random = Math.floor(Math.random() * CONFIG.workStrings.length);
     let workString = CONFIG.workStrings[random];
