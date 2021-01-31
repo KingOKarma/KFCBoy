@@ -32,7 +32,6 @@ export default class UpdateMeCommand extends commando.Command {
 
     if (user) {
       user.Avatar = message.author.displayAvatarURL({ dynamic: true });
-      user.Premium = true;
       await userRepo.save(user);
       return message.channel.send('done no errors found');
     }

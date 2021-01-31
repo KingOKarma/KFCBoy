@@ -4,7 +4,7 @@ import {
 import { Playlist } from './playlists';
 
 @Entity()
-export class PlaylistMetadata {
+export class GlobalUser {
   @PrimaryColumn()
   Id!: string;
 
@@ -13,6 +13,12 @@ export class PlaylistMetadata {
 
   @Column()
   Avatar!: string;
+
+  @Column({ default: false })
+  Premium!: boolean;
+
+  @Column({ nullable: true })
+  PremiumBought!: string;
 
   @OneToOne(() => Playlist)
   @JoinColumn()

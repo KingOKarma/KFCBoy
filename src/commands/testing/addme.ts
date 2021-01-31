@@ -33,11 +33,11 @@ export default class AddMeCommand extends commando.Command {
     const newUser = new User();
     newUser.Id = id;
     newUser.ServerId = message.guild.id;
+    newUser.Tag = message.author.tag;
     newUser.Avatar = message.author.displayAvatarURL({ dynamic: true });
     newUser.Level = 0;
     newUser.Nuggies = 100;
     newUser.Xp = 0;
-    newUser.Premium = false;
     newUser.Tag = message.author.tag;
 
     connection.manager.save(newUser).then((saved) => {
