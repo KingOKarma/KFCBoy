@@ -1,7 +1,7 @@
 import {
   Entity, Column, PrimaryColumn, OneToOne, JoinColumn,
 } from 'typeorm';
-import { Playlist } from './playlists';
+import { Playlist } from './userplaylists';
 
 @Entity()
 export class GlobalUser {

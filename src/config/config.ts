@@ -18,6 +18,8 @@ export default class Config {
 
     public readonly workStrings: string[];
 
+    public readonly youtubeApiKey: string;
+
     private static LOCATION = './config.yml';
 
     constructor() {
@@ -25,6 +27,7 @@ export default class Config {
       this.prefix = '';
       this.owners = [''];
       this.workStrings = [];
+      this.youtubeApiKey = '';
     }
 
     /**
