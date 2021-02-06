@@ -1,18 +1,19 @@
-import {
-  Entity, Column, PrimaryColumn, OneToOne, JoinColumn,
-} from 'typeorm';
-import { Playlist } from './userplaylists';
+import { Entity, PrimaryColumn, Column } from 'typeorm';
 
 @Entity()
-export class PlaylistMetadata {
+export class ItemMeta {
   @PrimaryColumn()
-  PlaylistId!: number;
+  id!: string;
 
   @Column()
-  Length!: number;
+  name!: string;
 
-  // eslint-disable-next-line no-unused-vars
-  @OneToOne((type) => Playlist)
-  @JoinColumn()
-  Playlist!: Playlist;
+  @Column()
+  description!: string;
+
+  @Column()
+  price!: number;
+
+  @Column()
+  max!: number;
 }

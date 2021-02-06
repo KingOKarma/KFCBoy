@@ -24,12 +24,12 @@ export default class leaderboardCommand extends commando.Command {
     message: commando.CommandoMessage,
   ): Promise<Message | Message[]> {
     const userRepo = getRepository(User);
-    const users = await userRepo.find({ order: { Nuggies: 'DESC' } });
+    const users = await userRepo.find({ order: { nuggies: 'DESC' } });
     const pageNum = 1;
     const page = paginate(users, 10, pageNum);
     const embed = new MessageEmbed();
     page.forEach((user) => {
-      embed.addField(user.Tag, user.Nuggies);
+      embed.addField(user.tag, user.nuggies);
     });
     return message.say(embed);
   }

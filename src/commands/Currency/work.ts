@@ -27,7 +27,7 @@ export default class WorkCommand extends commando.Command {
   ): Promise<Message | Message[]> {
     const userRepo = getRepository(User);
     const gUserRepo = getRepository(GlobalUser);
-    const user = await userRepo.findOne({ Id: message.author.id, ServerId: message.guild.id });
+    const user = await userRepo.findOne({ id: message.author.id, serverId: message.guild.id });
     const gUser = await gUserRepo.findOne(message.author.id);
     const found = Timeout.get(message.author.id);
 
@@ -47,13 +47,13 @@ export default class WorkCommand extends commando.Command {
 
     // generate earnings and add multipliers
     let earn = Math.floor(Math.random() * 200 - 100) + 100;
-    earn *= user.Level > 10 ? Math.floor(user.Level / 15) : 1;
-    if (gUser.Premium) earn = Math.floor(earn + 2.1);
+    earn *= user.level > 10 ? Math.floor(user.level / 15) : 1;
+    if (gUser.premium) earn = Math.floor(earn + 2.1);
 
     const random = Math.floor(Math.random() * CONFIG.workStrings.length);
     let workString = CONFIG.workStrings[random];
     workString = workString.replace('{bal}', earn.toString());
-    workString = workString.replace('{totalBal}', user.Nuggies.toString());
+    workString = workString.replace('{totalBal}', user.nuggies.toString());
     workString = workString.replace('{user}', `<@${message.author.id}>`);
 
     Timeout.set(message.author.id, Date.now());
@@ -62,7 +62,7 @@ export default class WorkCommand extends commando.Command {
       // 5 mins
     }, 5 * 60 * 1000);
 
-    user.Nuggies += earn;
+    user.nuggies += earn;
     await userRepo.manager.save(user);
 
     return message.say(workString);

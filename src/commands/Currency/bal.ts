@@ -35,8 +35,8 @@ export default class BalCommand extends commando.Command {
       const embed = new MessageEmbed()
         .setColor('BLUE')
         .setTitle('Currency')
-        .setAuthor(user.Tag, user.Avatar)
-        .setDescription(`Balance banked ${user.Nuggies}`)
+        .setAuthor(user.tag, user.avatar)
+        .setDescription(`Balance banked ${user.nuggies}`)
         .setTimestamp();
       return message.channel.send(embed);
     }

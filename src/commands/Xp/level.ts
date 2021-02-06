@@ -27,15 +27,15 @@ export default class levelCommand extends commando.Command {
     message: commando.CommandoMessage,
   ): Promise<Message | Message[]> {
     const userRepo = getRepository(User);
-    const user = await userRepo.findOne({ Id: message.author.id, ServerId: message.guild.id });
+    const user = await userRepo.findOne({ id: message.author.id, serverId: message.guild.id });
     if (!user) return message.say('soo umm this isnt suposed to happen only in testing... an error happened');
-    let procent = user.Xp / (user.Level * 250 * 1.5);
+    let procent = user.xp / (user.level * 250 * 1.5);
     procent *= 100;
     if (Number.isNaN(procent)) procent = 0;
     const canvas = Canvas.createCanvas(700, 250);
 
     const ctx = canvas.getContext('2d');
-    const background = await Canvas.loadImage(path.join(__dirname, '../../images/levelBackground.png'));
+    const background = await Canvas.loadImage(path.join(__dirname, '../../../images/xpBackground/backing.png'));
 
     const lineFill = Math.round((400 * procent) / 100);
 
@@ -53,10 +53,10 @@ export default class levelCommand extends commando.Command {
 
     ctx.font = '34px sans-serif';
 
-    ctx.fillText(`level: ${user.Level}`, canvas.width / 2.8, canvas.height / 1.63);
+    ctx.fillText(`level: ${user.level}`, canvas.width / 2.8, canvas.height / 1.63);
 
     ctx.font = '12px sans-serif';
-    ctx.fillText(`${user.Xp}/${Math.round(user.Level * 250 * 1.5)}`, 250, 179);
+    ctx.fillText(`${user.xp}/${Math.round(user.level * 250 * 1.5)}`, 250, 179);
 
     ctx.fillStyle = '#808080';
     ctx.fillRect(250, 180, 400, 30);

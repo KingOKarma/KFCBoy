@@ -31,7 +31,7 @@ export default class UpdateMeCommand extends commando.Command {
     const user = await userRepo.findOne(message.author.id);
 
     if (user) {
-      user.Avatar = message.author.displayAvatarURL({ dynamic: true });
+      user.avatar = message.author.displayAvatarURL({ dynamic: true });
       await userRepo.save(user);
       return message.channel.send('done no errors found');
     }

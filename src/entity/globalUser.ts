@@ -1,26 +1,21 @@
 import {
-  Entity, Column, PrimaryColumn, OneToOne, JoinColumn,
+  Entity, Column, PrimaryColumn,
 } from 'typeorm';
-import { Playlist } from './userplaylists';
 
 @Entity()
 export class GlobalUser {
   @PrimaryColumn()
-  Id!: string;
+  id!: string;
 
   @Column()
-  Tag!: string;
+  tag!: string;
 
   @Column()
-  Avatar!: string;
+  avatar!: string;
 
   @Column({ default: false })
-  Premium!: boolean;
+  premium!: boolean;
 
   @Column({ nullable: true })
-  PremiumBought!: string;
-
-  @OneToOne(() => Playlist)
-  @JoinColumn()
-  Playlists!: Playlist[];
+  premiumBought!: string;
 }

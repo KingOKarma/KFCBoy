@@ -1,34 +1,33 @@
 import {
-  Entity, Column, PrimaryColumn, Unique,
+  Entity, Column, PrimaryColumn,
 } from 'typeorm';
 
 @Entity()
-@Unique(['Id'])
 export class User {
   @PrimaryColumn()
-  Id!: string;
+  id!: string;
 
   @Column()
-  ServerId!: string;
+  serverId!: string;
 
   @Column()
-  Tag!: string;
+  tag!: string;
 
   @Column()
-  Avatar!: string;
+  avatar!: string;
 
   @Column({ default: 100 })
-  Nuggies!: number;
+  nuggies!: number;
 
   @Column({ default: 0 })
-  Xp!: number;
+  xp!: number;
 
   @Column({ default: 1 })
-  Level!: number;
+  level!: number;
 
   @Column({ default: 0 })
-  NetWorth!: number;
+  netWorth!: number;
 
   @Column({ default: '' })
-  Work!: string;
+  work!: string;
 }

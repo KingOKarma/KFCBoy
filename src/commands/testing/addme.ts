@@ -28,22 +28,18 @@ export default class AddMeCommand extends commando.Command {
     message: commando.CommandoMessage,
   ): Promise<Message | Message[]> {
     const connection = getConnection();
-    const { id } = message.author;
 
     const newUser = new User();
-    newUser.Id = id;
-    newUser.ServerId = message.guild.id;
-    newUser.Tag = message.author.tag;
-    newUser.Avatar = message.author.displayAvatarURL({ dynamic: true });
-    newUser.Level = 0;
-    newUser.Nuggies = 100;
-    newUser.Xp = 0;
-    newUser.Tag = message.author.tag;
+    newUser.id = message.author.id;
+    newUser.serverId = message.guild.id;
+    newUser.tag = message.author.tag;
+    newUser.avatar = message.author.displayAvatarURL({ dynamic: true });
+    newUser.level = 0;
+    newUser.nuggies = 100;
+    newUser.xp = 0;
+    newUser.tag = message.author.tag;
 
-    connection.manager.save(newUser).then((saved) => {
-      console.log('user saved');
-      console.log(saved);
-    });
+    connection.manager.save(newUser);
 
     return message.channel.send('done no errors found');
   }

@@ -1,15 +1,15 @@
 import { Message, MessageEmbed } from 'discord.js';
 import * as commando from 'discord.js-commando';
 import { getRepository } from 'typeorm';
-import { shop } from '../../entity/item';
+import { ItemMeta } from '../../entity/metadata';
 
-export default class shopCommand extends commando.Command {
+export default class ItemMetaCommand extends commando.Command {
   constructor(client: commando.CommandoClient) {
     super(client, {
       name: 'shop',
       group: 'currency',
       memberName: 'shop',
-      description: 'display the server shop',
+      description: 'display the server ItemMeta',
       throttling: {
         usages: 2,
         duration: 20,
@@ -20,15 +20,15 @@ export default class shopCommand extends commando.Command {
   public async run(
     message: commando.CommandoMessage,
   ): Promise<Message | Message[]> {
-    const shopRepo = getRepository(shop);
-    const items = await shopRepo.find({ Id: message.guild.id });
+    const ItemMetaRepo = getRepository(ItemMeta);
+    const items = await ItemMetaRepo.find({ id: message.guild.id });
     let guildIcon = message.guild.iconURL({ dynamic: true });
     if (guildIcon == null) guildIcon = 'https://cdn.discordapp.com/attachments/643347490925445132/758369629155360818/2Q.png';
     const embed = new MessageEmbed()
       .setThumbnail(guildIcon);
     console.log(items);
     items.forEach((item) => {
-      embed.addField(item.Name, `Desc: ${item.Description}\nPrice: ${item.Price}\nMax count: ${item.Max}`);
+      embed.addField(item.name, `Desc: ${item.description}\nPrice: ${item.price}\nMax count: ${item.max}`);
     });
     return message.channel.send(embed);
   }
