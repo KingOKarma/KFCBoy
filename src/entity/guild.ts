@@ -1,21 +1,21 @@
+/* eslint-disable arrow-parens */
+/* eslint-disable no-shadow */
 import {
-  Entity, PrimaryColumn, Column, OneToOne, JoinColumn,
+  Entity, PrimaryColumn, Column, OneToMany,
 } from 'typeorm';
 import { ItemMeta } from './metadata';
 
 @Entity()
 export class Guild {
-  @OneToOne(() => ItemMeta)
-  @JoinColumn()
   @PrimaryColumn()
   id!: string;
 
   @Column()
   name!: string;
 
-  @Column({ nullable: false })
+  @Column({ default: false })
   boosted!: boolean;
 
-  @Column('simple-array', { array: true })
+  @OneToMany(() => ItemMeta, ItemMeta => ItemMeta.guild)
   shop!: ItemMeta[];
 }

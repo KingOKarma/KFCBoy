@@ -1,5 +1,7 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
-
+import {
+  Entity, Column, ManyToOne, PrimaryColumn,
+} from 'typeorm';
+import { Guild } from './guild';
 @Entity()
 export class ItemMeta {
   @PrimaryColumn()
@@ -16,4 +18,8 @@ export class ItemMeta {
 
   @Column()
   max!: number;
+
+  // eslint-disable-next-line no-shadow
+  @ManyToOne(() => Guild, (Guild) => Guild.shop)
+  guild!: Guild;
 }

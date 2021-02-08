@@ -1,8 +1,8 @@
 import { Message } from 'discord.js';
 import * as commando from 'discord.js-commando';
 import { getConnection } from 'typeorm';
-import { ItemMeta } from '../../entity/metadata';
 import { Guild } from '../../entity/guild';
+import { ItemMeta } from '../../entity/metadata';
 
 export default class newShopCommand extends commando.Command {
   constructor(client: commando.Client) {
@@ -34,6 +34,7 @@ export default class newShopCommand extends commando.Command {
       newGuild.id = message.guild.id;
       newGuild.name = message.guild.name;
       newGuild.shop = [newItem];
+      conn.manager.save(newGuild);
     }
 
     return message.say('dick pics on the way');

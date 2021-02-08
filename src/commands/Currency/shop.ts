@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from 'discord.js';
 import * as commando from 'discord.js-commando';
 import { getRepository } from 'typeorm';
-import { ItemMeta } from '../../entity/metadata';
+import { Guild } from '../../entity/guild';
 
 export default class ItemMetaCommand extends commando.Command {
   constructor(client: commando.CommandoClient) {
@@ -20,15 +20,15 @@ export default class ItemMetaCommand extends commando.Command {
   public async run(
     message: commando.CommandoMessage,
   ): Promise<Message | Message[]> {
-    const ItemMetaRepo = getRepository(ItemMeta);
-    const items = await ItemMetaRepo.find({ id: message.guild.id });
-    let guildIcon = message.guild.iconURL({ dynamic: true });
-    if (guildIcon == null) guildIcon = 'https://cdn.discordapp.com/attachments/643347490925445132/758369629155360818/2Q.png';
-    const embed = new MessageEmbed()
-      .setThumbnail(guildIcon);
-    console.log(items);
-    items.forEach((item) => {
-      embed.addField(item.name, `Desc: ${item.description}\nPrice: ${item.price}\nMax count: ${item.max}`);
+    const GuildRepo = getRepository(Guild);
+    const guild = await GuildRepo.findOne({ where: { id: message.guild.id }, relations: ['shop'] });
+    const embed = new MessageEmbed();
+    if (!guild) {
+      return message.say('errorroororororo');
+    }
+    console.log(guild.shop);
+    guild.shop.forEach((item) => {
+      embed.addField(item.name, `${item.description}\nPrice${item.price}\nMax${item.max}`);
     });
     return message.channel.send(embed);
   }
