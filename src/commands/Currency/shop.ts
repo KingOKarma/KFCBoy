@@ -22,14 +22,16 @@ export default class ItemMetaCommand extends commando.Command {
   ): Promise<Message | Message[]> {
     const GuildRepo = getRepository(Guild);
     const guild = await GuildRepo.findOne({ where: { id: message.guild.id }, relations: ['shop'] });
-    const embed = new MessageEmbed();
+
     if (!guild) {
-      return message.say('errorroororororo');
+      throw new Error('Could not find guild in the database. please report this in the support server');
     }
-    console.log(guild.shop);
+
+    const embed = new MessageEmbed();
     guild.shop.forEach((item) => {
-      embed.addField(item.name, `${item.description}\nPrice${item.price}\nMax${item.max}`);
+      embed.addField(item.name, `${item.description}\nPrice: ${item.price}\nMax: ${item.max}`);
     });
+
     return message.channel.send(embed);
   }
 }

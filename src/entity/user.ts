@@ -1,6 +1,7 @@
 import {
-  Entity, Column, PrimaryColumn,
+  Entity, Column, PrimaryColumn, OneToMany,
 } from 'typeorm';
+import { Inventory } from './inventory';
 
 @Entity()
 export class User {
@@ -30,4 +31,7 @@ export class User {
 
   @Column({ default: '' })
   work!: string;
+
+  @OneToMany(() => Inventory, (inventory) => inventory.user)
+  inventory!: Inventory;
 }

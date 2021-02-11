@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 import * as commando from 'discord.js-commando';
 import { getConnection } from 'typeorm';
 import { Guild } from '../../entity/guild';
-import { ItemMeta } from '../../entity/metadata';
+import { ItemMeta } from '../../entity/item';
 
 export default class newShopCommand extends commando.Command {
   constructor(client: commando.Client) {

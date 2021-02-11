@@ -3,7 +3,7 @@
 import {
   Entity, PrimaryColumn, Column, OneToMany,
 } from 'typeorm';
-import { ItemMeta } from './metadata';
+import { ItemMeta } from './item';
 
 @Entity()
 export class Guild {
