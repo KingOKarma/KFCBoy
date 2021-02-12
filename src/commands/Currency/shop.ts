@@ -22,7 +22,7 @@ export default class ItemMetaCommand extends commando.Command {
   ): Promise<Message | Message[]> {
     const GuildRepo = getRepository(Guild);
     const guild = await GuildRepo.findOne({ where: { id: message.guild.id }, relations: ['shop'] });
-
+    console.log(guild);
     if (!guild) {
       throw new Error('Could not find guild in the database. please report this in the support server');
     }
