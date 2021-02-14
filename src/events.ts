@@ -1,77 +1,95 @@
-import { Client, MessageEmbed } from 'discord.js';
-import { getRepository } from 'typeorm';
-import { User } from './entity/user';
-import { GlobalUser } from './entity/globalUser';
+import { Client, Message, MessageEmbed, Presence } from "discord.js";
+import { CONFIG } from "./globals";
+import { GlobalUser } from "./entity/globalUser";
+import { User } from "./entity/user";
+import { getRepository } from "typeorm";
 
 const xpTimeout = new Map();
-export function onReady(bot: Client) {
-  if (!bot.user) {
-    return;
-  }
-  console.log(`${bot.user.tag} is online!`);
-  bot.user.setActivity('... always watching...', { type: 'WATCHING' });
+
+export async function onReady(bot: Client): Promise<Presence | void> {
+    if (!bot.user) {
+        return void console.log("There was a problem with logging in");
+    }
+    console.log(`${bot.user.tag} is online!`);
+    return bot.user.setActivity("me cuz I got a new updated bros", { type: "WATCHING" });
 }
 
-// eslint-disable-next-line consistent-return
-export async function onMessage(bot: Client, message: any) {
-  if (message.author.bot) return;
-  const userRepo = getRepository(User);
-  const gUserRepo = getRepository(GlobalUser);
-  const user = await userRepo.findOne({ id: message.author.id, serverId: message.guild.id });
-  const gUser = await gUserRepo.findOne(message.author.id);
-  let xpGain = Math.ceil(message.content.length * 10);
-  const timeout = xpTimeout.get(message.author.id);
-  // if above 10, add 10
-  if (xpGain > 11) {
-    xpGain = Math.ceil(+10);
-  }
-  if (!gUser) {
-    const newGUser = new GlobalUser();
-    newGUser.avatar = message.author.displayAvatarURL({ dynamic: true });
-    newGUser.id = message.author.id;
-    newGUser.tag = message.author.tag;
-    gUserRepo.save(newGUser);
-  } else {
-    if (gUser.premium) xpGain *= 2;
-    if (!timeout) {
-      if (!user) {
-        const newUser = new User();
-        newUser.id = message.author.id;
-        newUser.serverId = message.guild.id;
-        newUser.avatar = message.author.displayAvatarURL({ dynamic: true });
-        newUser.tag = message.author.tag;
-        newUser.xp = xpGain;
-        userRepo.save(newUser);
-      } else if (user.xp + xpGain >= Math.round(user.level * 250 * 1.5)) {
-        const gain = Math.round(user.level * 250 * 1.5) - (user.xp + xpGain);
-        console.log(gain);
-        user.id = message.author.id;
-        user.serverId = message.guild.id;
-        user.avatar = message.author.displayAvatarURL({ dynamic: true });
-        user.tag = message.author.tag;
-        user.xp = gain;
-        user.level += 1;
+// XP System
+export async function onMessage(msg: Message): Promise<void | Message | Message[]> {
+    if (msg.author.bot) return;
+    if (msg.guild === null) return;
+    if (msg.content.toLowerCase().startsWith(`${CONFIG.prefix}`)) return;
 
-        const embed = new MessageEmbed()
-          .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
-          .setTitle(`level up  to ${user.level}`)
-          .setTimestamp();
-        message.say(embed);
+    const userRepo = getRepository(User);
+    const gUserRepo = getRepository(GlobalUser);
+    const user = await userRepo.findOne({ serverId: msg.guild.id, uid: msg.author.id });
+    const gUser = await gUserRepo.findOne(msg.author.id);
+    const timeout = xpTimeout.get(msg.author.id);
+    let xpGain = Math.ceil(msg.content.length * 2);
 
-        userRepo.save(user);
-      } else {
-        user.id = message.author.id;
-        user.serverId = message.guild.id;
-        user.avatar = message.author.displayAvatarURL({ dynamic: true });
-        user.tag = message.author.tag;
-        user.xp += xpGain;
-
-        xpTimeout.set(message.author.id, '1');
-        setTimeout(() => {
-          xpTimeout.delete(message.author.id);
-        }, 5 * 1000);
-        userRepo.save(user);
-      }
+    // If above 10, set 10
+    if (xpGain > 11) {
+        xpGain = Math.ceil(+10);
     }
-  }
+
+    // If there is no GlobalUser then add to  DB
+    if (!gUser) {
+        const newGUser = new GlobalUser();
+        newGUser.avatar = msg.author.displayAvatarURL({ dynamic: true });
+        newGUser.id = msg.author.id;
+        newGUser.tag = msg.author.tag;
+        void gUserRepo.save(newGUser);
+    } else {
+
+        // Check if user is a premium user, if true x2 xp
+        if (gUser.premium) xpGain *= 2;
+
+        // Check Timeout
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        if (!timeout) {
+
+            // If Member doesn't exist add to DB
+            if (!user) {
+                const newUser = new User();
+                newUser.uid = msg.author.id;
+                newUser.serverId = msg.guild.id;
+                newUser.avatar = msg.author.displayAvatarURL({ dynamic: true });
+                newUser.tag = msg.author.tag;
+                newUser.xp = xpGain;
+                void userRepo.save(newUser);
+
+                // Level up member
+            } else if (user.xp + xpGain >= Math.round((user.level + 1) * 1000)) {
+                const gain = Math.round((user.level + 1) * 1000) - (user.xp + xpGain);
+                user.uid = msg.author.id;
+                user.serverId = msg.guild.id;
+                user.avatar = msg.author.displayAvatarURL({ dynamic: true });
+                user.tag = msg.author.tag;
+                user.xp = gain;
+                user.level += 1;
+
+                void userRepo.save(user);
+
+                const embed = new MessageEmbed()
+                    .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true }))
+                    .setTitle(`Congrats you level up to ${user.level}!`)
+                    .setTimestamp();
+                return msg.channel.send(embed);
+
+                // Default Add XP
+            } else {
+                user.uid = msg.author.id;
+                user.serverId = msg.guild.id;
+                user.avatar = msg.author.displayAvatarURL({ dynamic: true });
+                user.tag = msg.author.tag;
+                user.xp += xpGain;
+
+                xpTimeout.set(msg.author.id, "1");
+                setTimeout(() => {
+                    xpTimeout.delete(msg.author.id);
+                }, 5 * 2000);
+                void userRepo.save(user);
+            }
+        }
+    }
 }

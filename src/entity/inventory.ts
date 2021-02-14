@@ -1,18 +1,25 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+/* eslint-disable @typescript-eslint/member-ordering */
 import {
-  Column, Entity, ManyToOne, PrimaryColumn,
-} from 'typeorm';
-import { ItemMeta } from './item';
-import { User } from './user';
+    Column, Entity, ManyToOne, PrimaryGeneratedColumn
+} from "typeorm";
+import { ItemMeta } from "./item";
+import { User } from "./user";
 
 @Entity()
 export class Inventory {
-   // eslint-disable-next-line no-shadow
-   @PrimaryColumn()
-   id!: number;
+    @PrimaryGeneratedColumn()
+    id!: number;
 
-   @ManyToOne(() => User, (user) => user.id)
-  user!: User;
+    @Column()
+    uid!: string;
 
-  @Column('simple-json')
-  items!: Map<ItemMeta, Number>;
+    @Column()
+    serverid!: string;
+
+    @ManyToOne(() => User, (user) => user.id)
+    user!: User;
+
+    @Column("simple-json")
+    items!: ItemMeta[];
 }

@@ -1,46 +1,65 @@
-import { Message, MessageEmbed } from 'discord.js';
-import * as commando from 'discord.js-commando';
-import { getRepository } from 'typeorm';
-import { User } from '../../entity/user';
+import * as commando from "discord.js-commando";
+import { Message, MessageEmbed } from "discord.js";
+import { User } from "../../entity/user";
+import { getMember } from "../../utils";
+import { getRepository } from "typeorm";
 
 // Creates a new class (being the command) extending off of the commando client
 export default class BalCommand extends commando.Command {
-  constructor(client: commando.CommandoClient) {
-    super(client, {
-      name: 'balance',
-      aliases: ['bal', 'money', 'currency'],
-      // This is the group the command is put in
-      group: 'currency',
-      // This is the name of set within the group (most people keep this the same)
-      memberName: 'balance',
-      description: 'add me test',
-      // Ratelimits the command usage to 3 every 5 seconds
-      throttling: {
-        usages: 3,
-        duration: 5,
-      },
-    });
-  }
-
-  // Now to run the actual command, the run() parameters need to be defiend (by types and names)
-  public async run(
-    message: commando.CommandoMessage,
-    // eslint-disable-next-line no-unused-vars
-    { args1 }: {args1: string},
-  ): Promise<Message | Message[]> {
-    const userRepo = getRepository(User);
-    const user = await userRepo.findOne(message.author.id);
-
-    if (user) {
-      const embed = new MessageEmbed()
-        .setColor('BLUE')
-        .setTitle('Currency')
-        .setAuthor(user.tag, user.avatar)
-        .setDescription(`Balance banked ${user.nuggies}`)
-        .setTimestamp();
-      return message.channel.send(embed);
+    public constructor(client: commando.CommandoClient) {
+        super(client, {
+            aliases: ["bal", "money", "currency", "nuggies"],
+            args: [
+                {
+                    default: "",
+                    error: "Make sure to use a members ID or mention!",
+                    key: "memberID",
+                    prompt: "Which member's currency are you looking for?",
+                    type: "string"
+                }
+            ],
+            clientPermissions: ["EMBED_LINKS"],
+            description: "Check the balance of a user",
+            // This is the group the command is put in
+            group: "currency",
+            guildOnly: true,
+            // This is the name of set within the group (most people keep this the same)
+            memberName: "balance",
+            name: "balance",
+            // Ratelimits the command usage to 3 every 5 seconds
+            throttling: {
+                duration: 5,
+                usages: 3
+            }
+        });
     }
 
-    return message.channel.send('Whoops error ``user not found error```');
-  }
+    // Now to run the actual command, the run() parameters need to be defiend (by types and names)
+    public async run(
+        msg: commando.CommandoMessage,
+        { memberID }: {memberID: string; }
+    ): Promise<Message | Message[]> {
+        const userRepo = getRepository(User);
+
+        let member = getMember(memberID, msg.guild);
+
+        if (member === undefined) {
+            // eslint-disable-next-line prefer-destructuring
+            member = msg.member;
+        }
+
+        const user = await userRepo.findOne(member.id);
+
+        if (user) {
+            const embed = new MessageEmbed()
+                .setColor("BLUE")
+                .setTitle("Currency")
+                .setAuthor(user.tag, user.avatar)
+                .setDescription(`Nuggies banked ${user.nuggies}`)
+                .setTimestamp();
+            return msg.channel.send(embed);
+        }
+
+        return msg.channel.send("Whoops error ```user not found``` \nThey may not have any money stored");
+    }
 }

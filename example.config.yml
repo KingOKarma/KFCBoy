@@ -1,5 +1,12 @@
-# Token Example: NzU4Mzg1STh3MgS5DHCsHsVY.X2uSag.71AkvJZaVe3R-s5Ay3GatchEdGe
-token: 'BOT_TOKEN'
-prefix: 'PREFIX'
 # Make sure the id(s) are seperated by commas (,)
-owners: ['OWNERS_ID(S)']
+owners: ['406211463125008386', '355993074117115914']
+
+prefix: 'k.'
+
+# Token Example: NzU4Mzg1STh3MgS5DHCsHsVY.X2uSag.71AkvJZaVe3R-s5Ay3GatchEdGe
+token: 'NzE3NTM1NTk3OTI0NzEyNTQw.XtbvGQ.H30J5ljvmC3h3WOrCXbu_O3OIts'
+
+workStrings: ['{user} gets the users mention',
+ '{bal} is a number of how much money the user got',
+ '{totalbal} is how much the user got', 
+ 'These are the strings that appear when you use the work command (They are random)']

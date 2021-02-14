@@ -1,37 +1,42 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+/* eslint-disable @typescript-eslint/member-ordering */
 import {
-  Entity, Column, PrimaryColumn, OneToMany,
-} from 'typeorm';
-import { Inventory } from './inventory';
+    Column, Entity, OneToMany, PrimaryGeneratedColumn
+} from "typeorm";
+import { Inventory } from "./inventory";
 
 @Entity()
 export class User {
-  @PrimaryColumn()
-  id!: string;
+    @PrimaryGeneratedColumn()
+    id!: number;
 
-  @Column()
-  serverId!: string;
+    @Column( { default: "000000000000000000" })
+    uid!: string;
 
-  @Column()
-  tag!: string;
+    @Column({ nullable: true })
+    serverId!: string;
 
-  @Column()
-  avatar!: string;
+    @Column({ nullable: true })
+    tag!: string;
 
-  @Column({ default: 100 })
-  nuggies!: number;
+    @Column({ nullable: true })
+    avatar!: string;
 
-  @Column({ default: 0 })
-  xp!: number;
+    @Column({ default: 1 })
+    nuggies!: number;
 
-  @Column({ default: 1 })
-  level!: number;
+    @Column({ default: 0 })
+    xp!: number;
 
-  @Column({ default: 0 })
-  netWorth!: number;
+    @Column({ default: 1 })
+    level!: number;
 
-  @Column({ default: '' })
-  work!: string;
+    @Column({ default: 0 })
+    netWorth!: number;
 
-  @OneToMany(() => Inventory, (inventory) => inventory.user)
-  inventory!: Inventory;
+    @Column({ default: "" })
+    work!: string;
+
+    @OneToMany(() => Inventory, (inventory) => inventory.user)
+    inventory!: Inventory;
 }

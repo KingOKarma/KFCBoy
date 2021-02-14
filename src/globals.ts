@@ -1,3 +1,3 @@
-import Config from './config/config';
+import Config from "./config";
 
 export const CONFIG = Config.getConfig();

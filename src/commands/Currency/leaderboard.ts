@@ -1,41 +1,71 @@
-import { Message, MessageEmbed } from 'discord.js';
-import * as commando from 'discord.js-commando';
-import { getRepository } from 'typeorm';
-import { User } from '../../entity/user';
+import * as commando from "discord.js-commando";
+import { Message, MessageEmbed } from "discord.js";
+import { CONFIG } from "../../globals";
+import { User } from "../../entity/user";
+import { getRepository } from "typeorm";
+import { userpaginate } from "../../utils";
 
-export default class leaderboardCommand extends commando.Command {
-  constructor(client: commando.CommandoClient) {
-    super(client, {
-      name: 'leaderboard',
-      aliases: ['lb'],
-      memberName: 'balleaderboard',
-      group: 'currency',
-      description: 'leaderboads',
-      guildOnly: true,
-      throttling: {
-        usages: 3,
-        duration: 30,
-      },
-    });
-  }
+export default class LeaderboardCommand extends commando.Command {
+    public constructor(client: commando.CommandoClient) {
+        super(client, {
+            aliases: ["lb"],
+            args: [
+                {
+                    default: "1",
+                    error: "Please only use a number for the page",
+                    key: "page",
+                    prompt: "What positiion are you looking for (number)",
+                    type: "integer",
+                    validate: (amount: number): boolean => amount >= 0
+                }
+            ],
+            clientPermissions: ["EMBED_LINKS"],
+            description: "Lists the Nuggies leaderboard for the server!",
+            group: "currency",
+            guildOnly: true,
+            memberName: "leaderboard",
+            name: "leaderboard",
+            throttling: {
+                duration: 30,
+                usages: 3
+            }
+        });
+    }
 
-  public async run(
-    message: commando.CommandoMessage,
-  ): Promise<Message | Message[]> {
-    const userRepo = getRepository(User);
-    const page = 0;
-    const users = await userRepo.find({
-      where: [{ serverId: message.guild.id }, { id: message.author.id }],
-      order: { serverId: 'DESC', id: 'DESC' },
-      skip: page * 10,
-      take: 10,
-      relations: ['ItemMeta'],
-    });
-    console.log(users);
-    const embed = new MessageEmbed();
-    users.forEach((user) => {
-      embed.addField(user.tag, user.nuggies);
-    });
-    return message.say(embed);
-  }
+    public async run(
+        message: commando.CommandoMessage,
+        { page }: { page: number; }
+    ): Promise<Message | Message[]> {
+        const userRepo = getRepository(User);
+        const users = await userRepo.find({
+            order: { id: "DESC", serverId: "DESC" },
+            where: [{ serverId: message.guild.id }, { id: message.author.id }]
+        });
+        users.sort((a, b) => b.nuggies - a.nuggies);
+
+        users.forEach((usersArray, index) => {
+            // eslint-disable-next-line no-param-reassign
+            usersArray.tag = `${index + 1} || ${usersArray.tag}`;
+        });
+        const iteamsPaged: User[] = userpaginate(users, 9, page);
+
+        const authorPost = users.find((user) => user.uid === message.author.id);
+
+        if (authorPost === undefined) return message.say(
+            "There was a problem getting your user from the database, try again!");
+
+        if (iteamsPaged === []) {
+            return message.say("There are no members on that page");
+        }
+
+        const embed = new MessageEmbed();
+        embed.setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }));
+        embed.setTitle(`${message.guild.name}'s Leaderboard`);
+        embed.setDescription(`You are: **${authorPost.tag}**\n with \`${authorPost.nuggies}\` Nuggies`);
+        embed.setFooter(`You can find the next page with ${CONFIG.prefix}lb <page_number>`);
+        iteamsPaged.forEach((user) => {
+            embed.addField(user.tag, user.nuggies, true);
+        });
+        return message.say(embed);
+    }
 }

@@ -1,21 +1,24 @@
-/* eslint-disable arrow-parens */
-/* eslint-disable no-shadow */
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+/* eslint-disable @typescript-eslint/member-ordering */
 import {
-  Entity, PrimaryColumn, Column, OneToMany,
-} from 'typeorm';
-import { ItemMeta } from './item';
+    Column, Entity, OneToMany, PrimaryGeneratedColumn
+} from "typeorm";
+import { ItemMeta } from "./item";
 
 @Entity()
 export class Guild {
-  @PrimaryColumn()
-  id!: string;
+    @PrimaryGeneratedColumn()
+    id!: number;
 
-  @Column()
-  name!: string;
+    @Column()
+    serverid!: string;
 
-  @Column({ default: false })
-  boosted!: boolean;
+    @Column()
+    name!: string;
 
-  @OneToMany(() => ItemMeta, ItemMeta => ItemMeta.guild)
-  shop!: ItemMeta[];
+    @Column({ default: false })
+    boosted!: boolean;
+
+    @OneToMany(() => ItemMeta, (itemMeta) => itemMeta.guild)
+    shop!: ItemMeta[];
 }

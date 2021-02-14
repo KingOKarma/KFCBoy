@@ -1,21 +1,23 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+/* eslint-disable @typescript-eslint/member-ordering */
 import {
-  Entity, Column, PrimaryColumn,
-} from 'typeorm';
+    Column, Entity, PrimaryColumn
+} from "typeorm";
 
 @Entity()
 export class GlobalUser {
-  @PrimaryColumn()
-  id!: string;
+    @PrimaryColumn()
+    id!: string;
 
-  @Column()
-  tag!: string;
+    @Column()
+    tag!: string;
 
-  @Column()
-  avatar!: string;
+    @Column()
+    avatar!: string;
 
-  @Column({ default: false })
-  premium!: boolean;
+    @Column({ default: false })
+    premium!: boolean;
 
-  @Column({ nullable: true })
-  premiumBought!: string;
+    @Column({ nullable: true })
+    premiumBought!: string;
 }
