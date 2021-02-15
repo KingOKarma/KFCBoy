@@ -1,6 +1,6 @@
 import * as commando from "discord.js-commando";
+import { CONFIG, chickenNuggie } from "../../globals";
 import { Message, MessageEmbed } from "discord.js";
-import { CONFIG } from "../../globals";
 import { User } from "../../entity/user";
 import { getRepository } from "typeorm";
 import { userpaginate } from "../../utils";
@@ -21,7 +21,7 @@ export default class LeaderboardCommand extends commando.Command {
             ],
             clientPermissions: ["EMBED_LINKS"],
             description: "Lists the Nuggies leaderboard for the server!",
-            group: "currency",
+            group: "economy",
             guildOnly: true,
             memberName: "leaderboard",
             name: "leaderboard",
@@ -39,7 +39,7 @@ export default class LeaderboardCommand extends commando.Command {
         const userRepo = getRepository(User);
         const users = await userRepo.find({
             order: { id: "DESC", serverId: "DESC" },
-            where: [{ serverId: message.guild.id }, { id: message.author.id }]
+            where: [{ serverId: message.guild.id }]
         });
         users.sort((a, b) => b.nuggies - a.nuggies);
 
@@ -64,7 +64,9 @@ export default class LeaderboardCommand extends commando.Command {
         embed.setDescription(`You are: **${authorPost.tag}**\n with \`${authorPost.nuggies}\` Nuggies`);
         embed.setFooter(`You can find the next page with ${CONFIG.prefix}lb <page_number>`);
         iteamsPaged.forEach((user) => {
-            embed.addField(user.tag, user.nuggies, true);
+
+            embed.addField(user.tag, `**${user.nuggies}** ${chickenNuggie} nuggies`, true);
+
         });
         return message.say(embed);
     }

@@ -1,4 +1,5 @@
-import { Guild, GuildMember, Role } from "discord.js";
+import { Emoji, Guild, GuildMember, Role } from "discord.js";
+import { Client } from "discord.js-commando";
 import { ItemMeta } from "./entity/item";
 import { User } from "./entity/user";
 
@@ -47,6 +48,32 @@ export function getMember(uid: string, guild: Guild): GuildMember | undefined {
         return undefined;
     }
 }
+/**
+ * Used to check if a user has at least one role from a list, returns true if found
+ * @param {string} emoteString The raw emote string
+ * @param {Client} client The client that is initialised
+ * @returns {Emoji | undefined} Either returns the emote or undefiend
+ */
+export function getEmote(emoteString: string, client: Client): Emoji | undefined {
+    if (!emoteString.match(/\:(.*?)\>/g)) {
+        return undefined;
+    }
+
+    const findEmote = emoteString.slice(3).match(/\:.*?\>/g);
+    if (findEmote === null) {
+        return undefined;
+    }
+
+    const theMatch = findEmote[0].slice(1, -1);
+
+    const emote = client.emojis.cache.get(theMatch);
+
+    if (emote) {
+        return emote;
+    }
+
+    return undefined;
+}
 
 /**
  * Used to check if a user has at least one role from a list, returns true if found
@@ -67,5 +94,16 @@ export function userpaginate(array: User[], pageSize: number, pageNumber: number
  * @returns {Array} an array
  */
 export function shoppaginate(array: ItemMeta[], pageSize: number, pageNumber: number): ItemMeta[] {
+    return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+}
+
+/**
+ * Used to check if a user has at least one role from a list, returns true if found
+ * @param {Array} array The array to page
+ * @param {number} pageSize How big are each of the pages?
+ * @param {number} pageNumber Which Page number do you wish to be on?
+ * @returns {Array} an array
+ */
+export function stringpaginate(array: string[], pageSize: number, pageNumber: number): string[] {
     return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 }

@@ -3,7 +3,6 @@
 import {
     Column, Entity, ManyToOne, PrimaryGeneratedColumn
 } from "typeorm";
-import { ItemMeta } from "./item";
 import { User } from "./user";
 
 @Entity()
@@ -17,9 +16,9 @@ export class Inventory {
     @Column()
     serverid!: string;
 
-    @ManyToOne(() => User, (user) => user.id)
+    @ManyToOne(() => User, (user) => user.inventory)
     user!: User;
 
     @Column("simple-json")
-    items!: ItemMeta[];
+    items!: string[];
 }

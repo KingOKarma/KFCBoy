@@ -1,6 +1,7 @@
 import { Client, Message, MessageEmbed, Presence } from "discord.js";
 import { CONFIG } from "./globals";
 import { GlobalUser } from "./entity/globalUser";
+import { Guild } from "./entity/guild";
 import { User } from "./entity/user";
 import { getRepository } from "typeorm";
 
@@ -22,6 +23,9 @@ export async function onMessage(msg: Message): Promise<void | Message | Message[
 
     const userRepo = getRepository(User);
     const gUserRepo = getRepository(GlobalUser);
+    const guildRepo = getRepository(Guild);
+
+    let guild = await guildRepo.findOne( { serverid: msg.guild.id });
     const user = await userRepo.findOne({ serverId: msg.guild.id, uid: msg.author.id });
     const gUser = await gUserRepo.findOne(msg.author.id);
     const timeout = xpTimeout.get(msg.author.id);
@@ -30,6 +34,22 @@ export async function onMessage(msg: Message): Promise<void | Message | Message[
     // If above 10, set 10
     if (xpGain > 11) {
         xpGain = Math.ceil(+10);
+    }
+
+    // If there is no Guild then add to  DB
+    if (!guild) {
+        const newGuild = new Guild();
+        newGuild.serverid = msg.guild.id;
+        newGuild.name = msg.guild.name;
+        void guildRepo.save(newGuild);
+        guild = newGuild;
+    }
+
+    // If server boosted then x2 and let premium user get 3x
+    let multiplier = 2;
+    if (guild.boosted) {
+        xpGain *= multiplier;
+        multiplier += 1;
     }
 
     // If there is no GlobalUser then add to  DB
@@ -42,7 +62,7 @@ export async function onMessage(msg: Message): Promise<void | Message | Message[
     } else {
 
         // Check if user is a premium user, if true x2 xp
-        if (gUser.premium) xpGain *= 2;
+        if (gUser.premium) xpGain *= multiplier;
 
         // Check Timeout
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions

@@ -1,31 +1,28 @@
 import * as commando from "discord.js-commando";
+import { CONFIG, chickenNuggie } from "../../globals";
 import { Message, MessageEmbed } from "discord.js";
-import { CONFIG } from "../../globals";
 import { Guild } from "../../entity/guild";
 import { ItemMeta } from "../../entity/item";
 import { getRepository } from "typeorm";
-import { shoppaginate } from "../../utils";
 
 export default class ItemMetaCommand extends commando.Command {
     private constructor(client: commando.CommandoClient) {
         super(client, {
-            aliases: ["market"],
+            aliases: ["iteminfo"],
             args: [
                 {
-                    default: "1",
-                    error: "Please only use a number for the page",
-                    key: "page",
-                    prompt: "What positiion are you looking for (number)",
-                    type: "integer",
-                    validate: (amount: number): boolean => amount >= 0
+                    error: "Make sure that the name is EXACTLY the same as it appears on the shop",
+                    key: "itemName",
+                    prompt: "What is the name of the item you are looking for",
+                    type: "string"
                 }
             ],
             clientPermissions: ["EMBED_LINKS"],
             description: "displays the server shop",
-            group: "currency",
+            group: "economy",
             guildOnly: true,
-            memberName: "shop",
-            name: "shop",
+            memberName: "item",
+            name: "item",
             throttling: {
                 duration: 3,
                 usages: 3
@@ -35,19 +32,20 @@ export default class ItemMetaCommand extends commando.Command {
 
     public async run(
         msg: commando.CommandoMessage,
-        { page }: { page: number; }
+        { itemName }: { itemName: string; }
     ): Promise<Message | Message[]> {
         const guildRepo = getRepository(Guild);
-        const guild = await guildRepo.findOne({ relations: ["shop"], where: { serverid: msg.guild.id } });
+        const itemsRepo = getRepository(ItemMeta);
+
+        const guild = await guildRepo.findOne({ serverid: msg.guild.id } );
+        const item = await itemsRepo.findOne( { guild, name: itemName });
+
         if (!guild) {
             return msg.say(`The shop is currently empty please ask someone with "Manage Server" permissions to run \`${CONFIG.prefix}additem\``);
         }
 
-        const iteamsPaged: ItemMeta[] = shoppaginate(guild.shop, 9, page);
-
-        if (iteamsPaged === []) {
-            console.log(iteamsPaged);
-            return msg.say("There are no items on that page");
+        if (!item) {
+            return msg.say("This item does not exist, make sure you are typing the EXACT name");
         }
 
         let guildicon = msg.guild.iconURL({ dynamic: true });
@@ -56,12 +54,15 @@ export default class ItemMetaCommand extends commando.Command {
         }
 
         const embed = new MessageEmbed();
-        iteamsPaged.forEach((item) => {
-            embed.addField(item.name, `${item.description}\n\`\`\`Price: ${item.price} Nuggies\nMax: ${item.max}\nID: ${item.id}\`\`\``);
-        });
         embed.setColor("BLUE");
         embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true }));
-        embed.setTitle(`${msg.guild.name}'s Server Shop`);
+        embed.setTitle(`${msg.guild.name}'s Item Info`);
+        embed.addField("Name", `${item.name}`, true);
+        embed.addField("Description", `${item.description}`, true);
+        embed.addField("Price", `${item.price} ${chickenNuggie} Nuggie(s)`, true);
+        embed.addField("Stock left", `${item.max}`, true);
+        embed.addField("ID", `${item.id}`, true);
+
         embed.setFooter("If there is a problem with an item please report it's ID number to the dev");
         embed.setThumbnail(guildicon);
 

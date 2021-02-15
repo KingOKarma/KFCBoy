@@ -1,6 +1,7 @@
 import * as commando from "discord.js-commando";
 import { CONFIG } from "../../globals";
 import { GlobalUser } from "../../entity/globalUser";
+import { Guild } from "../../entity/guild";
 import { Message } from "discord.js";
 import { User } from "../../entity/user";
 import { getRepository } from "typeorm";
@@ -13,7 +14,7 @@ export default class WorkCommand extends commando.Command {
     public constructor(client: commando.CommandoClient) {
         super(client, {
             description: "Work to become a world renowned KFC worker",
-            group: "currency",
+            group: "economy",
             guildOnly: true,
             memberName: "work",
             name: "work",
@@ -30,9 +31,20 @@ export default class WorkCommand extends commando.Command {
 
         const userRepo = getRepository(User);
         const gUserRepo = getRepository(GlobalUser);
+        const guildRepo = getRepository(Guild);
+
+        let guild = await guildRepo.findOne( { serverid: msg.guild.id });
         let user = await userRepo.findOne({ serverId: msg.guild.id, uid: msg.author.id });
         let gUser = await gUserRepo.findOne(msg.author.id);
 
+        // If there is no Guild then add to  DB
+        if (!guild) {
+            const newGuild = new Guild();
+            newGuild.serverid = msg.guild.id;
+            newGuild.name = msg.guild.name;
+            void guildRepo.save(newGuild);
+            guild = newGuild;
+        }
 
         if (!user) {
             const newUser = new User();
@@ -41,7 +53,6 @@ export default class WorkCommand extends commando.Command {
             newUser.avatar = msg.author.displayAvatarURL({ dynamic: true });
             newUser.tag = msg.author.tag;
             newUser.nuggies = 1;
-            // Void userRepo.save(newUser);
             user = newUser;
         }
 
@@ -72,7 +83,14 @@ export default class WorkCommand extends commando.Command {
         let earn = Math.floor(Math.random() * 200 - 100) + 100;
         earn *= user.level > 10 ? Math.floor(user.level / 15) : 1;
 
-        if (gUser.premium) earn = Math.floor(earn * 3);
+        // If server boosted then x2 and let premium user get 3x
+        let multiplier = 2;
+        if (guild.boosted) {
+            earn *= multiplier;
+            multiplier += 1;
+        }
+
+        if (gUser.premium) earn = Math.floor(earn * multiplier);
 
         const random = Math.floor(Math.random() * CONFIG.workStrings.length);
         const newbal = user.nuggies + earn;

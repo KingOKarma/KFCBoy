@@ -1,6 +1,7 @@
 import * as commando from "discord.js-commando";
 import { Message, MessageEmbed } from "discord.js";
 import { User } from "../../entity/user";
+import { chickenNuggie } from "../../globals";
 import { getMember } from "../../utils";
 import { getRepository } from "typeorm";
 
@@ -21,7 +22,7 @@ export default class BalCommand extends commando.Command {
             clientPermissions: ["EMBED_LINKS"],
             description: "Check the balance of a user",
             // This is the group the command is put in
-            group: "currency",
+            group: "economy",
             guildOnly: true,
             // This is the name of set within the group (most people keep this the same)
             memberName: "balance",
@@ -48,14 +49,14 @@ export default class BalCommand extends commando.Command {
             member = msg.member;
         }
 
-        const user = await userRepo.findOne(member.id);
+        const user = await userRepo.findOne({ serverId: msg.guild.id, uid: member.id } );
 
         if (user) {
             const embed = new MessageEmbed()
                 .setColor("BLUE")
                 .setTitle("Currency")
                 .setAuthor(user.tag, user.avatar)
-                .setDescription(`Nuggies banked ${user.nuggies}`)
+                .setDescription(`Nuggies banked **${user.nuggies} **${chickenNuggie}`)
                 .setTimestamp();
             return msg.channel.send(embed);
         }

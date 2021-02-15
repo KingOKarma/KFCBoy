@@ -20,7 +20,7 @@ async function main(): Promise<void> {
     bot.on("message", async (message) => onMessage(message));
     // Registers all groups/commands/etc
     bot.registry.registerGroups([
-        ["currency", "Earning money from KFC? nice!"],
+        ["economy", "Earning money from KFC? nice!"],
         ["xp", "It's not a super hero game but you can earn xp anyway!"],
         ["staff", "Commands only Staff of a server can run."],
         ["other", "Commands which are still a work in progress."],

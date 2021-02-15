@@ -1,8 +1,9 @@
 import * as commando from "discord.js-commando";
 import { Message, MessageEmbed } from "discord.js";
 import { CONFIG } from "../../globals";
+// Import { Guild } from "../../entity/guild";
 import { Inventory } from "../../entity/inventory";
-import { ItemMeta } from "../../entity/item";
+// Import { ItemMeta } from "../../entity/item";
 import { User } from "../../entity/user";
 import { getRepository } from "typeorm";
 
@@ -10,23 +11,23 @@ import { getRepository } from "typeorm";
 export default class BuyCommand extends commando.Command {
     public constructor(client: commando.CommandoClient) {
         super(client, {
+            aliases: ["activate", "interact"],
             args: [
                 {
-                    default: "",
-                    error: "Make sure to use a members ID or mention!",
+                    error: "Make sure that the name is EXACTLY the same as it appears on the shop",
                     key: "itemName",
-                    prompt: "Which member's currency are you looking for?",
+                    prompt: "Which item do you wish to use?",
                     type: "string"
                 }
             ],
             clientPermissions: ["EMBED_LINKS"],
-            description: "Check the balance of a user",
+            description: "Use's an item in a user's inventory",
             // This is the group the command is put in
-            group: "currency",
+            group: "economy",
             guildOnly: true,
             // This is the name of set within the group (most people keep this the same)
-            memberName: "buy",
-            name: "buy",
+            memberName: "use",
+            name: "use",
             // Ratelimits the command usage to 3 every 5 seconds
             throttling: {
                 duration: 5,
@@ -41,16 +42,18 @@ export default class BuyCommand extends commando.Command {
         { itemName }: {itemName: string; }
     ): Promise<Message | Message[]> {
         const userRepo = getRepository(User);
-        const itemsRepo = getRepository(ItemMeta);
+        // Const itemsRepo = getRepository(ItemMeta);
         const invRepo = getRepository(Inventory);
+        // Const guildRepo = getRepository(Guild);
 
-        let user = await userRepo.findOne({ uid: msg.author.id } );
-        const item = await itemsRepo.findOne({ name: itemName });
+        // Const guild = await guildRepo.findOne({ serverid: msg.guild.id } );
+        let user = await userRepo.findOne({ serverId: msg.guild.id, uid: msg.author.id } );
+        // Const item = await itemsRepo.findOne({ guild, name: itemName });
         const inv = await invRepo.findOne({ serverid: msg.guild.id, uid: msg.author.id });
 
-        if (!item) {
-            return msg.say("That item does not exist in the shop, try again with the exact name!");
-        }
+        // If (!item) {
+        //     Return msg.say("That item does not exist in the shop, try again with the exact name!");
+        // }
 
         if (!user) {
             const newUser = new User();
@@ -63,30 +66,30 @@ export default class BuyCommand extends commando.Command {
             user = newUser;
         }
 
-        if (user.nuggies < item.price) {
-            return msg.say(`You don't have enough nuggies for ${item.name}!`);
+        if (!inv) {
+            return msg.say("You don't seem to have an inventory, make sure to buy something from the shop first!");
         }
 
-        if (!inv) {
-            const newInv = new Inventory();
-            newInv.serverid = msg.guild.id;
-            newInv.uid = msg.author.id;
-            newInv.user = user;
-            newInv.items = [item];
-            void invRepo.save(newInv);
+        const index = inv.items.indexOf(itemName, 0);
+        if (index > -1) {
+            inv.items.splice(index, 1);
+        }
+        void invRepo.save(inv);
 
-        } else {
-            inv.items.push(item);
-            void invRepo.save(inv);
+
+        let guildicon = msg.guild.iconURL({ dynamic: true });
+        if (guildicon === null) {
+            guildicon = "";
         }
 
 
         const embed = new MessageEmbed()
+            .setThumbnail(guildicon)
             .setColor("BLUE")
             .setTitle("Currency")
             .setAuthor(user.tag, user.avatar)
-            .setDescription(`You just bought **${itemName}**, it's now in your inventory!`)
-            .setFooter(`You can use ${CONFIG.prefix}inv to check what items you have`)
+            .setDescription(`The item **${itemName}** was ysed by **${msg.author.tag}** (${msg.author.id}) in **${msg.guild.name}** (${msg.guild.id})`)
+            .setFooter(`You can use ${CONFIG.prefix}inv to check what other items you have`)
             .setTimestamp();
         return msg.channel.send(embed);
 
