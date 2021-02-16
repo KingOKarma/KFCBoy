@@ -6,7 +6,7 @@ import { ItemMeta } from "../../entity/item";
 import { getRepository } from "typeorm";
 import { stringpaginate } from "../../utils";
 
-export default class ItemMetaCommand extends commando.Command {
+export default class InventoryCommand extends commando.Command {
     private constructor(client: commando.CommandoClient) {
         super(client, {
             aliases: ["inv", "iv"],

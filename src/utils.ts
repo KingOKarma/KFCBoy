@@ -107,3 +107,15 @@ export function shoppaginate(array: ItemMeta[], pageSize: number, pageNumber: nu
 export function stringpaginate(array: string[], pageSize: number, pageNumber: number): string[] {
     return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 }
+
+/**
+ * Wait in miliseconds
+ * @param {number} milliseconds The time in mlliseconds to wait
+ */
+export function sleep(milliseconds: number): void {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+        currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+}

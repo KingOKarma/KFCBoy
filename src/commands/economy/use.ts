@@ -8,7 +8,7 @@ import { User } from "../../entity/user";
 import { getRepository } from "typeorm";
 
 // Creates a new class (being the command) extending off of the commando client
-export default class BuyCommand extends commando.Command {
+export default class UseItemCommand extends commando.Command {
     public constructor(client: commando.CommandoClient) {
         super(client, {
             aliases: ["activate", "interact"],
@@ -30,7 +30,7 @@ export default class BuyCommand extends commando.Command {
             name: "use",
             // Ratelimits the command usage to 3 every 5 seconds
             throttling: {
-                duration: 5,
+                duration: 3,
                 usages: 3
             }
         });

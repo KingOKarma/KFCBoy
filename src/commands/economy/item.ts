@@ -5,7 +5,7 @@ import { Guild } from "../../entity/guild";
 import { ItemMeta } from "../../entity/item";
 import { getRepository } from "typeorm";
 
-export default class ItemMetaCommand extends commando.Command {
+export default class ItemInfoCommand extends commando.Command {
     private constructor(client: commando.CommandoClient) {
         super(client, {
             aliases: ["iteminfo"],

@@ -5,7 +5,7 @@ import { Guild } from "../../entity/guild";
 import { ItemMeta } from "../../entity/item";
 import { getRepository } from "typeorm";
 
-export default class NewShopItemCommand extends commando.Command {
+export default class RemoveShopItemCommand extends commando.Command {
     public constructor(client: commando.Client) {
         super(client, {
             aliases: ["delitem", "itemdel", "removeitem"],
@@ -55,7 +55,7 @@ export default class NewShopItemCommand extends commando.Command {
 
 
         } else {
-            return msg.say("That item doesn't exist, make sure you are typing the EXACT name");
+            return msg.say("That item doesn't exist, please make sure you are typing the correct ID");
 
         }
 

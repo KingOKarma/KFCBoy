@@ -10,9 +10,11 @@ async function main(): Promise<void> {
     const bot = new Client({
         // My choses prefix is "c." you can choose anything you want!
         commandPrefix: CONFIG.prefix,
+        invite: "https://discord.gg/KPKprPgJWs",
         owner: CONFIG.owners
 
     });
+
 
     // Runs the function defined in ./events
     bot.on("ready", () => void onReady(bot));
@@ -20,11 +22,12 @@ async function main(): Promise<void> {
     bot.on("message", async (message) => onMessage(message));
     // Registers all groups/commands/etc
     bot.registry.registerGroups([
-        ["economy", "Earning money from KFC? nice!"],
-        ["xp", "It's not a super hero game but you can earn xp anyway!"],
-        ["staff", "Commands only Staff of a server can run."],
-        ["other", "Commands which are still a work in progress."],
-        ["dev", "These commands can only be executed by the bot owners"]
+        ["dev", "Dev - These commands can only be executed by the bot owners"],
+        ["economy", "Economy - Earning money from KFC? nice!"],
+        ["fun", "Fun - Never thought I'd have fun with a bot before"],
+        ["other", "Other - Commands which are still a work in progress."],
+        ["staff", "Staff - Commands only Staff of a server can run."],
+        ["xp", "XP - It's not a super hero game but you can earn xp anyway!"]
     ]).registerDefaults()
 
         .registerCommandsIn(
