@@ -12,16 +12,20 @@ import fs from "fs";
 export default class Config {
     private static readonly _configLocation = "./config.yml";
 
+    public readonly giphyAPI: string;
+
     public readonly owners: string[];
 
     public readonly prefix: string;
 
     public readonly token: string;
 
+
     public readonly workStrings: string[];
 
 
     private constructor() {
+        this.giphyAPI = "";
         this.owners = [""];
         this.prefix = "";
         this.token = "";

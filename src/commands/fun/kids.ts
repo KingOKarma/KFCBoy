@@ -1,5 +1,6 @@
 import * as commando from "discord.js-commando";
 import { Message, MessageEmbed } from "discord.js";
+import { CONFIG } from "../../globals";
 import fetch from "node-fetch";
 import { getMember } from "../../utils";
 
@@ -38,7 +39,7 @@ export default class KidsCommand extends commando.Command {
         }
 
         const res = await fetch(
-            "https://api.giphy.com/v1/gifs/search?api_key=Ep6hgHQb1sHM9SA0sIyYqg7cgVS59PUH&q=cute-anime&limit=10",
+            `https://api.giphy.com/v1/gifs/search?api_key=${CONFIG.giphyAPI}&q=cute-anime&limit=10`,
             {
                 headers: {
                     // eslint-disable-next-line @typescript-eslint/naming-convention
