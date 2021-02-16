@@ -4,6 +4,7 @@
   "description": "Template for a Typescript Discord Bot",
   "main": "bot.ts",
   "dependencies": {
+    "axios": "^0.21.1",
     "canvas": "^2.6.1",
     "discord.js": "^12.5.1",
     "discord.js-commando": "^0.11.0-dev",
@@ -12,6 +13,7 @@
     "node-fetch": "^2.6.1",
     "path": "^0.12.7",
     "pg": "^8.5.1",
+    "random-puppy": "^1.1.0",
     "reflect-metadata": "^0.1.13",
     "tsc": "^1.20150623.0",
     "typeorm": "^0.2.30",

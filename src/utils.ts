@@ -119,3 +119,23 @@ export function sleep(milliseconds: number): void {
         currentDate = Date.now();
     } while (currentDate - date < milliseconds);
 }
+
+/**
+ * Get random number between 2 integers
+ * @param {number} max The highest possible number
+ * @param {number} min The lowest possible number
+ * @returns {number} a random number between max and min
+ */
+export function ranNum(max: number, min: number): number {
+    return Math.floor(Math.random() * max + min);
+}
+
+/**
+ * Get random item from an array
+ * @param {Array} array The array to get random item from
+ * @returns {unknown} A random item from an array
+ */
+export function ranArray(array: unknown[]): unknown {
+    return array[Math.floor(Math.random() * array.length)];
+}
+

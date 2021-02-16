@@ -12,3 +12,5 @@ workStrings: ['{user} gets the users mention',
  '{bal} is a number of how much money the user got',
  '{totalbal} is how much the user got', 
  'These are the strings that appear when you use the work command (They are random)']
+
+xRapidapiKey: API Token from google app api key https://rapidapi.com/contextualwebsearch/api/web-search?endpoint=apiendpoint_2799d2c8-3abb-4518-a544-48d2c32d6662

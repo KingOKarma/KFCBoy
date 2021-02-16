@@ -4,10 +4,12 @@ import fs from "fs";
 /**
  * This represents the config.yml
  * @class Config
+ * @property {string} giphyAPI
  * @property {string[]} owners
  * @property {string} prefix
  * @property {string} token
  * @property {string[]} workStrings
+ * @property {string} xRapidapiKey
  */
 export default class Config {
     private static readonly _configLocation = "./config.yml";
@@ -20,8 +22,9 @@ export default class Config {
 
     public readonly token: string;
 
-
     public readonly workStrings: string[];
+
+    public readonly xRapidapiKey: string;
 
 
     private constructor() {
@@ -30,6 +33,7 @@ export default class Config {
         this.prefix = "";
         this.token = "";
         this.workStrings = [""];
+        this.xRapidapiKey = "";
     }
 
     /**

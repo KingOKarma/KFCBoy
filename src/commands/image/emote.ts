@@ -3,7 +3,7 @@ import { Message } from "discord.js";
 import { getEmote } from "../../utils";
 
 // Creates a new class (being the command) extending off of the commando client
-export default class AddMeCommand extends commando.Command {
+export default class EmoteCommand extends commando.Command {
     public constructor(client: commando.CommandoClient) {
         super(client, {
             args: [
@@ -16,7 +16,7 @@ export default class AddMeCommand extends commando.Command {
             ],
             description: "Shows an emote as an image",
             // This is the group the command is put in
-            group: "dev",
+            group: "image",
             // This is the name of set within the group (most people keep this the same)
             memberName: "emote",
             name: "emote",

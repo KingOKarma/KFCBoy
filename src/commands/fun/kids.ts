@@ -17,7 +17,7 @@ export default class KidsCommand extends commando.Command {
                     type: "string"
                 }
             ],
-            description: "I will read out the fotune of the user",
+            description: "I will count how many kids a user is going to have in the future!",
             group: "fun",
             guildOnly: true,
             memberName: "kids",
@@ -79,7 +79,8 @@ export default class KidsCommand extends commando.Command {
             .setAuthor(member.user.tag, member.user.displayAvatarURL({ dynamic: true }))
             .setDescription(description)
             .setImage(random.images.original.url)
-            .setColor(msg.guild.me.displayColor);
+            .setColor(msg.guild.me.displayColor)
+            .setFooter("This gif was obtained from https://giphy.com/");
 
         return msg.say(embed);
     }
