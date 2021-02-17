@@ -15,6 +15,7 @@ export default class CommentCommand extends commando.Command {
                     type: "string"
                 }
             ],
+            clientPermissions: ["ATTACH_FILES"],
             description: "I'll convert your message into a youtube comment!",
             group: "fun",
             guildOnly: true,

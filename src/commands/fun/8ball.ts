@@ -14,7 +14,6 @@ export default class FortuneCommand extends commando.Command {
             ],
             description: "I will read out the fotune of the user",
             group: "fun",
-            guildOnly: true,
             memberName: "8ball",
             name: "8ball",
             throttling: {

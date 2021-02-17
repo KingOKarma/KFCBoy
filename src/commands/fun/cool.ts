@@ -8,7 +8,6 @@ export default class CoolCommand extends commando.Command {
             clientPermissions: ["EMBED_LINKS"],
             description: "I'll show you a video on how to be cool!",
             group: "fun",
-            guildOnly: true,
             memberName: "cool",
             name: "cool",
             throttling: {

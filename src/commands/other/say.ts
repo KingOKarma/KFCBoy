@@ -14,17 +14,11 @@ export default class SayCommand extends commando.Command {
                     type: "string"
                 }
             ],
-            // Checks if bot has delete message perms
             clientPermissions: ["MANAGE_MESSAGES"],
             description: "I can say whatever the user wants!",
-            // This is the group the command is put in
             group: "other",
-            // Makes commands only avalabie within the guild
-            guildOnly: true,
-            // This is the name of set within the group (most people keep this the same)
             memberName: "say",
             name: "say",
-            // Ratelimits the command usage to 3 every 5 seconds
             throttling: {
                 duration: 5,
                 usages: 3

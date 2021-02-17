@@ -3,7 +3,7 @@ import { Message, MessageEmbed } from "discord.js";
 import randomPuppy from "random-puppy";
 
 // Creates a new class (being the command) extending off of the commando client
-export default class GifCommand extends commando.Command {
+export default class WholesomeCommand extends commando.Command {
     public constructor(client: commando.CommandoClient) {
         super(client, {
             description: "I'll grab a random wholesome meme from a select number of wholesome subreddits!",
