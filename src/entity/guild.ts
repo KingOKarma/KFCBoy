@@ -19,6 +19,9 @@ export class Guild {
     @Column({ default: false })
     boosted!: boolean;
 
+    @Column( { nullable: true } )
+    prefix!: string;
+
     @OneToMany(() => ItemMeta, (itemMeta) => itemMeta.guild)
     shop!: ItemMeta[];
 }

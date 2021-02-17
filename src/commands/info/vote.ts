@@ -38,7 +38,6 @@ export default class VoteCommand extends commando.Command {
             .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true }))
             .setColor(msg.guild.me.displayColor)
             .setDescription("If you want to vote for the bot on top.gg\n[Click Here](https://top.gg/bot/614110037291565056/vote)")
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             .setImage("");
 
         return msg.say(embed);

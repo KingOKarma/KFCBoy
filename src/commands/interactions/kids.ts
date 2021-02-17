@@ -17,8 +17,9 @@ export default class KidsCommand extends commando.Command {
                     type: "string"
                 }
             ],
+            clientPermissions: ["EMBED_LINKS"],
             description: "I will count how many kids a user is going to have in the future!",
-            group: "fun",
+            group: "interactions",
             guildOnly: true,
             memberName: "kids",
             name: "kids",

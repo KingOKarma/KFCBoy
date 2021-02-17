@@ -27,6 +27,7 @@ async function main(): Promise<void> {
         ["fun", "Fun - Never thought I'd have fun with a bot before"],
         ["image", "Image - Utialise my wonderful features for messing or searching images!"],
         ["info", "Info - Get some quick and easy access to some info!"],
+        ["interactions", "Interactions - Interacting with the bot is fun and all but interacting with others is better!"],
         ["other", "Other - Commands which are still a work in progress."],
         ["staff", "Staff - Commands only Staff of a server can run."],
         ["xp", "XP - It's not a super hero game but you can earn xp anyway!"]

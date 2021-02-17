@@ -56,7 +56,7 @@ export async function onMessage(msg: Message): Promise<void | Message | Message[
     if (!gUser) {
         const newGUser = new GlobalUser();
         newGUser.avatar = msg.author.displayAvatarURL({ dynamic: true });
-        newGUser.id = msg.author.id;
+        newGUser.uid = msg.author.id;
         newGUser.tag = msg.author.tag;
         void gUserRepo.save(newGUser);
     } else {

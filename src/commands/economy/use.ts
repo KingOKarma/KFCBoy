@@ -42,18 +42,10 @@ export default class UseItemCommand extends commando.Command {
         { itemName }: {itemName: string; }
     ): Promise<Message | Message[]> {
         const userRepo = getRepository(User);
-        // Const itemsRepo = getRepository(ItemMeta);
         const invRepo = getRepository(Inventory);
-        // Const guildRepo = getRepository(Guild);
 
-        // Const guild = await guildRepo.findOne({ serverid: msg.guild.id } );
         let user = await userRepo.findOne({ serverId: msg.guild.id, uid: msg.author.id } );
-        // Const item = await itemsRepo.findOne({ guild, name: itemName });
         const inv = await invRepo.findOne({ serverid: msg.guild.id, uid: msg.author.id });
-
-        // If (!item) {
-        //     Return msg.say("That item does not exist in the shop, try again with the exact name!");
-        // }
 
         if (!user) {
             const newUser = new User();

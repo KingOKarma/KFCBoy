@@ -61,7 +61,7 @@ export default class WorkCommand extends commando.Command {
         if (!gUser) {
             const newGUser = new GlobalUser();
             newGUser.avatar = msg.author.displayAvatarURL({ dynamic: true });
-            newGUser.id = msg.author.id;
+            newGUser.uid = msg.author.id;
             newGUser.tag = msg.author.tag;
             void gUserRepo.save(newGUser);
             gUser = newGUser;
