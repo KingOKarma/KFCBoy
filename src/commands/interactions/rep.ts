@@ -10,7 +10,7 @@ const timeOut = new Map();
 const devs = CONFIG.owners;
 
 // Creates a new class (being the command) extending off of the commando client
-export default class KidsCommand extends commando.Command {
+export default class RepCommand extends commando.Command {
     public constructor(client: commando.CommandoClient) {
         super(client, {
             aliases: ["+"],

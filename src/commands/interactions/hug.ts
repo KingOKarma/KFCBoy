@@ -5,7 +5,7 @@ import fetch from "node-fetch";
 import { getMember } from "../../utils";
 
 // Creates a new class (being the command) extending off of the commando client
-export default class KidsCommand extends commando.Command {
+export default class HugCommand extends commando.Command {
     public constructor(client: commando.CommandoClient) {
         super(client, {
             args: [

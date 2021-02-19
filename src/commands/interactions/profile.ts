@@ -8,7 +8,7 @@ import { getRepository } from "typeorm";
 
 
 // Creates a new class (being the command) extending off of the commando client
-export default class KidsCommand extends commando.Command {
+export default class ProfileCommand extends commando.Command {
     public constructor(client: commando.CommandoClient) {
         super(client, {
             args: [

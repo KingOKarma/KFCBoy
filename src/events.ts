@@ -27,7 +27,7 @@ export async function onMessage(msg: Message): Promise<void | Message | Message[
 
     let guild = await guildRepo.findOne( { serverid: msg.guild.id });
     const user = await userRepo.findOne({ serverId: msg.guild.id, uid: msg.author.id });
-    const gUser = await gUserRepo.findOne(msg.author.id);
+    const gUser = await gUserRepo.findOne( { uid: msg.author.id } );
     const timeout = xpTimeout.get(msg.author.id);
     let xpGain = Math.ceil(msg.content.length * 2);
 
