@@ -5,6 +5,7 @@ import { Message, MessageAttachment } from "discord.js";
 import { User } from "../../entity/user";
 import { getRepository } from "typeorm";
 
+
 export default class LevelCommand extends commando.Command {
     public constructor(client: commando.CommandoClient) {
         super(client, {
@@ -22,14 +23,13 @@ export default class LevelCommand extends commando.Command {
             }
         });
     }
-
     public async run(
         message: commando.CommandoMessage
     ): Promise<Message | Message[]> {
         const userRepo = getRepository(User);
         const user = await userRepo.findOne({ serverId: message.guild.id, uid: message.author.id });
         if (!user) return message.say("soo umm this isnt suposed to happen only in testing... an error happened");
-        let procent = user.xp / (user.level * 250 * 1.5);
+        let procent = user.xp / ((user.level + 1) * 1000);
         procent *= 100;
         if (Number.isNaN(procent)) procent = 0;
         const canvas = Canvas.createCanvas(700, 250);
@@ -48,6 +48,7 @@ export default class LevelCommand extends commando.Command {
         ctx.font = "50px sans-serif";
         // Select the style that will be used to fill the text in
         ctx.fillStyle = "#ffffff";
+
         // Actually fill the text with a solid color
         ctx.fillText(message.author.username, canvas.width / 2.8, canvas.height / 2.4);
 
@@ -56,12 +57,23 @@ export default class LevelCommand extends commando.Command {
         ctx.fillText(`level: ${user.level}`, canvas.width / 2.8, canvas.height / 1.63);
 
         ctx.font = "12px sans-serif";
-        ctx.fillText(`${user.xp}/${Math.round(user.level * 250 * 1.5)}`, 250, 179);
+        ctx.fillText(`${user.xp}/${Math.round((user.level + 1) * 1000)}`, 250, 169);
 
-        ctx.fillStyle = "#808080";
-        ctx.fillRect(250, 180, 400, 30);
-        ctx.fillStyle = "#446ffc";
-        ctx.fillRect(250, 180, lineFill, 30);
+        const grd = ctx.createLinearGradient(240, 190, 700, 250);
+        grd.addColorStop(0, "#e0001b");
+        grd.addColorStop(1, "#4f00f2");
+
+        ctx.fillStyle = grd;
+        ctx.fillRect(240, 180, 420, 50);
+        const lvlBar = await Canvas.loadImage(path.join(__dirname, "../../../images/xpBackground/LevelBoarder.png"));
+        ctx.drawImage(lvlBar, 240, 180, 420, 50);
+
+
+        ctx.fillStyle = "#363636";
+        ctx.fillRect(250, 190, 400, 30);
+        ctx.fillStyle = "#ffbb00";
+        ctx.fillRect(250, 190, lineFill, 30);
+
 
         ctx.beginPath();
         ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
@@ -70,6 +82,7 @@ export default class LevelCommand extends commando.Command {
 
         const avatar = await Canvas.loadImage(message.author.displayAvatarURL({ format: "jpg" }));
         ctx.drawImage(avatar, 25, 25, 220, 200);
+
 
         const image = new MessageAttachment(canvas.toBuffer(), "levelImage.png");
 
