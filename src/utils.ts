@@ -1,6 +1,7 @@
 import { Emoji, Guild, GuildMember, Role } from "discord.js";
 import { Client } from "discord.js-commando";
 import { ItemMeta } from "./entity/item";
+import { ModLogs } from "./entity/modlogs";
 import { User } from "./entity/user";
 
 /**
@@ -76,7 +77,7 @@ export function getEmote(emoteString: string, client: Client): Emoji | undefined
 }
 
 /**
- * Used to check if a user has at least one role from a list, returns true if found
+ * Used to create pages from a user entity
  * @param {Array} array The array to page
  * @param {number} pageSize How big are each of the pages?
  * @param {number} pageNumber Which Page number do you wish to be on?
@@ -87,7 +88,7 @@ export function userpaginate(array: User[], pageSize: number, pageNumber: number
 }
 
 /**
- * Used to check if a user has at least one role from a list, returns true if found
+ * Used to create pages from a shop entity
  * @param {Array} array The array to page
  * @param {number} pageSize How big are each of the pages?
  * @param {number} pageNumber Which Page number do you wish to be on?
@@ -98,7 +99,17 @@ export function shoppaginate(array: ItemMeta[], pageSize: number, pageNumber: nu
 }
 
 /**
- * Used to check if a user has at least one role from a list, returns true if found
+ * Used to create pages from a userLogs entity
+ * @param {Array} array The array to page
+ * @param {number} pageSize How big are each of the pages?
+ * @param {number} pageNumber Which Page number do you wish to be on?
+ * @returns {Array} an array
+ */
+export function userlogspaginate(array: ModLogs[], pageSize: number, pageNumber: number): ModLogs[] {
+    return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+}
+/**
+ * Used to create pages from a string array
  * @param {Array} array The array to page
  * @param {number} pageSize How big are each of the pages?
  * @param {number} pageNumber Which Page number do you wish to be on?

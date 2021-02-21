@@ -24,4 +24,5 @@ export class Guild {
 
     @OneToMany(() => ItemMeta, (itemMeta) => itemMeta.guild)
     shop!: ItemMeta[];
+
 }

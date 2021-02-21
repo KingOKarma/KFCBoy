@@ -4,6 +4,7 @@ import {
     Column, Entity, OneToMany, PrimaryGeneratedColumn
 } from "typeorm";
 import { Inventory } from "./inventory";
+import { ModLogs } from "./modlogs";
 
 @Entity()
 export class User {
@@ -39,4 +40,7 @@ export class User {
 
     @OneToMany(() => Inventory, (inventory) => inventory.user)
     inventory!: Inventory;
+
+    @OneToMany(() => ModLogs, (modLogs) => modLogs.user)
+    userLogs!: ModLogs[];
 }

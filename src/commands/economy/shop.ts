@@ -46,7 +46,6 @@ export default class ShopCommand extends commando.Command {
         const iteamsPaged: ItemMeta[] = shoppaginate(guild.shop, 9, page);
 
         if (iteamsPaged.length === 0) {
-            console.log(iteamsPaged);
             return msg.say("There are no items on that page");
         }
 

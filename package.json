@@ -1,6 +1,6 @@
 {
   "name": "typescript-discord-bot-template",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Template for a Typescript Discord Bot",
   "main": "bot.ts",
   "dependencies": {
@@ -34,12 +34,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KingOKarma/typescript-discord-bot-template.git"
+    "url": "git+https://github.com/KingOKarma/KFCBoy.git"
   },
   "author": "KingOKarma, CrACk hEad",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/KingOKarma/typescript-discord-bot-template/issues"
+    "url": "https://github.com/KingOKarma/KFCBoy/issues"
   },
-  "homepage": "https://github.com/KingOKarma/typescript-discord-bot-template#readme"
+  "homepage": "https://github.com/KingOKarma/KFCBoy#readme"
 }
