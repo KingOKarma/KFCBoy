@@ -16,7 +16,7 @@ export default class SayCommand extends commando.Command {
             ],
             clientPermissions: ["MANAGE_MESSAGES"],
             description: "I can say whatever the user wants!",
-            group: "other",
+            group: "fun",
             memberName: "say",
             name: "say",
             throttling: {

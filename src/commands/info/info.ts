@@ -33,10 +33,6 @@ export default class InfoCommand extends commando.Command {
         if (guildicon === null) {
             guildicon = "";
         }
-        let bannerurl = msg.guild.bannerURL({ size: 4096 });
-        if (msg.guild.bannerURL() === null) {
-            bannerurl = "";
-        }
 
         const channels = msg.client.channels.cache.size;
         const users = msg.client.users.cache.size;
@@ -48,8 +44,7 @@ export default class InfoCommand extends commando.Command {
             .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true }))
             .setColor(msg.guild.me.displayColor)
             .setDescription("KFC Bucket Boy is your new best friend!\nBot owned and written by <@406211463125008386> **King Of Karma#0069**")
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            .setImage(bannerurl!)
+
             .addField("Current Server", msg.guild.name, true)
             .addField("Watching", `${guilds} guilds`, true)
             .addField("Serving", `${users} users`, true)
