@@ -1,6 +1,6 @@
 import * as commando from "discord.js-commando";
 import { Message, MessageEmbed } from "discord.js";
-import { CONFIG } from "../../globals";
+import { CONFIG } from "../../bot/globals";
 import fetch from "node-fetch";
 
 // Creates a new class (being the command) extending off of the commando client

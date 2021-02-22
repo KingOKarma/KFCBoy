@@ -1,5 +1,5 @@
 import * as commando from "discord.js-commando";
-import { CONFIG, chickenNuggie } from "../../globals";
+import { CONFIG, chickenNuggie } from "../../bot/globals";
 import { Message, MessageEmbed } from "discord.js";
 import { Guild } from "../../entity/guild";
 import { ItemMeta } from "../../entity/item";

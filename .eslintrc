@@ -15,8 +15,9 @@
         "**/*.json",
         "**/*.md",
         "**/*.png",
+        "**/*.gif",
         "**/*.yml",
-        "*/*.LICENSE"
+        "**/LICENSE"
     ],
     "plugins": [
         "@typescript-eslint"

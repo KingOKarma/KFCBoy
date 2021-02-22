@@ -1,8 +1,8 @@
 import * as axios from "axios";
 import * as commando from "discord.js-commando";
 import { Message, MessageEmbed } from "discord.js";
-import { CONFIG } from "../../globals";
-import { ranNum } from "../../utils";
+import { CONFIG } from "../../bot/globals";
+import { ranNum } from "../../bot/utils";
 
 // Creates a new class (being the command) extending off of the commando client
 export default class ImageCommand extends commando.Command {

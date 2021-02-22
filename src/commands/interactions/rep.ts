@@ -1,8 +1,8 @@
 import * as commando from "discord.js-commando";
 import { Message, MessageEmbed } from "discord.js";
-import { CONFIG } from "../../globals";
+import { CONFIG } from "../../bot/globals";
 import { GlobalUser } from "../../entity/globalUser";
-import { getMember } from "../../utils";
+import { getMember } from "../../bot/utils";
 import { getRepository } from "typeorm";
 import ms from "ms";
 

@@ -1,6 +1,6 @@
 import * as commando from "discord.js-commando";
 import { Message, MessageEmbed } from "discord.js";
-import { getMember } from "../../utils";
+import { getMember } from "../../bot/utils";
 
 // Creates a new class (being the command) extending off of the commando client
 export default class AvatarCommand extends commando.Command {

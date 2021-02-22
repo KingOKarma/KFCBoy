@@ -1,5 +1,5 @@
 import * as commando from "discord.js-commando";
-import { CONFIG, chickenNuggie } from "../../globals";
+import { CONFIG, chickenNuggie } from "../../bot/globals";
 import { Message, MessageEmbed } from "discord.js";
 
 // Creates a new class (being the command) extending off of the commando client

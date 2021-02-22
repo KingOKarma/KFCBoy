@@ -2,7 +2,7 @@ import * as commando from "discord.js-commando";
 import { Message, MessageEmbed } from "discord.js";
 import { ModLogs } from "../../entity/modlogs";
 import { User } from "../../entity/user";
-import { getMember } from "../../utils";
+import { getMember } from "../../bot/utils";
 import { getRepository } from "typeorm";
 
 // Creates a new class (being the command) extending off of the commando client

@@ -1,5 +1,5 @@
 import * as commando from "discord.js-commando";
-import { CONFIG } from "../../globals";
+import { CONFIG } from "../../bot/globals";
 import { GlobalUser } from "../../entity/globalUser";
 import { Guild } from "../../entity/guild";
 import { Message } from "discord.js";
@@ -35,7 +35,7 @@ export default class WorkCommand extends commando.Command {
 
         let guild = await guildRepo.findOne( { serverid: msg.guild.id });
         let user = await userRepo.findOne({ serverId: msg.guild.id, uid: msg.author.id });
-        let gUser = await gUserRepo.findOne(msg.author.id);
+        let gUser = await gUserRepo.findOne({ uid: msg.author.id } );
 
         // If there is no Guild then add to  DB
         if (!guild) {

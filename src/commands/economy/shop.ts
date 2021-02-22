@@ -1,10 +1,10 @@
 import * as commando from "discord.js-commando";
 import { Message, MessageEmbed } from "discord.js";
-import { CONFIG } from "../../globals";
+import { CONFIG } from "../../bot/globals";
 import { Guild } from "../../entity/guild";
 import { ItemMeta } from "../../entity/item";
 import { getRepository } from "typeorm";
-import { shoppaginate } from "../../utils";
+import { shoppaginate } from "../../bot/utils";
 
 export default class ShopCommand extends commando.Command {
     private constructor(client: commando.CommandoClient) {

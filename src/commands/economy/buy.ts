@@ -1,6 +1,6 @@
 import * as commando from "discord.js-commando";
 import { Message, MessageEmbed } from "discord.js";
-import { CONFIG } from "../../globals";
+import { CONFIG } from "../../bot/globals";
 import { Guild } from "../../entity/guild";
 import { Inventory } from "../../entity/inventory";
 import { ItemMeta } from "../../entity/item";

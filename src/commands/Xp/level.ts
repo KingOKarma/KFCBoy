@@ -3,6 +3,7 @@ import * as commando from "discord.js-commando";
 import * as path from "path";
 import { Message, MessageAttachment } from "discord.js";
 import { User } from "../../entity/user";
+import { getMember } from "../../bot/utils";
 import { getRepository } from "typeorm";
 
 
@@ -10,13 +11,19 @@ export default class LevelCommand extends commando.Command {
     public constructor(client: commando.CommandoClient) {
         super(client, {
             aliases: ["lvl", "xp", "lv"],
+            args: [
+                {
+                    default: "",
+                    key: "memberID",
+                    prompt: "Which member are you giving a bucket to?",
+                    type: "string"
+                }
+            ],
             description: "check your level status with this command",
-            // This is the group the command is put in
             group: "xp",
-            // This is the name of set within the group (most people keep this the same)
+            guildOnly: true,
             memberName: "level",
             name: "level",
-            // Ratelimits the command usage to 3 every 5 seconds
             throttling: {
                 duration: 5,
                 usages: 1
@@ -24,11 +31,20 @@ export default class LevelCommand extends commando.Command {
         });
     }
     public async run(
-        message: commando.CommandoMessage
+        msg: commando.CommandoMessage,
+        { memberID }: {memberID: string;}
     ): Promise<Message | Message[]> {
+
+        let member = getMember(memberID, msg.guild);
+
+        if (member === undefined) {
+            // eslint-disable-next-line prefer-destructuring
+            member = msg.member;
+        }
+
         const userRepo = getRepository(User);
-        const user = await userRepo.findOne({ serverId: message.guild.id, uid: message.author.id });
-        if (!user) return message.say("soo umm this isnt suposed to happen only in testing... an error happened");
+        const user = await userRepo.findOne({ serverId: member.guild.id, uid: member.user.id });
+        if (!user) return msg.say("That user doesn't have any xp stored!");
         let procent = user.xp / ((user.level + 1) * 1000);
         procent *= 100;
         if (Number.isNaN(procent)) procent = 0;
@@ -50,7 +66,7 @@ export default class LevelCommand extends commando.Command {
         ctx.fillStyle = "#ffffff";
 
         // Actually fill the text with a solid color
-        ctx.fillText(message.author.username, canvas.width / 2.8, canvas.height / 2.4);
+        ctx.fillText(member.user.username, canvas.width / 2.8, canvas.height / 2.4);
 
         ctx.font = "34px sans-serif";
 
@@ -80,12 +96,12 @@ export default class LevelCommand extends commando.Command {
         ctx.closePath();
         ctx.clip();
 
-        const avatar = await Canvas.loadImage(message.author.displayAvatarURL({ format: "jpg" }));
+        const avatar = await Canvas.loadImage(member.user.displayAvatarURL({ format: "jpg" }));
         ctx.drawImage(avatar, 25, 25, 220, 200);
 
 
         const image = new MessageAttachment(canvas.toBuffer(), "levelImage.png");
 
-        return message.say(image);
+        return msg.say(image);
     }
 }

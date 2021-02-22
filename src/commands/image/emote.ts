@@ -1,6 +1,6 @@
 import * as commando from "discord.js-commando";
 import { Message } from "discord.js";
-import { getEmote } from "../../utils";
+import { getEmote } from "../../bot/utils";
 
 // Creates a new class (being the command) extending off of the commando client
 export default class EmoteCommand extends commando.Command {

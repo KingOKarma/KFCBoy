@@ -4,7 +4,7 @@ import { Guild } from "../../entity/guild";
 import { Inventory } from "../../entity/inventory";
 import { ItemMeta } from "../../entity/item";
 import { getRepository } from "typeorm";
-import { stringpaginate } from "../../utils";
+import { stringpaginate } from "../../bot/utils";
 
 export default class InventoryCommand extends commando.Command {
     private constructor(client: commando.CommandoClient) {

@@ -1,8 +1,8 @@
-import { Emoji, Guild, GuildMember, Role } from "discord.js";
-import { Client } from "discord.js-commando";
-import { ItemMeta } from "./entity/item";
-import { ModLogs } from "./entity/modlogs";
-import { User } from "./entity/user";
+import { Client, CommandoClient } from "discord.js-commando";
+import { Emoji, Guild, GuildMember, Role, User } from "discord.js";
+import { ItemMeta } from "../entity/item";
+import { ModLogs } from "../entity/modlogs";
+import { User as entityUser } from "../entity/user";
 
 /**
  * Used to check role mentions/ID's if they are roles
@@ -27,6 +27,7 @@ export function getRole(rid: string, guild: Guild): Role | undefined {
     }
 }
 
+
 /**
  * Used to check member mentions/ID's if they are roles
  * @param {string} uid The Member's ID
@@ -49,6 +50,31 @@ export function getMember(uid: string, guild: Guild): GuildMember | undefined {
         return undefined;
     }
 }
+
+
+/**
+ * Used to check member mentions/ID's if they are roles
+ * @param {string} uid The User's ID
+ * @param {Guild} client  The Message Instance
+ * @returns {GuildMember} A Member instance from a server
+ */
+export async function getUser(uid: string, client: CommandoClient): Promise<User | undefined> {
+    let uidParsed = uid;
+    // Check if a member was tagged or not. If the member was tagged remove the
+    // Tag from uid.
+    if (uid.startsWith("<@") && uid.endsWith(">")) {
+        const re = new RegExp("[<@!>]", "g");
+        uidParsed = uid.replace(re, "");
+    }
+    // Try recovering the role and report if it was successful or not.
+    try {
+        return await client.users.fetch(uidParsed);
+    } catch (e) {
+        console.log(`User not found because ${e}`);
+        return undefined;
+    }
+}
+
 /**
  * Used to check if a user has at least one role from a list, returns true if found
  * @param {string} emoteString The raw emote string
@@ -76,6 +102,7 @@ export function getEmote(emoteString: string, client: Client): Emoji | undefined
     return undefined;
 }
 
+
 /**
  * Used to create pages from a user entity
  * @param {Array} array The array to page
@@ -83,9 +110,10 @@ export function getEmote(emoteString: string, client: Client): Emoji | undefined
  * @param {number} pageNumber Which Page number do you wish to be on?
  * @returns {Array} an array
  */
-export function userpaginate(array: User[], pageSize: number, pageNumber: number): User[] {
+export function userpaginate(array: entityUser[], pageSize: number, pageNumber: number): entityUser[] {
     return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 }
+
 
 /**
  * Used to create pages from a shop entity
@@ -98,6 +126,7 @@ export function shoppaginate(array: ItemMeta[], pageSize: number, pageNumber: nu
     return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 }
 
+
 /**
  * Used to create pages from a userLogs entity
  * @param {Array} array The array to page
@@ -108,6 +137,8 @@ export function shoppaginate(array: ItemMeta[], pageSize: number, pageNumber: nu
 export function userlogspaginate(array: ModLogs[], pageSize: number, pageNumber: number): ModLogs[] {
     return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 }
+
+
 /**
  * Used to create pages from a string array
  * @param {Array} array The array to page
@@ -118,6 +149,7 @@ export function userlogspaginate(array: ModLogs[], pageSize: number, pageNumber:
 export function stringpaginate(array: string[], pageSize: number, pageNumber: number): string[] {
     return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 }
+
 
 /**
  * Wait in miliseconds
@@ -131,6 +163,7 @@ export function sleep(milliseconds: number): void {
     } while (currentDate - date < milliseconds);
 }
 
+
 /**
  * Get random number between 2 integers
  * @param {number} max The highest possible number
@@ -140,6 +173,7 @@ export function sleep(milliseconds: number): void {
 export function ranNum(max: number, min: number): number {
     return Math.floor(Math.random() * max + min);
 }
+
 
 /**
  * Get random item from an array

@@ -1,6 +1,6 @@
 import "reflect-metadata";
-import { onMessage, onReady } from "./events";
-import { CONFIG } from "./globals";
+import { onGuildJoin, onGuildLeave, onMessage, onReady } from "./bot/events";
+import { CONFIG } from "./bot/globals";
 import { Client } from "discord.js-commando";
 import { createConnection } from "typeorm";
 import path from "path";
@@ -20,8 +20,13 @@ async function main(): Promise<void> {
     bot.on("ready", () => void onReady(bot));
 
     bot.on("message", async (message) => onMessage(message));
+
+    bot.on("guildCreate", async (guild) => onGuildJoin(guild));
+
+    bot.on("guildDelete", async (guild) => onGuildLeave(guild));
     // Registers all groups/commands/etc
     bot.registry.registerGroups([
+        ["autoresponders", "Autoresponders - I'll respond to certain words!"],
         ["dev", "Dev - These commands can only be executed by the bot owners"],
         ["economy", "Economy - Earning money from KFC? nice!"],
         ["fun", "Fun - Never thought I'd have fun with a bot before"],

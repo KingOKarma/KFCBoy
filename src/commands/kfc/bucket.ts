@@ -1,7 +1,7 @@
 import * as Canvas from "canvas";
 import * as commando from "discord.js-commando";
 import { Message } from "discord.js";
-import { getMember } from "../../utils";
+import { getMember } from "../../bot/utils";
 
 // Creates a new class (being the command) extending off of the commando client
 export default class BucketCommand extends commando.Command {
@@ -63,8 +63,6 @@ export default class BucketCommand extends commando.Command {
         const canvas = Canvas.createCanvas(450, 500);
         const ctx = canvas.getContext("2d");
 
-        ctx.fillStyle = "#000000";
-        ctx.fillRect(0, 0, canvas.width, 1000);
 
         const avatar = await Canvas.loadImage(member.user.displayAvatarURL({ format: "png" }));
         ctx.drawImage(avatar, 0, 100, canvas.width, 400);

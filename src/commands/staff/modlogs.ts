@@ -1,6 +1,6 @@
 import * as commando from "discord.js-commando";
 import { Message, MessageEmbed } from "discord.js";
-import { getMember, userlogspaginate } from "../../utils";
+import { getMember, userlogspaginate } from "../../bot/utils";
 import { ModLogs } from "../../entity/modlogs";
 import { User } from "../../entity/user";
 import { getRepository } from "typeorm";

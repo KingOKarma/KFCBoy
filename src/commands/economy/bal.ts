@@ -1,8 +1,8 @@
 import * as commando from "discord.js-commando";
 import { Message, MessageEmbed } from "discord.js";
 import { User } from "../../entity/user";
-import { chickenNuggie } from "../../globals";
-import { getMember } from "../../utils";
+import { chickenNuggie } from "../../bot/globals";
+import { getMember } from "../../bot/utils";
 import { getRepository } from "typeorm";
 
 // Creates a new class (being the command) extending off of the commando client

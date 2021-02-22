@@ -1,9 +1,9 @@
 import * as commando from "discord.js-commando";
-import { CONFIG, chickenNuggie } from "../../globals";
+import { CONFIG, chickenNuggie } from "../../bot/globals";
 import { Message, MessageEmbed } from "discord.js";
 import { User } from "../../entity/user";
 import { getRepository } from "typeorm";
-import { userpaginate } from "../../utils";
+import { userpaginate } from "../../bot/utils";
 
 export default class LeaderboardCommand extends commando.Command {
     public constructor(client: commando.CommandoClient) {
